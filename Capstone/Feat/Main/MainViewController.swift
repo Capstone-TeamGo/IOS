@@ -16,17 +16,18 @@ class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
     //MARK: UI Components
     //분석 버튼
-    private let analyzeBtn : UIButton = {
+    private lazy var analyzeBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon1"), for: .normal)
         btn.backgroundColor = .ThirdryColor
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
         btn.layer.masksToBounds = true
+        btn.addTarget(self, action: #selector(analyzeBtnTapped), for: .touchUpInside)
         return btn
     }()
     //상담 버튼
-    private let consultingBtn : UIButton = {
+    private lazy var consultingBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon2"), for: .normal)
         btn.backgroundColor = .FourthryColor
@@ -36,7 +37,7 @@ class MainViewController: UIViewController{
         return btn
     }()
     //과거 기록 버튼
-    private let recordBtn : UIButton = {
+    private lazy var recordBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon4"), for: .normal)
         btn.backgroundColor = .SecondaryColor
@@ -46,7 +47,7 @@ class MainViewController: UIViewController{
         return btn
     }()
     //추천 버튼
-    private let recommandBtn : UIButton = {
+    private lazy var recommandBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon3"), for: .normal)
         btn.backgroundColor = .FifthryColor
@@ -63,16 +64,27 @@ class MainViewController: UIViewController{
         view.leftAxis.drawGridLinesEnabled = false
         return view
     }()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
         setchart()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+        self.tabBarController?.tabBar.isHidden = true
     }
 }
 //MARK: - UI Layout
 extension MainViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.tintColor = .black
         self.view.addSubview(analyzeBtn)
         self.view.addSubview(consultingBtn)
         self.view.addSubview(recordBtn)
@@ -132,5 +144,8 @@ extension MainViewController {
 extension MainViewController {
     private func setBinding() {
         
+    }
+    @objc func analyzeBtnTapped() {
+        self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)
     }
 }
