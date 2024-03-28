@@ -64,6 +64,7 @@ class ForthQuestionViewController : UIViewController {
 extension ForthQuestionViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
+        self.title = ""
         self.view.addSubview(image)
         self.view.addSubview(label)
         self.view.addSubview(mic)
@@ -95,6 +96,6 @@ extension ForthQuestionViewController {
         isMicOn.toggle()
     }
     @objc private func nextBtnTapped() {
-        self.navigationController?.pushViewController(ForthQuestionViewController(), animated: true)
+        self.navigationController?.pushViewController(LoadingViewController(), animated: true)
     }
 }

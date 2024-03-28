@@ -84,6 +84,7 @@ class MainViewController: UIViewController{
 extension MainViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
+        self.title = ""
         self.navigationController?.navigationBar.tintColor = .black
         self.view.addSubview(analyzeBtn)
         self.view.addSubview(consultingBtn)

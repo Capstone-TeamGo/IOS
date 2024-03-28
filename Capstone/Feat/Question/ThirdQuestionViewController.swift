@@ -64,6 +64,7 @@ class ThirdQuestionViewController : UIViewController {
 extension ThirdQuestionViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
+        self.title = ""
         self.view.addSubview(image)
         self.view.addSubview(label)
         self.view.addSubview(mic)

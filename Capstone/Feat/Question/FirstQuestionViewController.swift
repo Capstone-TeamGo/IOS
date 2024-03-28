@@ -64,6 +64,7 @@ class FirstQuestionViewController : UIViewController {
 extension FirstQuestionViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
+        self.title = ""
         self.view.addSubview(image)
         self.view.addSubview(label)
         self.view.addSubview(mic)
