@@ -15,6 +15,13 @@ import DGCharts
 class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
     //MARK: UI Components
+    private let titleLabel : UILabel = {
+        let label = UILabel()
+        label.text = "CheeYou"
+        label.textColor = .SecondaryColor
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        return label
+    }()
     //분석 버튼
     private lazy var analyzeBtn : UIButton = {
         let btn = UIButton()
@@ -57,35 +64,44 @@ class MainViewController: UIViewController{
         return btn
     }()
     //차트
-    private let Chart : BarChartView = {
-        let view = BarChartView()
+    private let Chart : LineChartView = {
+        let view = LineChartView()
         view.backgroundColor = .clear
         view.xAxis.drawGridLinesEnabled = false
         view.leftAxis.drawGridLinesEnabled = false
+        view.rightAxis.drawGridLinesEnabled = false
+        view.rightAxis.drawLabelsEnabled = false
         return view
     }()
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
-        self.tabBarController?.tabBar.isHidden = false
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigation()
         setLayout()
         setchart()
     }
+}
+//MARK: - UI Navigation
+extension MainViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.hidesBackButton = true
+        self.tabBarController?.tabBar.isHidden = false
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.hidesBackButton = false
         self.tabBarController?.tabBar.isHidden = true
+    }
+    private func setNavigation() {
+        self.title = "메인"
+        self.view.backgroundColor = .white
+        self.navigationItem.titleView = titleLabel
+        self.navigationController?.navigationBar.tintColor = .black
     }
 }
 //MARK: - UI Layout
 extension MainViewController {
     private func setLayout() {
-        self.view.backgroundColor = .white
-        self.title = ""
-        self.navigationController?.navigationBar.tintColor = .black
         self.view.addSubview(analyzeBtn)
         self.view.addSubview(consultingBtn)
         self.view.addSubview(recordBtn)
@@ -121,24 +137,29 @@ extension MainViewController {
         }
     }
     private func setchart() {
-        var entries = [BarChartDataEntry]()
-        entries.append(BarChartDataEntry(x: 0, y: 10))
-        entries.append(BarChartDataEntry(x: 1, y: 20))
-        entries.append(BarChartDataEntry(x: 2, y: 30))
+        var entries = [ChartDataEntry]()
+        entries.append(ChartDataEntry(x: 0, y: 10))
+        entries.append(ChartDataEntry(x: 1, y: 20))
+        entries.append(ChartDataEntry(x: 2, y: 30))
+        entries.append(ChartDataEntry(x: 3, y: 20))
+        entries.append(ChartDataEntry(x: 4, y: 20))
+        entries.append(ChartDataEntry(x: 5, y: 10))
+        entries.append(ChartDataEntry(x: 6, y: 30))
+        entries.append(ChartDataEntry(x: 7, y: 20))
         
-        let dataSet = BarChartDataSet(entries: entries, label: "한달 간 심리분석 결과")
-        dataSet.colors = [UIColor.ThirdryColor, UIColor.FourthryColor, UIColor.FifthryColor]
-        Chart.xAxis.valueFormatter = IndexAxisValueFormatter(values: ["행복", "우울", "슬픔"])
-        Chart.xAxis.setLabelCount(3, force: false)
-        Chart.xAxis.labelPosition = .top
-        Chart.xAxis.labelFont = UIFont.systemFont(ofSize: 10)
-        Chart.animate(yAxisDuration: 1.5)
+        let dataSet = LineChartDataSet(entries: entries, label: "한달 간 심리분석 결과")
+        dataSet.colors = [.ThirdryColor]
+        dataSet.circleColors = [.red]
+        dataSet.circleRadius = 2
+        dataSet.drawValuesEnabled = false
         
-        let data = BarChartData(dataSet: dataSet)
+        let data = LineChartData(dataSet: dataSet)
         data.setValueTextColor(.black)
         data.setValueFont(UIFont.systemFont(ofSize: 12))
         
+        
         Chart.data = data
+        Chart.animate(xAxisDuration: 1.5, yAxisDuration: 1.5)
     }
 }
 //MARK: - set Binding

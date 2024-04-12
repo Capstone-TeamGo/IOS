@@ -39,7 +39,7 @@ extension TabBarViewController {
         HomeVC.tabBarItem = UITabBarItem(title: "홈", image: UIImage(systemName: "house.fill"), tag: 0)
         let homeNavigationController = UINavigationController(rootViewController: HomeVC)
         
-        let MypageVC = MypageViewController()
+        let MypageVC = MainViewController()
         MypageVC.tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(systemName: "person.fill"), tag: 1)
         let mypageNavigationController = UINavigationController(rootViewController: MypageVC)
         viewControllers = [homeNavigationController, mypageNavigationController]
