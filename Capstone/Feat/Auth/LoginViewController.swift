@@ -10,8 +10,9 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import AuthenticationServices
-class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    
+class LoginViewController: UIViewController {
+    private let disposeBag = DisposeBag()
+    private let loginViewModel = LoginViewModel()
     //MARK: UI Components
     private let image : UIImageView = {
         let view = UIImageView()
@@ -20,9 +21,8 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate, 
         view.contentMode = .scaleAspectFit
         return view
     }()
-    private lazy var appleBtn : ASAuthorizationAppleIDButton = {
+    private let appleBtn : ASAuthorizationAppleIDButton = {
         let btn = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-        btn.addTarget(self, action: #selector(handleAppleSignInButtonTapped), for: .touchUpInside)
         return btn
     }()
     override func viewDidLoad() {
@@ -50,34 +50,17 @@ extension LoginViewController {
 //MARK: - UI Binding
 extension LoginViewController{
     private func setBinding() {
-        
-    }
-}
-//MARK: - AppleLoginDelegate
-extension LoginViewController {
-    @objc func handleAppleSignInButtonTapped() {
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
-    }
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            if let code = appleIDCredential.authorizationCode,
-               let name = appleIDCredential.fullName {
-                print("사용자 코드 \(code), 이름 \(name)")
-                self.navigationController?.pushViewController(MainViewController(), animated: true)
-            }
-        }
-    }
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("애플 로그인 오류 \(error)")
-    }
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return self.view.window!
+        appleBtn.rx.controlEvent(.touchUpInside)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else{return}
+                self.loginViewModel.appleLoginTrigger.onNext(())
+            })
+            .disposed(by: disposeBag)
+        loginViewModel.appleLoginSuccess
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else{return}
+                self.navigationController?.pushViewController(TabBarViewController(), animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }

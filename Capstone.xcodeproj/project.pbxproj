@@ -12,6 +12,8 @@
 		E4C58BCD2BCE430400A1AD58 /* CapstoneUnitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BCC2BCE430400A1AD58 /* CapstoneUnitsTests.swift */; };
 		E4C58BDA2BCE44A200A1AD58 /* CapstoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BD92BCE44A200A1AD58 /* CapstoneUITests.swift */; };
 		E4C58BDC2BCE44A200A1AD58 /* CapstoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BDB2BCE44A200A1AD58 /* CapstoneUITestsLaunchTests.swift */; };
+		E4C58BE82BCE93CA00A1AD58 /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BE72BCE93CA00A1AD58 /* LoginRequestModel.swift */; };
+		E4C58BEA2BCE946700A1AD58 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BE92BCE946700A1AD58 /* LoginViewModel.swift */; };
 		E4D401C62BB2C60C00B4E5C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D401C52BB2C60C00B4E5C4 /* AppDelegate.swift */; };
 		E4D401C82BB2C60C00B4E5C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D401C72BB2C60C00B4E5C4 /* SceneDelegate.swift */; };
 		E4D401CA2BB2C60C00B4E5C4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D401C92BB2C60C00B4E5C4 /* LoginViewController.swift */; };
@@ -75,6 +77,8 @@
 		E4C58BD72BCE44A100A1AD58 /* CapstoneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C58BD92BCE44A200A1AD58 /* CapstoneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapstoneUITests.swift; sourceTree = "<group>"; };
 		E4C58BDB2BCE44A200A1AD58 /* CapstoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapstoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E4C58BE72BCE93CA00A1AD58 /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
+		E4C58BE92BCE946700A1AD58 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		E4D401C22BB2C60C00B4E5C4 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D401C52BB2C60C00B4E5C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4D401C72BB2C60C00B4E5C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -196,6 +200,46 @@
 			path = CapstoneUITests;
 			sourceTree = "<group>";
 		};
+		E4C58BE22BCE939000A1AD58 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E4C58BE32BCE93A700A1AD58 /* Auth */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E4C58BE32BCE93A700A1AD58 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				E4C58BE42BCE93B400A1AD58 /* Login */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		E4C58BE42BCE93B400A1AD58 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E4C58BE62BCE93BF00A1AD58 /* Response */,
+				E4C58BE52BCE93B900A1AD58 /* Request */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		E4C58BE52BCE93B900A1AD58 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				E4C58BE72BCE93CA00A1AD58 /* LoginRequestModel.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		E4C58BE62BCE93BF00A1AD58 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
 		E4D401B92BB2C60C00B4E5C4 = {
 			isa = PBXGroup;
 			children = (
@@ -223,8 +267,9 @@
 				E4D401D32BB2C60D00B4E5C4 /* Info.plist */,
 				E4D402012BB3E98A00B4E5C4 /* Capstone.entitlements */,
 				E4989EE52BC8FE3600D888DC /* Service */,
-				E4D401DF2BB2CBFA00B4E5C4 /* Core */,
+				E4C58BE22BCE939000A1AD58 /* Model */,
 				E4D401DE2BB2CBF600B4E5C4 /* Feat */,
+				E4D401DF2BB2CBFA00B4E5C4 /* Core */,
 				E4D401D92BB2C6D300B4E5C4 /* App */,
 			);
 			path = Capstone;
@@ -277,6 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				E4D401C92BB2C60C00B4E5C4 /* LoginViewController.swift */,
+				E4C58BE92BCE946700A1AD58 /* LoginViewModel.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -550,8 +596,10 @@
 				E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */,
 				E4D401C82BB2C60C00B4E5C4 /* SceneDelegate.swift in Sources */,
 				E4D401E12BB2CD1B00B4E5C4 /* Color + Extensioin.swift in Sources */,
+				E4C58BEA2BCE946700A1AD58 /* LoginViewModel.swift in Sources */,
 				E4D402132BB40E1600B4E5C4 /* ThirdQuestionViewController.swift in Sources */,
 				E4D402062BB3ED1200B4E5C4 /* TabBarViewController.swift in Sources */,
+				E4C58BE82BCE93CA00A1AD58 /* LoginRequestModel.swift in Sources */,
 				E4D4021E2BB53FB500B4E5C4 /* ResultViewController.swift in Sources */,
 				E4D402002BB3E63E00B4E5C4 /* MainViewController.swift in Sources */,
 				E4D402032BB3ED0200B4E5C4 /* MainViewModel.swift in Sources */,
@@ -841,6 +889,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Capstone/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "치유";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "음성 분석을 위한 권한 허용이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -874,6 +923,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Capstone/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "치유";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "음성 분석을 위한 권한 허용이 필요합니다";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
