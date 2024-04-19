@@ -10,12 +10,21 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import UIKit
-
+import AVFoundation
 
 class SecondQuestionViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let voiceRecordViewModel = VoiceRecordViewModel()
     private var timer : Timer?
+    private var player : AVPlayer?
+    var question : QuestionResponseModel
+    init(question : QuestionResponseModel){
+        self.question = question
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     //MARK: - UI Components
     private let image : UIImageView = {
         let view = UIImageView()
@@ -27,7 +36,7 @@ class SecondQuestionViewController : UIViewController {
     }()
     private let questionText : UITextView = {
         let label = UITextView()
-        label.text = "Q1. 오늘은 어떤 하루를 보내셨나요?"
+        label.text = nil
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textAlignment = .center
@@ -94,8 +103,15 @@ class SecondQuestionViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
+        setValue()
         setBinding()
         setTimer()
+    }
+    private func setValue(){
+        guard let audioURL = URL(string: self.question.data?.accessUrls?[1] ?? "") else { return }
+        self.questionText.text = question.data?.questionTexts?[1] ?? ""
+        self.player = AVPlayer(url: audioURL)
+        self.player?.play()
     }
 }
 //MARK: - UI Layout
@@ -115,7 +131,7 @@ extension SecondQuestionViewController {
         }
         questionText.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(40)
+            make.height.equalTo(80)
             make.top.equalToSuperview().offset(self.view.frame.height / 8)
         }
         progress.snp.makeConstraints { make in
@@ -191,9 +207,8 @@ extension SecondQuestionViewController {
             .disposed(by: disposeBag)
         nextBtn.rx.tap
             .subscribe { _ in
-                self.navigationController?.pushViewController(ThirdQuestionViewController(), animated: true)
+                self.navigationController?.pushViewController(ThirdQuestionViewController(question: self.question), animated: true)
             }
             .disposed(by: disposeBag)
-        
     }
 }

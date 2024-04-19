@@ -11,6 +11,8 @@
 		E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */; };
 		E4B9A53F2BD243510073F7B9 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A53E2BD243510073F7B9 /* LoginService.swift */; };
 		E4B9A5412BD243F80073F7B9 /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5402BD243F80073F7B9 /* LoginResponseModel.swift */; };
+		E4B9A5442BD28DAC0073F7B9 /* QuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5432BD28DAC0073F7B9 /* QuestionService.swift */; };
+		E4B9A5492BD28DF60073F7B9 /* QuestionResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5482BD28DF60073F7B9 /* QuestionResponseModel.swift */; };
 		E4C58BCD2BCE430400A1AD58 /* CapstoneUnitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BCC2BCE430400A1AD58 /* CapstoneUnitsTests.swift */; };
 		E4C58BDA2BCE44A200A1AD58 /* CapstoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BD92BCE44A200A1AD58 /* CapstoneUITests.swift */; };
 		E4C58BDC2BCE44A200A1AD58 /* CapstoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BDB2BCE44A200A1AD58 /* CapstoneUITestsLaunchTests.swift */; };
@@ -75,6 +77,8 @@
 		E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Url + Extensioin.swift"; sourceTree = "<group>"; };
 		E4B9A53E2BD243510073F7B9 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		E4B9A5402BD243F80073F7B9 /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
+		E4B9A5432BD28DAC0073F7B9 /* QuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionService.swift; sourceTree = "<group>"; };
+		E4B9A5482BD28DF60073F7B9 /* QuestionResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionResponseModel.swift; sourceTree = "<group>"; };
 		E4C58BBD2BCE42B000A1AD58 /* CapstoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C58BCA2BCE430400A1AD58 /* CapstoneUnitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneUnitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C58BCC2BCE430400A1AD58 /* CapstoneUnitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapstoneUnitsTests.swift; sourceTree = "<group>"; };
@@ -183,6 +187,7 @@
 		E4989EE52BC8FE3600D888DC /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				E4B9A5422BD28D9E0073F7B9 /* Question */,
 				E4B9A53D2BD243480073F7B9 /* Auth */,
 			);
 			path = Service;
@@ -194,6 +199,38 @@
 				E4B9A53E2BD243510073F7B9 /* LoginService.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		E4B9A5422BD28D9E0073F7B9 /* Question */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9A5432BD28DAC0073F7B9 /* QuestionService.swift */,
+			);
+			path = Question;
+			sourceTree = "<group>";
+		};
+		E4B9A5452BD28DC60073F7B9 /* Question */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9A5472BD28DD40073F7B9 /* Response */,
+				E4B9A5462BD28DCD0073F7B9 /* Request */,
+			);
+			path = Question;
+			sourceTree = "<group>";
+		};
+		E4B9A5462BD28DCD0073F7B9 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		E4B9A5472BD28DD40073F7B9 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				E4B9A5482BD28DF60073F7B9 /* QuestionResponseModel.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		E4C58BCB2BCE430400A1AD58 /* CapstoneUnitsTests */ = {
@@ -216,6 +253,7 @@
 		E4C58BE22BCE939000A1AD58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E4B9A5452BD28DC60073F7B9 /* Question */,
 				E4C58BE32BCE93A700A1AD58 /* Auth */,
 			);
 			path = Model;
@@ -605,6 +643,7 @@
 				E4B9A5412BD243F80073F7B9 /* LoginResponseModel.swift in Sources */,
 				E4B9A53F2BD243510073F7B9 /* LoginService.swift in Sources */,
 				E4D401CA2BB2C60C00B4E5C4 /* LoginViewController.swift in Sources */,
+				E4B9A5442BD28DAC0073F7B9 /* QuestionService.swift in Sources */,
 				E4D4020F2BB4094F00B4E5C4 /* FirstQuestionViewController.swift in Sources */,
 				E4D402152BB40E2100B4E5C4 /* ForthQuestionViewController.swift in Sources */,
 				E4D402112BB40E0700B4E5C4 /* SecondQuestionViewController.swift in Sources */,
@@ -619,6 +658,7 @@
 				E4D4021E2BB53FB500B4E5C4 /* ResultViewController.swift in Sources */,
 				E4D402002BB3E63E00B4E5C4 /* MainViewController.swift in Sources */,
 				E4D402032BB3ED0200B4E5C4 /* MainViewModel.swift in Sources */,
+				E4B9A5492BD28DF60073F7B9 /* QuestionResponseModel.swift in Sources */,
 				E4D402192BB52FC500B4E5C4 /* LoadingViewController.swift in Sources */,
 				E4D402092BB3EE6300B4E5C4 /* MypageViewController.swift in Sources */,
 				E4989EE12BC8FD9500D888DC /* VoiceRecordViewModel.swift in Sources */,

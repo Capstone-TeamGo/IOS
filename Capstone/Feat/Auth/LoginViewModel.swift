@@ -38,6 +38,7 @@ class LoginViewModel : NSObject, ASAuthorizationControllerDelegate, ASAuthorizat
             if result.code == 200 {
                 if let accessToken = result.data?.accessToken,
                    let refreshToken = result.data?.refreshToken{
+                    KeychainWrapper.standard.removeAllKeys()
                     KeychainWrapper.standard.set(accessToken, forKey: "JWTaccessToken")
                     KeychainWrapper.standard.set(refreshToken, forKey: "JWTrefreshToken")
                     self.appleLoginSuccess.onNext(())

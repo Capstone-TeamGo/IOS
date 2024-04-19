@@ -16,6 +16,8 @@ class FirstQuestionViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let voiceRecordViewModel = VoiceRecordViewModel()
     private var timer : Timer?
+    private var player : AVPlayer?
+    private var question : QuestionResponseModel?
     //MARK: - UI Components
     private let image : UIImageView = {
         let view = UIImageView()
@@ -27,7 +29,7 @@ class FirstQuestionViewController : UIViewController {
     }()
     private let questionText : UITextView = {
         let label = UITextView()
-        label.text = "Q1. 오늘은 어떤 하루를 보내셨나요?"
+        label.text = nil
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textAlignment = .center
@@ -115,7 +117,7 @@ extension FirstQuestionViewController {
         }
         questionText.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(40)
+            make.height.equalTo(80)
             make.top.equalToSuperview().offset(self.view.frame.height / 8)
         }
         progress.snp.makeConstraints { make in
@@ -165,6 +167,17 @@ extension FirstQuestionViewController {
         progress.setProgress(progressValue, animated: true)
     }
     private func setBinding() {
+        voiceRecordViewModel.questionTrigger.onNext(())
+        voiceRecordViewModel.questionResult
+            .subscribe(onNext: {[weak self] question in
+                guard let self = self else { return }
+                guard let audioURL = URL(string: question.data?.accessUrls?.first ?? "") else {return}
+                self.question = question
+                self.questionText.text = question.data?.questionTexts?.first
+                self.player = AVPlayer(url: audioURL)
+                self.player?.play()
+            })
+            .disposed(by: disposeBag)
         mic.rx.tap
             .subscribe(onNext: {[weak self] in
                 self?.voiceRecordViewModel.recordTrigger.onNext(())
@@ -191,9 +204,9 @@ extension FirstQuestionViewController {
             .disposed(by: disposeBag)
         nextBtn.rx.tap
             .subscribe { _ in
-                self.navigationController?.pushViewController(SecondQuestionViewController(), animated: true)
+                guard let question = self.question else { return }
+                self.navigationController?.pushViewController(SecondQuestionViewController(question: question), animated: true)
             }
             .disposed(by: disposeBag)
-        
     }
 }
