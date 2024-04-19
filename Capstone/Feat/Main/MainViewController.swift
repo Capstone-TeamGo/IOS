@@ -15,12 +15,12 @@ import DGCharts
 class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
     //MARK: UI Components
-    private let titleLabel : UILabel = {
-        let label = UILabel()
-        label.text = "CheeYou"
-        label.textColor = .SecondaryColor
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        return label
+    private let naviImage : UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.backgroundColor = .white
+        image.image = UIImage(named: "appIcon")
+        return image
     }()
     //분석 버튼
     private lazy var analyzeBtn : UIButton = {
@@ -93,10 +93,10 @@ extension MainViewController {
         self.tabBarController?.tabBar.isHidden = true
     }
     private func setNavigation() {
-        self.title = "메인"
+        self.title = "홈"
         self.view.backgroundColor = .white
-        self.navigationItem.titleView = titleLabel
-        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationItem.titleView = naviImage
+        self.navigationController?.navigationBar.tintColor = .white
     }
 }
 //MARK: - UI Layout
@@ -108,7 +108,7 @@ extension MainViewController {
         self.view.addSubview(recommandBtn)
         self.view.addSubview(Chart)
         analyzeBtn.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(self.view.frame.height / 10)
+            make.top.equalToSuperview().inset(self.view.frame.height / 8)
             make.height.equalToSuperview().dividedBy(3.5)
             make.width.equalToSuperview().dividedBy(2.5)
             make.leading.equalToSuperview().inset(30)
@@ -119,7 +119,7 @@ extension MainViewController {
             make.top.equalTo(analyzeBtn.snp.bottom).offset(10)
         }
         recordBtn.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(self.view.frame.height / 10)
+            make.top.equalToSuperview().inset(self.view.frame.height / 8)
             make.height.equalTo(analyzeBtn.snp.height).dividedBy(2).inset(2.5)
             make.leading.equalTo(analyzeBtn.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(30)
