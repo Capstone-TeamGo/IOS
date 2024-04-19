@@ -133,7 +133,7 @@ extension MainViewController {
         Chart.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(30)
             make.top.equalTo(consultingBtn.snp.bottom).offset(30)
-            make.bottom.equalToSuperview().inset(self.view.frame.height / 10)
+            make.bottom.equalToSuperview().inset(self.view.frame.height / 9)
         }
     }
     private func setchart() {
