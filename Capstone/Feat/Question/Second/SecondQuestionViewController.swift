@@ -136,7 +136,7 @@ extension SecondQuestionViewController {
         }
         progress.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(questionText.snp.bottom).offset(20)
+            make.top.equalTo(questionText.snp.bottom).offset(0)
             make.height.equalTo(20)
         }
         mic.snp.makeConstraints { make in
