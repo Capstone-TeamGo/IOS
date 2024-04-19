@@ -26,6 +26,7 @@ class MainViewController: UIViewController{
     private lazy var analyzeBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon1"), for: .normal)
+        btn.setImage(UIImage(named: "mainIcon1"), for: .highlighted)
         btn.backgroundColor = .ThirdryColor
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
@@ -37,6 +38,7 @@ class MainViewController: UIViewController{
     private lazy var consultingBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon2"), for: .normal)
+        btn.setImage(UIImage(named: "mainIcon2"), for: .highlighted)
         btn.backgroundColor = .FourthryColor
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
@@ -47,6 +49,7 @@ class MainViewController: UIViewController{
     private lazy var recordBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon4"), for: .normal)
+        btn.setImage(UIImage(named: "mainIcon4"), for: .highlighted)
         btn.backgroundColor = .SecondaryColor
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
@@ -57,6 +60,7 @@ class MainViewController: UIViewController{
     private lazy var recommandBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon3"), for: .normal)
+        btn.setImage(UIImage(named: "mainIcon3"), for: .highlighted)
         btn.backgroundColor = .FifthryColor
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
