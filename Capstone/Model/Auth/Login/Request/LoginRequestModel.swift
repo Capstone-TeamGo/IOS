@@ -7,10 +7,8 @@
 
 import Foundation
 struct LoginRequestModel {
-    let username : String
-    let password : String
-    let checkedPassword : String
+    let socialId : String
     let nickname : String
-    let githubUrl : String?
-    let blogUrl : String?
+    let email : String?
+    let socialType : String
 }
