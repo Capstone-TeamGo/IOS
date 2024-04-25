@@ -11,72 +11,59 @@ import RxSwift
 import RxCocoa
 import AuthenticationServices
 class MypageViewController: UIViewController{
+    private let disposeBag = DisposeBag()
     //MARK: UI Components
-    //분석 버튼
-    private let analyzeBtn : UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(named: "mainIcon1"), for: .normal)
-        btn.backgroundColor = .clear
-        btn.imageView?.contentMode = .scaleAspectFit
-        return btn
+    private let naviImage : UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.backgroundColor = .white
+        image.image = UIImage(named: "appIcon")
+        return image
     }()
-    //상담 버튼
-    private let consultingBtn : UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(named: "mainIcon2"), for: .normal)
-        btn.backgroundColor = .clear
-        btn.imageView?.contentMode = .scaleAspectFit
-        return btn
-    }()
-    //과거 기록 버튼
-    private let recordBtn : UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(named: "mainIcon4"), for: .normal)
-        btn.backgroundColor = .clear
-        btn.imageView?.contentMode = .scaleAspectFit
-        return btn
-    }()
-    //추천 버튼
-    private let recommandBtn : UIButton = {
-        let btn = UIButton()
-        btn.setImage(UIImage(named: "mainIcon3"), for: .normal)
-        btn.backgroundColor = .clear
-        btn.imageView?.contentMode = .scaleAspectFit
-        return btn
+    //개인 정보 텍스트
+    private let personText : UITextView = {
+        let view = UITextView()
+        view.backgroundColor = .clear
+        view.textAlignment = .left
+        view.isUserInteractionEnabled = false
+        view.isScrollEnabled = false
+        view.text = "김승진"
+        return view
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigation()
         setLayout()
+    }
+}
+//MARK: - UI Navigation
+extension MypageViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.hidesBackButton = true
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationItem.hidesBackButton = false
+    }
+    private func setNavigation() {
+        self.title = "마이페이지"
+        self.view.backgroundColor = .white
+        self.navigationItem.titleView = naviImage
+        self.navigationController?.navigationBar.tintColor = .white
     }
 }
 //MARK: - UI Layout
 extension MypageViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
-        self.view.addSubview(analyzeBtn)
-        self.view.addSubview(consultingBtn)
-        self.view.addSubview(recordBtn)
-        self.view.addSubview(recommandBtn)
+        self.view.addSubview(personText)
         
-        analyzeBtn.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().inset(30)
-            make.height.equalTo(198)
-            make.width.equalTo(150)
-        }
-        consultingBtn.snp.makeConstraints { make in
+        personText.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(180)
-            make.top.equalTo(analyzeBtn.snp.bottom).offset(10)
-        }
-        recordBtn.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(91)
-            make.leading.equalTo(analyzeBtn.snp.trailing).offset(10)
-        }
-        recommandBtn.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(91)
-            make.top.equalTo(recordBtn.snp.bottom).offset(10)
+            make.top.equalToSuperview().inset(self.view.frame.height / 8)
+            make.height.equalToSuperview().dividedBy(3)
         }
     }
 }

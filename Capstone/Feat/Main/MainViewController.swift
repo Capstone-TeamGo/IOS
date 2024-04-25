@@ -14,6 +14,7 @@ import Charts
 import DGCharts
 class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
+    private let mainViewModel = MainViewModel()
     //MARK: UI Components
     private let naviImage : UIImageView = {
         let image = UIImageView()
@@ -81,7 +82,7 @@ class MainViewController: UIViewController{
         super.viewDidLoad()
         setNavigation()
         setLayout()
-        setchart()
+        setBinding()
     }
 }
 //MARK: - UI Navigation
@@ -94,7 +95,6 @@ extension MainViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationItem.hidesBackButton = false
-        self.tabBarController?.tabBar.isHidden = true
     }
     private func setNavigation() {
         self.title = "홈"
@@ -140,17 +140,18 @@ extension MainViewController {
             make.bottom.equalToSuperview().inset(self.view.frame.height / 9)
         }
     }
-    private func setchart() {
+    private func setchart(model : FeelingRequestModel) {
         var entries = [ChartDataEntry]()
-        entries.append(ChartDataEntry(x: 0, y: 10))
-        entries.append(ChartDataEntry(x: 1, y: 20))
-        entries.append(ChartDataEntry(x: 2, y: 30))
-        entries.append(ChartDataEntry(x: 3, y: 20))
-        entries.append(ChartDataEntry(x: 4, y: 20))
-        entries.append(ChartDataEntry(x: 5, y: 10))
-        entries.append(ChartDataEntry(x: 6, y: 30))
-        entries.append(ChartDataEntry(x: 7, y: 20))
-        
+        if let feels = model.data?.feelingStateResponsesDto {
+            var index : Double = 0.0
+            for feel in feels {
+                entries.append(ChartDataEntry(x: index, y: feel.avgFeelingState ?? 0.0))
+                index += 1
+            }
+        }
+        for index in 0...7 {
+            entries.append(ChartDataEntry(x: Double(index), y: Double(index)))
+        }
         let dataSet = LineChartDataSet(entries: entries, label: "한달 간 심리분석 결과")
         dataSet.colors = [.ThirdryColor]
         dataSet.circleColors = [.red]
@@ -169,7 +170,12 @@ extension MainViewController {
 //MARK: - set Binding
 extension MainViewController {
     private func setBinding() {
-        
+        self.mainViewModel.feelingTrigger.onNext(())
+        self.mainViewModel.feelingResult.subscribe(onNext: {[weak self] result in
+            guard let self = self else { return }
+            self.setchart(model: result)
+        })
+        .disposed(by: disposeBag)
     }
     @objc func analyzeBtnTapped() {
         self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)

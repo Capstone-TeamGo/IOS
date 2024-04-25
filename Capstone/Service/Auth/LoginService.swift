@@ -23,7 +23,6 @@ class LoginServie {
             AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type":"Application/json"])
                 .validate()
                 .responseDecodable(of: LoginResponseModel.self) { response in
-                    print(response.debugDescription)
                     switch response.result {
                     case .success(let data):
                         observer.onNext(data)

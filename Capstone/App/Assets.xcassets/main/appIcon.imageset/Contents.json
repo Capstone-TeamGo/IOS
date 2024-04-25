@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "스크린샷 2024-04-19 오후 2.35 1.png",
+      "filename" : "navi.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "스크린샷 2024-04-19 오후 2.35 1@2x.png",
+      "filename" : "navi2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "스크린샷 2024-04-19 오후 2.35 1@3x.png",
+      "filename" : "navi3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

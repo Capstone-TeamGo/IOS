@@ -33,13 +33,13 @@ extension TabBarViewController {
         self.tabBar.layer.shadowOffset = CGSize(width: 3, height: 3)
         self.tabBar.layer.shadowOpacity = 3
         self.tabBar.layer.shadowColor = UIColor.gray.cgColor
-        self.tabBar.tintColor = .ThirdryColor
+        self.tabBar.tintColor = .FifthryColor
         
         let HomeVC = MainViewController()
         HomeVC.tabBarItem = UITabBarItem(title: "홈", image: UIImage(systemName: "house.fill"), tag: 0)
         let homeNavigationController = UINavigationController(rootViewController: HomeVC)
         
-        let MypageVC = MainViewController()
+        let MypageVC = MypageViewController()
         MypageVC.tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(systemName: "person.fill"), tag: 1)
         let mypageNavigationController = UINavigationController(rootViewController: MypageVC)
         viewControllers = [homeNavigationController, mypageNavigationController]
