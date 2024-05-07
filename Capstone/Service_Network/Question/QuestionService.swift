@@ -14,8 +14,7 @@ class QuestionService {
     static func requestQuestion() -> Observable<QuestionResponseModel> {
         Observable.create { observer in
             if let accessToken = KeychainWrapper.standard.string(forKey: "JWTaccessToken"){
-                let url = "http://13.124.95.110:8080/api/v1/analysis"
-                AF.request(url, method: .post, encoding: JSONEncoding.default, headers: ["Content-Type":"application/json", "Authorization":accessToken])
+                AF.request(questionURL, method: .post, encoding: JSONEncoding.default, headers: ["Content-Type":"application/json", "Authorization":accessToken])
                     .validate()
                     .responseDecodable(of: QuestionResponseModel.self) { response in
                         switch response.result {

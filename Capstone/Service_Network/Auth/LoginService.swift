@@ -13,14 +13,13 @@ import Alamofire
 class LoginServie {
     static func requestLogin(_ loginModel : LoginRequestModel) -> Observable<LoginResponseModel> {
         Observable.create { observer in
-            let url = "http://13.124.95.110:8080/api/v1/user/login-oauth"
             let params : [String:Any] = [
                 "socialId" : loginModel.socialId,
                 "nickname" : loginModel.nickname,
                 "email" : loginModel.email ?? "Permission@Denied",
                 "socialType" : loginModel.socialType
             ]
-            AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type":"Application/json"])
+            AF.request(loginURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type":"Application/json"])
                 .validate()
                 .responseDecodable(of: LoginResponseModel.self) { response in
                     switch response.result {
