@@ -81,6 +81,15 @@ class MypageViewController: UIViewController{
         btn.configuration = .bordered()
         return btn
     }()
+    private let vsLabel : UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .white
+        label.text = "CheeYou v 1.0.0"
+        label.textColor = .gray
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textAlignment = .center
+        return label
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigation()
@@ -116,6 +125,7 @@ extension MypageViewController {
         self.view.addSubview(logoutBtn)
         self.view.addSubview(listBtn)
         self.view.addSubview(feedBackBtn)
+        self.view.addSubview(vsLabel)
         
         personImage.snp.makeConstraints { make in
             make.height.equalToSuperview().dividedBy(4)
@@ -139,7 +149,7 @@ extension MypageViewController {
         }
         logoutBtn.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(30)
-            make.center.equalToSuperview().offset(80)
+            make.top.equalTo(spacing.snp.bottom).offset(20)
             make.height.equalTo(40)
         }
         listBtn.snp.makeConstraints { make in
@@ -152,5 +162,16 @@ extension MypageViewController {
             make.top.equalTo(listBtn.snp.bottom).offset(20)
             make.height.equalTo(40)
         }
+        vsLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(feedBackBtn.snp.bottom).offset(40)
+            make.height.equalTo(15)
+        }
+    }
+}
+//MARK: - Binding
+extension MypageViewController {
+    private func setBinding() {
+        
     }
 }

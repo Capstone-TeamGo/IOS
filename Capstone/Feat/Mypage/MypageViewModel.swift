@@ -12,6 +12,13 @@ import RxCocoa
 class MypageViewModel {
     private let disposeBag = DisposeBag()
     
+    //로그아웃
+    let logoutTrigger = PublishSubject<Void>()
+    //분석 기록
+    let listTrigger = PublishSubject<Void>()
+    //피드백 보내기
+    let feedbackTrigger = PublishSubject<Void>()
+    
     init() {
         
     }
