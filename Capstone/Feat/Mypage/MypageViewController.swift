@@ -176,10 +176,10 @@ private extension MypageViewController {
     private func setBinding() {
         let input = MypageViewModel.Input(logoutTrigger: logoutTrigger)
         let output = mypageViewModel.getRequest(input: input)
-        output.logoutResult.bind { [weak self] in
-            guard let self = self else { return }
-            
-        }.disposed(by: disposeBag)
+//        output.logoutResult.bind { [weak self] in
+//            guard let self = self else { return }
+//
+//        }.disposed(by: disposeBag)
     }
     private func setBindView() {
         logoutBtn.rx.tap.bind { [weak self] in

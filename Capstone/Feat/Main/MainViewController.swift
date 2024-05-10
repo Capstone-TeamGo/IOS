@@ -15,6 +15,8 @@ import DGCharts
 class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mainViewModel = MainViewModel()
+    private let feelingTrigger = PublishSubject<Void>()
+    
     //MARK: UI Components
     private let naviImage : UIImageView = {
         let image = UIImageView()
@@ -162,7 +164,6 @@ extension MainViewController {
         data.setValueTextColor(.black)
         data.setValueFont(UIFont.systemFont(ofSize: 12))
         
-        
         Chart.data = data
         Chart.animate(xAxisDuration: 1.5, yAxisDuration: 1.5)
     }
@@ -170,12 +171,14 @@ extension MainViewController {
 //MARK: - set Binding
 extension MainViewController {
     private func setBinding() {
-        self.mainViewModel.feelingTrigger.onNext(())
-        self.mainViewModel.feelingResult.subscribe(onNext: {[weak self] result in
+        self.feelingTrigger.onNext(())
+        let input = MainViewModel.Input(feelingTrigger: feelingTrigger)
+        let output = mainViewModel.requestMain(input: input)
+        output.feelingResult.bind { [weak self] result in
+            print("결과 : \(result)")
             guard let self = self else { return }
             self.setchart(model: result)
-        })
-        .disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
     }
     @objc func analyzeBtnTapped() {
         self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)
