@@ -12,14 +12,20 @@ import RxCocoa
 class MypageViewModel {
     private let disposeBag = DisposeBag()
     
-    //로그아웃
-    let logoutTrigger = PublishSubject<Void>()
-    //분석 기록
-    let listTrigger = PublishSubject<Void>()
-    //피드백 보내기
-    let feedbackTrigger = PublishSubject<Void>()
-    
-    init() {
+    //input
+    struct Input {
+        let logoutTrigger : PublishSubject<Void> //로그아웃
         
+    }
+    //output
+    struct Output {
+        let logoutResult : PublishSubject<Void> //로그아웃 결과
+        
+    }
+    //Network
+    public func getRequest(input : Input) -> Output {
+        //로그아웃 네트워크
+        
+        return Output(logoutResult: PublishSubject<Void>())
     }
 }

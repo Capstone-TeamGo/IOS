@@ -12,6 +12,8 @@ import RxCocoa
 import AuthenticationServices
 class MypageViewController: UIViewController{
     private let disposeBag = DisposeBag()
+    private let mypageViewModel = MypageViewModel()
+    private let logoutTrigger = PublishSubject<Void>()
     //MARK: UI Components
     private let naviImage : UIImageView = {
         let image = UIImageView()
@@ -115,7 +117,7 @@ extension MypageViewController {
     }
 }
 //MARK: - UI Layout
-extension MypageViewController {
+private extension MypageViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
         self.view.addSubview(personImage)
@@ -170,8 +172,19 @@ extension MypageViewController {
     }
 }
 //MARK: - Binding
-extension MypageViewController {
+private extension MypageViewController {
     private func setBinding() {
-        
+        let input = MypageViewModel.Input(logoutTrigger: logoutTrigger)
+        let output = mypageViewModel.getRequest(input: input)
+        output.logoutResult.bind { [weak self] in
+            guard let self = self else { return }
+            
+        }.disposed(by: disposeBag)
+    }
+    private func setBindView() {
+        logoutBtn.rx.tap.bind { [weak self] in
+            guard let self = self else { return }
+            self.logoutTrigger.onNext(())
+        }.disposed(by: disposeBag)
     }
 }
