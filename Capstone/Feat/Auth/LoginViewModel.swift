@@ -45,7 +45,6 @@ class LoginViewModel : NSObject, ASAuthorizationControllerDelegate, ASAuthorizat
         .disposed(by: disposeBag)
         self.serverLoginResult.subscribe(onNext: {[weak self] result in
             guard let self = self else{return}
-            print("결과 : \(result)")
             if result.code == 200 {
                 if let accessToken = result.data?.accessToken,
                    let refreshToken = result.data?.refreshToken{

@@ -13,6 +13,8 @@ import AVFoundation
 
 class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     private let disposeBag = DisposeBag()
+    private var questionNetwork : QuestionNetwork
+    
     //질문 가져오기 시작
     let questionTrigger = PublishSubject<Void>()
     let questionResult : PublishSubject<QuestionResponseModel> = PublishSubject()
@@ -36,14 +38,18 @@ class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     }()
     
     override init() {
+        let provider = NetworkProvider(endpoint: endpointURL)
+        questionNetwork = provider.questionNetwork()
+        
         super.init()
         questionTrigger.flatMapLatest { _ in
-            return QuestionService.requestQuestion()
+            return self.questionNetwork.getQuestion()
         }
         .bind(to: questionResult)
         .disposed(by: disposeBag)
+        
         recordTrigger.subscribe(onNext: { [weak self] _ in
-            guard let self = self else{return}
+            guard let self = self else { return }
             self.requestRecord() { allowed in
                 if allowed {
                     self.configure() { configure in
@@ -55,6 +61,7 @@ class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
             }
         })
         .disposed(by: disposeBag)
+        
         self.playTrigger.subscribe { _ in
             self.play()
         }

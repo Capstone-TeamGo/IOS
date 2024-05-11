@@ -30,6 +30,9 @@ final class NetworkProvider {
         return FeelingNetwork(network: network)
     }
     //질문 가져오기
-    
+    public func questionNetwork() -> QuestionNetwork {
+        let network = Network<QuestionResponseModel>(endpoint)
+        return QuestionNetwork(network: network)
+    }
     
 }

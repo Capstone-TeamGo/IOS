@@ -19,7 +19,7 @@
 		E4B1E69B2BEF601600ECADFA /* LogoutResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E69A2BEF601600ECADFA /* LogoutResponseModel.swift */; };
 		E4B9A53F2BD243510073F7B9 /* LoginNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A53E2BD243510073F7B9 /* LoginNetwork.swift */; };
 		E4B9A5412BD243F80073F7B9 /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5402BD243F80073F7B9 /* LoginResponseModel.swift */; };
-		E4B9A5442BD28DAC0073F7B9 /* QuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5432BD28DAC0073F7B9 /* QuestionService.swift */; };
+		E4B9A5442BD28DAC0073F7B9 /* QuestionNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5432BD28DAC0073F7B9 /* QuestionNetwork.swift */; };
 		E4B9A5492BD28DF60073F7B9 /* QuestionResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5482BD28DF60073F7B9 /* QuestionResponseModel.swift */; };
 		E4C58BCD2BCE430400A1AD58 /* CapstoneUnitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BCC2BCE430400A1AD58 /* CapstoneUnitsTests.swift */; };
 		E4C58BDA2BCE44A200A1AD58 /* CapstoneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BD92BCE44A200A1AD58 /* CapstoneUITests.swift */; };
@@ -93,7 +93,7 @@
 		E4B1E69A2BEF601600ECADFA /* LogoutResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutResponseModel.swift; sourceTree = "<group>"; };
 		E4B9A53E2BD243510073F7B9 /* LoginNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetwork.swift; sourceTree = "<group>"; };
 		E4B9A5402BD243F80073F7B9 /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
-		E4B9A5432BD28DAC0073F7B9 /* QuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionService.swift; sourceTree = "<group>"; };
+		E4B9A5432BD28DAC0073F7B9 /* QuestionNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionNetwork.swift; sourceTree = "<group>"; };
 		E4B9A5482BD28DF60073F7B9 /* QuestionResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionResponseModel.swift; sourceTree = "<group>"; };
 		E4C58BBD2BCE42B000A1AD58 /* CapstoneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C58BCA2BCE430400A1AD58 /* CapstoneUnitsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapstoneUnitsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,7 +275,7 @@
 		E4B9A5422BD28D9E0073F7B9 /* Question */ = {
 			isa = PBXGroup;
 			children = (
-				E4B9A5432BD28DAC0073F7B9 /* QuestionService.swift */,
+				E4B9A5432BD28DAC0073F7B9 /* QuestionNetwork.swift */,
 			);
 			path = Question;
 			sourceTree = "<group>";
@@ -721,7 +721,7 @@
 				E4B1E6912BEE7A6000ECADFA /* NetworkProvider.swift in Sources */,
 				E4D401CA2BB2C60C00B4E5C4 /* LoginViewController.swift in Sources */,
 				E4B1E69B2BEF601600ECADFA /* LogoutResponseModel.swift in Sources */,
-				E4B9A5442BD28DAC0073F7B9 /* QuestionService.swift in Sources */,
+				E4B9A5442BD28DAC0073F7B9 /* QuestionNetwork.swift in Sources */,
 				E4D4020F2BB4094F00B4E5C4 /* FirstQuestionViewController.swift in Sources */,
 				E4EC74512BEA10E600D1C9FD /* URL.swift in Sources */,
 				E4D402152BB40E2100B4E5C4 /* ForthQuestionViewController.swift in Sources */,

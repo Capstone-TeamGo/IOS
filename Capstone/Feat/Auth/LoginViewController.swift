@@ -29,7 +29,7 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = true
-        var window = UIWindow(frame: UIScreen.main.bounds)
+        let window = UIWindow(frame: UIScreen.main.bounds)
         let loginVC = LoginViewController()
         window.rootViewController = UINavigationController(rootViewController: loginVC)
     }
