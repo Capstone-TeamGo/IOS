@@ -15,6 +15,8 @@ import DGCharts
 class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mainViewModel = MainViewModel()
+    private let feelingTrigger = PublishSubject<Void>()
+    
     //MARK: UI Components
     private let naviImage : UIImageView = {
         let image = UIImageView()
@@ -173,7 +175,9 @@ extension MainViewController {
         self.mainViewModel.feelingTrigger.onNext(())
         self.mainViewModel.feelingResult.subscribe(onNext: {[weak self] result in
             guard let self = self else { return }
-            self.setchart(model: result)
+            DispatchQueue.main.async {
+                self.setchart(model: result)
+            }
         })
         .disposed(by: disposeBag)
     }

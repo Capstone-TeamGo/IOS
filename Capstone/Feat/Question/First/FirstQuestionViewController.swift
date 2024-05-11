@@ -172,10 +172,12 @@ extension FirstQuestionViewController {
             .subscribe(onNext: {[weak self] question in
                 guard let self = self else { return }
                 guard let audioURL = URL(string: question.data?.accessUrls?.first ?? "") else {return}
-                self.question = question
-                self.questionText.text = question.data?.questionTexts?.first
-                self.player = AVPlayer(url: audioURL)
-                self.player?.play()
+                DispatchQueue.main.async {
+                    self.question = question
+                    self.questionText.text = question.data?.questionTexts?.first
+                    self.player = AVPlayer(url: audioURL)
+                    self.player?.play()
+                }
             })
             .disposed(by: disposeBag)
         mic.rx.tap

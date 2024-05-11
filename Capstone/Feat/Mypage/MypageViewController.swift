@@ -10,10 +10,11 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import AuthenticationServices
+import SwiftKeychainWrapper
+
 class MypageViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mypageViewModel = MypageViewModel()
-    private let logoutTrigger = PublishSubject<Void>()
     //MARK: UI Components
     private let naviImage : UIImageView = {
         let image = UIImageView()
@@ -96,6 +97,7 @@ class MypageViewController: UIViewController{
         super.viewDidLoad()
         setNavigation()
         setLayout()
+        setBinding()
     }
 }
 //MARK: - UI Navigation
@@ -174,17 +176,21 @@ private extension MypageViewController {
 //MARK: - Binding
 private extension MypageViewController {
     private func setBinding() {
-        let input = MypageViewModel.Input(logoutTrigger: logoutTrigger)
-        let output = mypageViewModel.getRequest(input: input)
-        output.logoutResult.bind { [weak self] in
+        mypageViewModel.logoutResult.subscribe(onNext: { [weak self] result in
             guard let self = self else { return }
-            
+            if result.code == 200 {
+                KeychainWrapper.standard.removeAllKeys() //저장된 토큰 삭제
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                }
+            }
+        }).disposed(by: disposeBag)
+        logoutBtn.rx.tap.bind { [weak self] in
+            guard let self = self else { return }
+            self.mypageViewModel.logoutTrigger.onNext(())
         }.disposed(by: disposeBag)
     }
     private func setBindView() {
-        logoutBtn.rx.tap.bind { [weak self] in
-            guard let self = self else { return }
-            self.logoutTrigger.onNext(())
-        }.disposed(by: disposeBag)
+        
     }
 }

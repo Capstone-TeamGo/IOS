@@ -11,21 +11,19 @@ import RxCocoa
 
 class MypageViewModel {
     private let disposeBag = DisposeBag()
+    private var logoutNetwork : LogoutNetwork
+    //로그아웃
+    let logoutTrigger = PublishSubject<Void>()
+    let logoutResult : PublishSubject<LogoutResponseModel> = PublishSubject<LogoutResponseModel>()
     
-    //input
-    struct Input {
-        let logoutTrigger : PublishSubject<Void> //로그아웃
+    init() {
+        let provider = NetworkProvider(endpoint: endpointURL)
+        logoutNetwork = provider.logoutNetwork()
         
-    }
-    //output
-    struct Output {
-        let logoutResult : PublishSubject<Void> //로그아웃 결과
-        
-    }
-    //Network
-    public func getRequest(input : Input) -> Output {
-        //로그아웃 네트워크
-        
-        return Output(logoutResult: PublishSubject<Void>())
+        logoutTrigger.flatMapLatest {_ in
+            return self.logoutNetwork.getLogout()
+        }
+        .bind(to: logoutResult)
+        .disposed(by: disposeBag)
     }
 }
