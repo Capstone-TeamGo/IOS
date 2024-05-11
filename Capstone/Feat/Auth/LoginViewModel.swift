@@ -14,6 +14,8 @@ import SwiftKeychainWrapper
 class LoginViewModel : NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     private lazy var disposeBag = DisposeBag()
     private lazy var loginViewController = LoginViewController()
+    private var loginNetwork : LoginNetwork
+    
     //애플 로그인
     let appleLoginTrigger = PublishSubject<Void>()
     let appleLoginSuccess : PublishSubject<Void> = PublishSubject()
@@ -21,20 +23,29 @@ class LoginViewModel : NSObject, ASAuthorizationControllerDelegate, ASAuthorizat
     //서버 로그인
     let serverLoginTrigger = PublishSubject<LoginRequestModel>()
     let serverLoginResult : PublishSubject<LoginResponseModel> = PublishSubject()
+    
     override init() {
+        let provider = NetworkProvider(endpoint: endpointURL)
+        loginNetwork = provider.loginNetwork()
+        
         super.init()
+        //바인딩
+        setBinding()
+    }
+    private func setBinding() {
         self.appleLoginTrigger.subscribe(onNext: {[weak self] in
             guard let self = self else{return}
             self.handleAppleSignInButtonTapped()
         })
         .disposed(by: disposeBag)
         self.serverLoginTrigger.flatMapLatest { loginModel in
-            return LoginServie.requestLogin(loginModel)
+            return self.loginNetwork.getLogin(loginModel)
         }
         .bind(to: serverLoginResult)
         .disposed(by: disposeBag)
         self.serverLoginResult.subscribe(onNext: {[weak self] result in
             guard let self = self else{return}
+            print("결과 : \(result)")
             if result.code == 200 {
                 if let accessToken = result.data?.accessToken,
                    let refreshToken = result.data?.refreshToken{

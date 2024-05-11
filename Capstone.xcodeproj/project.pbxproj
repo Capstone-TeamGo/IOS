@@ -15,7 +15,9 @@
 		E4B1E6912BEE7A6000ECADFA /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */; };
 		E4B1E6942BEE7BB500ECADFA /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6932BEE7BB500ECADFA /* Network.swift */; };
 		E4B1E6972BEE7C2400ECADFA /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E4B1E6962BEE7C2400ECADFA /* RxAlamofire */; };
-		E4B9A53F2BD243510073F7B9 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A53E2BD243510073F7B9 /* LoginService.swift */; };
+		E4B1E6992BEF556C00ECADFA /* LogoutNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6982BEF556C00ECADFA /* LogoutNetwork.swift */; };
+		E4B1E69B2BEF601600ECADFA /* LogoutResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E69A2BEF601600ECADFA /* LogoutResponseModel.swift */; };
+		E4B9A53F2BD243510073F7B9 /* LoginNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A53E2BD243510073F7B9 /* LoginNetwork.swift */; };
 		E4B9A5412BD243F80073F7B9 /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5402BD243F80073F7B9 /* LoginResponseModel.swift */; };
 		E4B9A5442BD28DAC0073F7B9 /* QuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5432BD28DAC0073F7B9 /* QuestionService.swift */; };
 		E4B9A5492BD28DF60073F7B9 /* QuestionResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5482BD28DF60073F7B9 /* QuestionResponseModel.swift */; };
@@ -87,7 +89,9 @@
 		E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Url + Extensioin.swift"; sourceTree = "<group>"; };
 		E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
 		E4B1E6932BEE7BB500ECADFA /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		E4B9A53E2BD243510073F7B9 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		E4B1E6982BEF556C00ECADFA /* LogoutNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutNetwork.swift; sourceTree = "<group>"; };
+		E4B1E69A2BEF601600ECADFA /* LogoutResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutResponseModel.swift; sourceTree = "<group>"; };
+		E4B9A53E2BD243510073F7B9 /* LoginNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetwork.swift; sourceTree = "<group>"; };
 		E4B9A5402BD243F80073F7B9 /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
 		E4B9A5432BD28DAC0073F7B9 /* QuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionService.swift; sourceTree = "<group>"; };
 		E4B9A5482BD28DF60073F7B9 /* QuestionResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionResponseModel.swift; sourceTree = "<group>"; };
@@ -238,16 +242,17 @@
 		E4B1E68D2BEDE9BB00ECADFA /* Logout */ = {
 			isa = PBXGroup;
 			children = (
-				E4B1E68F2BEDE9C500ECADFA /* Result */,
+				E4B1E68F2BEDE9C500ECADFA /* Response */,
 			);
 			path = Logout;
 			sourceTree = "<group>";
 		};
-		E4B1E68F2BEDE9C500ECADFA /* Result */ = {
+		E4B1E68F2BEDE9C500ECADFA /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				E4B1E69A2BEF601600ECADFA /* LogoutResponseModel.swift */,
 			);
-			path = Result;
+			path = Response;
 			sourceTree = "<group>";
 		};
 		E4B1E6922BEE7A9C00ECADFA /* Entities */ = {
@@ -261,7 +266,8 @@
 		E4B9A53D2BD243480073F7B9 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				E4B9A53E2BD243510073F7B9 /* LoginService.swift */,
+				E4B9A53E2BD243510073F7B9 /* LoginNetwork.swift */,
+				E4B1E6982BEF556C00ECADFA /* LogoutNetwork.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -711,9 +717,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B9A5412BD243F80073F7B9 /* LoginResponseModel.swift in Sources */,
-				E4B9A53F2BD243510073F7B9 /* LoginService.swift in Sources */,
+				E4B9A53F2BD243510073F7B9 /* LoginNetwork.swift in Sources */,
 				E4B1E6912BEE7A6000ECADFA /* NetworkProvider.swift in Sources */,
 				E4D401CA2BB2C60C00B4E5C4 /* LoginViewController.swift in Sources */,
+				E4B1E69B2BEF601600ECADFA /* LogoutResponseModel.swift in Sources */,
 				E4B9A5442BD28DAC0073F7B9 /* QuestionService.swift in Sources */,
 				E4D4020F2BB4094F00B4E5C4 /* FirstQuestionViewController.swift in Sources */,
 				E4EC74512BEA10E600D1C9FD /* URL.swift in Sources */,
@@ -738,6 +745,7 @@
 				E4989EE12BC8FD9500D888DC /* VoiceRecordViewModel.swift in Sources */,
 				E4B1E6942BEE7BB500ECADFA /* Network.swift in Sources */,
 				E461BD502BDA5540008CFD7D /* MypageViewModel.swift in Sources */,
+				E4B1E6992BEF556C00ECADFA /* LogoutNetwork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

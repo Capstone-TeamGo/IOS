@@ -15,9 +15,15 @@ final class NetworkProvider {
         self.endpoint = endpointURL
     }
     //로그인
-    
+    public func loginNetwork() -> LoginNetwork {
+        let network = Network<LoginResponseModel>(endpoint)
+        return LoginNetwork(network: network)
+    }
     //로그아웃
-    
+    public func logoutNetwork() -> LogoutNetwork {
+        let network = Network<LogoutResponseModel>(endpoint)
+        return LogoutNetwork(network: network)
+    }
     //감정 분석(일주일)
     public func feelingWeekNetwork() -> FeelingNetwork {
         let network = Network<FeelingRequestModel>(endpoint)

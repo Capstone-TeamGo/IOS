@@ -25,6 +25,13 @@ class LoginViewController: UIViewController {
         let btn = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
         return btn
     }()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.hidesBackButton = true
+        var window = UIWindow(frame: UIScreen.main.bounds)
+        let loginVC = LoginViewController()
+        window.rootViewController = UINavigationController(rootViewController: loginVC)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
@@ -59,7 +66,9 @@ extension LoginViewController{
         loginViewModel.appleLoginSuccess
             .subscribe(onNext: { [weak self] in
                 guard let self = self else{return}
-                self.navigationController?.pushViewController(TabBarViewController(), animated: true)
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(TabBarViewController(), animated: true)
+                }
             })
             .disposed(by: disposeBag)
     }
