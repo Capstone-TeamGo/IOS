@@ -10,6 +10,8 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import AuthenticationServices
+import SwiftKeychainWrapper
+
 class MypageViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mypageViewModel = MypageViewModel()
@@ -176,10 +178,12 @@ private extension MypageViewController {
     private func setBinding() {
         mypageViewModel.logoutResult.subscribe(onNext: { [weak self] result in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.navigationController?.pushViewController(LoginViewController(), animated: true)
+            if result.code == 200 {
+                KeychainWrapper.standard.removeAllKeys() //저장된 토큰 삭제
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                }
             }
-            print(result)
         }).disposed(by: disposeBag)
         logoutBtn.rx.tap.bind { [weak self] in
             guard let self = self else { return }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -16,9 +17,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
         guard let windowScene = (scene as? UIWindowScene) else {return}
         window = UIWindow(frame: UIScreen.main.bounds)
-        let viewController = TabBarViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
-        window?.rootViewController = navigationController
+        //로그인 유무 체크가 필요(메서드)
+        if let _ = KeychainWrapper.standard.string(forKey: "JWTaccessToken"),
+           let _ = KeychainWrapper.standard.string(forKey: "JWTrefreshToken"){
+            let viewController = TabBarViewController()
+            let navigationController = UINavigationController(rootViewController: viewController)
+            window?.rootViewController = navigationController
+        }else{
+            let viewController = LoginViewController()
+            let navigationController = UINavigationController(rootViewController: viewController)
+            window?.rootViewController = navigationController
+        }
         window?.makeKeyAndVisible() //화면에 보이게끔
         window?.windowScene = windowScene
         guard let _ = (scene as? UIWindowScene) else { return }

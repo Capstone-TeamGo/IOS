@@ -8,12 +8,17 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import SwiftKeychainWrapper
 final class LogoutNetwork {
     private let network : Network<LogoutResponseModel>
     init(network: Network<LogoutResponseModel>) {
         self.network = network
     }
     public func getLogout() -> Observable<LogoutResponseModel> {
-        return network.getNetwork(path: logoutURL)
+        let refreshToken = KeychainWrapper.standard.string(forKey: "JWTrefreshToken") ?? ""
+        let params : [String:Any] = [
+            "refreshToken" : refreshToken
+        ]
+        return network.postNetwork(path: logoutURL, params: params)
     }
 }
