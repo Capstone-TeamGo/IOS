@@ -97,7 +97,6 @@ class FirstQuestionViewController : UIViewController {
         super.viewDidLoad()
         setLayout()
         setBinding()
-        setTimer()
     }
 }
 //MARK: - UI Layout
@@ -157,12 +156,15 @@ extension FirstQuestionViewController {
         timer?.fire()
     }
     @objc private func updateProgress() {
-        let progressValue = Float(voiceRecordViewModel.audioRecorder.currentTime) / Float(60) //5분 제한
+        let progressValue = Float(voiceRecordViewModel.audioRecorder.currentTime) / Float(60) //1분 제한
         if Float(voiceRecordViewModel.audioRecorder.currentTime) >= Float(60) {
             self.voiceRecordViewModel.stopTrigger.onNext(())
             self.mic.tintColor = .systemGray
             self.stop.tintColor = .systemRed
             self.play.tintColor = .systemGray
+        }
+        if voiceRecordViewModel.audioRecorder.isRecording {
+            print("녹음중 : \(voiceRecordViewModel.audioRecorder.currentTime)")
         }
         progress.setProgress(progressValue, animated: true)
     }
@@ -182,26 +184,43 @@ extension FirstQuestionViewController {
             .disposed(by: disposeBag)
         mic.rx.tap
             .subscribe(onNext: {[weak self] in
-                self?.voiceRecordViewModel.recordTrigger.onNext(())
-                self?.mic.tintColor = .systemGreen
-                self?.stop.tintColor = .systemGray
-                self?.play.tintColor = .systemGray
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.voiceRecordViewModel.recordTrigger.onNext(())
+                    self.mic.tintColor = .systemGreen
+                    self.stop.tintColor = .systemGray
+                    self.play.tintColor = .systemGray
+                    
+                    self.setTimer()
+                }
             })
             .disposed(by: disposeBag)
         play.rx.tap
             .subscribe(onNext: {[weak self] in
-                self?.voiceRecordViewModel.playTrigger.onNext(())
-                self?.mic.tintColor = .systemGray
-                self?.stop.tintColor = .systemGray
-                self?.play.tintColor = .systemBlue
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.voiceRecordViewModel.playTrigger.onNext(())
+                    self.mic.tintColor = .systemGray
+                    self.stop.tintColor = .systemGray
+                    self.play.tintColor = .systemBlue
+                    
+                    self.timer?.invalidate() //타이머 정지
+                    self.timer = nil
+                }
             })
             .disposed(by: disposeBag)
         stop.rx.tap
             .subscribe(onNext: {[weak self] in
-                self?.voiceRecordViewModel.stopTrigger.onNext(())
-                self?.mic.tintColor = .systemGray
-                self?.stop.tintColor = .systemRed
-                self?.play.tintColor = .systemGray
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.voiceRecordViewModel.stopTrigger.onNext(())
+                    self.mic.tintColor = .systemGray
+                    self.stop.tintColor = .systemRed
+                    self.play.tintColor = .systemGray
+                    
+                    self.timer?.invalidate() //타이머 정지
+                    self.timer = nil
+                }
             })
             .disposed(by: disposeBag)
         nextBtn.rx.tap

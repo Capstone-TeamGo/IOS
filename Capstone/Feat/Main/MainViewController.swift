@@ -154,7 +154,7 @@ extension MainViewController {
         for index in 0...7 {
             entries.append(ChartDataEntry(x: Double(index), y: Double(index)))
         }
-        let dataSet = LineChartDataSet(entries: entries, label: "한달 간 심리분석 결과")
+        let dataSet = LineChartDataSet(entries: entries, label: "최근 7일 심리분석 결과")
         dataSet.colors = [.ThirdryColor]
         dataSet.circleColors = [.red]
         dataSet.circleRadius = 2

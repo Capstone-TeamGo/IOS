@@ -27,7 +27,7 @@ class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     
     var audioRecorder : AVAudioRecorder = AVAudioRecorder()
     private var audioPlayer : AVAudioPlayer = AVAudioPlayer()
-    private let record : URL = {
+    private lazy var record : URL = {
         let documentsUrl : URL = {
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             return paths.first!
@@ -36,6 +36,7 @@ class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         let url = documentsUrl.appendingPathComponent(fileName)
         return url
     }()
+    
     
     override init() {
         let provider = NetworkProvider(endpoint: endpointURL)
@@ -92,21 +93,29 @@ extension VoiceRecordViewModel {
         }
     }
     private func configure(completion: @escaping(Bool) -> Void) {
-        let recorderSettings : [String: Any] = [
-            AVFormatIDKey: Int(kAudioFormatLinearPCM),
-            AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue,
-            AVEncoderBitRateKey: 320_000, //비트율 320kpbs
-            AVNumberOfChannelsKey: 2, //오디오 채널 2
-            AVSampleRateKey: 44_100.0 //샘플율 44.100hz
-        ]
+        let audioSession = AVAudioSession.sharedInstance()
         do {
+            //녹음 및 재생
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: [])
+            try audioSession.setActive(true)
+            
+            let recorderSettings: [String: Any] = [
+                AVFormatIDKey: kAudioFormatLinearPCM,
+                AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue,
+                AVEncoderBitRateKey: 320_000, //비트율 320kpbs
+                AVNumberOfChannelsKey: 2, //오디오 채널 2
+                AVSampleRateKey: 44_100.0 //샘플율 44.100hz
+            ]
+            
             self.audioRecorder = try AVAudioRecorder(url: self.record, settings: recorderSettings)
             self.audioRecorder.delegate = self
             self.audioRecorder.prepareToRecord()
+            
+            completion(true)
         } catch {
             print("Failed to initialize AVAudioRecorder: \(error)")
+            completion(false)
         }
-        completion(true)
     }
     private func recordStart() {
         print("녹음 시작")
@@ -118,6 +127,7 @@ extension VoiceRecordViewModel {
             fatalError(error.localizedDescription)
         }
         recorder.record()
+        print(recorder.isRecording)
     }
     private func recordStop() {
         print("녹음 정지")
