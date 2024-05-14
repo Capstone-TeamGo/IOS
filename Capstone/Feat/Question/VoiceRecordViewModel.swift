@@ -11,16 +11,17 @@ import RxCocoa
 import AVFAudio
 import AVFoundation
 
-class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+final class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     private let disposeBag = DisposeBag()
     private var questionNetwork : QuestionNetwork
+    private var postRecorderNetwork : AnalysisNetwork
     
     //질문 가져오기 시작
     let questionTrigger = PublishSubject<Void>()
     let questionResult : PublishSubject<QuestionResponseModel> = PublishSubject()
     //녹음파일 전송
-    let postRecordTrigger = PublishSubject<Void>()
-    let postRecordResult : PublishSubject<Void> = PublishSubject()
+    let postRecordTrigger = PublishSubject<QuestionResponseModel>()
+    let postRecordResult : PublishSubject<AnswerResponseModel> = PublishSubject()
     
     //녹음
     let recordTrigger = PublishSubject<Void>()
@@ -45,6 +46,7 @@ class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     override init() {
         let provider = NetworkProvider(endpoint: endpointURL)
         questionNetwork = provider.questionNetwork()
+        postRecorderNetwork = provider.RecordNetwork()
         
         super.init()
         questionTrigger.flatMapLatest { _ in
@@ -76,7 +78,11 @@ class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
         }
         .disposed(by: self.disposeBag)
         //다음페이지로 넘어갈 경우 녹음된 파일을 서버로 전송
-        
+        postRecordTrigger.flatMapLatest { question in
+            return self.postRecorderNetwork.postAnswer(analysisId: "", questionId: "")
+        }
+        .bind(postRecordResult)
+        .disposed(by: disposeBag)
     }
 }
 //MARK: - VoiceRecord

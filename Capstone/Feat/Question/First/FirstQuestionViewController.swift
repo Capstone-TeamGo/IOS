@@ -12,7 +12,7 @@ import RxCocoa
 import UIKit
 import AVFoundation
 
-class FirstQuestionViewController : UIViewController {
+final class FirstQuestionViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let voiceRecordViewModel = VoiceRecordViewModel()
     private var timer : Timer?
@@ -100,7 +100,7 @@ class FirstQuestionViewController : UIViewController {
     }
 }
 //MARK: - UI Layout
-extension FirstQuestionViewController {
+private extension FirstQuestionViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
         self.title = ""
@@ -223,6 +223,7 @@ extension FirstQuestionViewController {
         nextBtn.rx.tap
             .subscribe { _ in
                 guard let question = self.question else { return }
+                
                 self.navigationController?.pushViewController(SecondQuestionViewController(question: question), animated: true)
             }
             .disposed(by: disposeBag)

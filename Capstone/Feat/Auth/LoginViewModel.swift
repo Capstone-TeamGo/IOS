@@ -11,7 +11,7 @@ import RxCocoa
 import AuthenticationServices
 import SwiftKeychainWrapper
 
-class LoginViewModel : NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+final class LoginViewModel : NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     private lazy var disposeBag = DisposeBag()
     private lazy var loginViewController = LoginViewController()
     private var loginNetwork : LoginNetwork

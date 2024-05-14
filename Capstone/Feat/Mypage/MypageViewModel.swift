@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class MypageViewModel {
+final class MypageViewModel {
     private let disposeBag = DisposeBag()
     private var logoutNetwork : LogoutNetwork
     //로그아웃

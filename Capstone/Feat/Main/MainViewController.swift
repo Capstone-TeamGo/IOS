@@ -12,7 +12,7 @@ import RxCocoa
 import AuthenticationServices
 import Charts
 import DGCharts
-class MainViewController: UIViewController{
+final class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mainViewModel = MainViewModel()
     private let feelingTrigger = PublishSubject<Void>()
@@ -106,7 +106,7 @@ extension MainViewController {
     }
 }
 //MARK: - UI Layout
-extension MainViewController {
+private extension MainViewController {
     private func setLayout() {
         self.view.addSubview(analyzeBtn)
         self.view.addSubview(consultingBtn)
@@ -170,7 +170,7 @@ extension MainViewController {
     }
 }
 //MARK: - set Binding
-extension MainViewController {
+private extension MainViewController {
     private func setBinding() {
         self.mainViewModel.feelingTrigger.onNext(())
         self.mainViewModel.feelingResult.subscribe(onNext: {[weak self] result in

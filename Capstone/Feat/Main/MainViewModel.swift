@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class MainViewModel {
+final class MainViewModel {
     private let disposeBag = DisposeBag()
     private var feelingNetwork : FeelingNetwork
     

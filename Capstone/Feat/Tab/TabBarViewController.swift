@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import AuthenticationServices
 
-class TabBarViewController: UITabBarController {
+final class TabBarViewController: UITabBarController {
     //MARK: UI Components
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -27,7 +27,7 @@ class TabBarViewController: UITabBarController {
     }
 }
 //MARK: - UI TabBar
-extension TabBarViewController {
+private extension TabBarViewController {
     private func setTabBar() {
         self.tabBar.backgroundColor = .white
         self.tabBar.layer.shadowOffset = CGSize(width: 3, height: 3)

@@ -12,7 +12,7 @@ import SnapKit
 import Kingfisher
 import UIKit
 
-class ResultViewController : UIViewController {
+final class ResultViewController : UIViewController {
     private let disposeBag = DisposeBag()
     //MARK: - UI Components
     private let titleLabel : UILabel = {
@@ -65,7 +65,7 @@ class ResultViewController : UIViewController {
     }
 }
 //MARK: - UI Layout
-extension ResultViewController {
+private extension ResultViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
         self.title = ""

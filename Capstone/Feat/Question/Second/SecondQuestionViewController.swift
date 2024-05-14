@@ -12,7 +12,7 @@ import RxCocoa
 import UIKit
 import AVFoundation
 
-class SecondQuestionViewController : UIViewController {
+final class SecondQuestionViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let voiceRecordViewModel = VoiceRecordViewModel()
     private var timer : Timer?
@@ -115,7 +115,7 @@ class SecondQuestionViewController : UIViewController {
     }
 }
 //MARK: - UI Layout
-extension SecondQuestionViewController {
+private extension SecondQuestionViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
         self.title = ""
@@ -164,7 +164,7 @@ extension SecondQuestionViewController {
     }
 }
 //MARK: - Binding
-extension SecondQuestionViewController {
+private extension SecondQuestionViewController {
     private func setTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)

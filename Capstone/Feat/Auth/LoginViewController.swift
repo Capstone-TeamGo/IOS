@@ -10,7 +10,8 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import AuthenticationServices
-class LoginViewController: UIViewController {
+
+final class LoginViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let loginViewModel = LoginViewModel()
     //MARK: UI Components
@@ -40,7 +41,7 @@ class LoginViewController: UIViewController {
     }
 }
 //MARK: - UI Layout
-extension LoginViewController {
+private extension LoginViewController {
     private func setLayout() {
         self.view.backgroundColor = .PrimaryColor
         self.view.addSubview(image)
@@ -56,7 +57,7 @@ extension LoginViewController {
     }
 }
 //MARK: - UI Binding
-extension LoginViewController{
+private extension LoginViewController{
     private func setBinding() {
         appleBtn.rx.controlEvent(.touchUpInside)
             .subscribe(onNext: { [weak self] in
