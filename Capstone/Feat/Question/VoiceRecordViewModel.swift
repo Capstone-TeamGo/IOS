@@ -18,6 +18,10 @@ class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     //질문 가져오기 시작
     let questionTrigger = PublishSubject<Void>()
     let questionResult : PublishSubject<QuestionResponseModel> = PublishSubject()
+    //녹음파일 전송
+    let postRecordTrigger = PublishSubject<Void>()
+    let postRecordResult : PublishSubject<Void> = PublishSubject()
+    
     //녹음
     let recordTrigger = PublishSubject<Void>()
     //재생
@@ -71,6 +75,8 @@ class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
             self.recordStop()
         }
         .disposed(by: self.disposeBag)
+        //다음페이지로 넘어갈 경우 녹음된 파일을 서버로 전송
+        
     }
 }
 //MARK: - VoiceRecord
@@ -96,7 +102,7 @@ extension VoiceRecordViewModel {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             //녹음 및 재생
-            try audioSession.setCategory(.playAndRecord, mode: .default, options: [])
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
             try audioSession.setActive(true)
             
             let recorderSettings: [String: Any] = [
@@ -144,6 +150,7 @@ extension VoiceRecordViewModel {
         print("재생 시작")
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: self.record)
+            self.audioPlayer.volume = 1.0
             self.audioPlayer.delegate = self
             self.audioPlayer.play()
         } catch {

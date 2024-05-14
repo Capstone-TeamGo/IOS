@@ -284,16 +284,8 @@
 			isa = PBXGroup;
 			children = (
 				E4B9A5472BD28DD40073F7B9 /* Response */,
-				E4B9A5462BD28DCD0073F7B9 /* Request */,
 			);
 			path = Question;
-			sourceTree = "<group>";
-		};
-		E4B9A5462BD28DCD0073F7B9 /* Request */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Request;
 			sourceTree = "<group>";
 		};
 		E4B9A5472BD28DD40073F7B9 /* Response */ = {

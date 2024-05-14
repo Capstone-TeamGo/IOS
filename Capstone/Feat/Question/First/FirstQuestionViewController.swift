@@ -163,9 +163,6 @@ extension FirstQuestionViewController {
             self.stop.tintColor = .systemRed
             self.play.tintColor = .systemGray
         }
-        if voiceRecordViewModel.audioRecorder.isRecording {
-            print("녹음중 : \(voiceRecordViewModel.audioRecorder.currentTime)")
-        }
         progress.setProgress(progressValue, animated: true)
     }
     private func setBinding() {

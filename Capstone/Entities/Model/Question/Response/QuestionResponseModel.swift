@@ -17,4 +17,5 @@ struct QuestionData : Codable {
     let analysisId : Int?
     let questionTexts : [String]?
     let accessUrls : [String]?
+    let questions : [Int]?
 }
