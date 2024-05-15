@@ -223,9 +223,18 @@ extension FirstQuestionViewController {
         nextBtn.rx.tap
             .subscribe { _ in
                 guard let question = self.question else { return }
-                
-                self.navigationController?.pushViewController(SecondQuestionViewController(question: question), animated: true)
+                self.voiceRecordViewModel.postRecordTrigger.onNext([question.data?.analysisId ?? 0, question.data?.questions?[0] ?? 0])
+                //전송 중 -> 로딩인디케이터 넣을 필요 O
             }
             .disposed(by: disposeBag)
+        voiceRecordViewModel.postRecordResult.subscribe { [weak self] result in
+            guard let self = self else { return }
+            guard let question = self.question else { return }
+            print("통신결과 : \(result)")
+            if result.element?.code == 200 {
+                self.navigationController?.pushViewController(SecondQuestionViewController(question: question), animated: true)
+            }
+        }
+        .disposed(by: disposeBag)
     }
 }

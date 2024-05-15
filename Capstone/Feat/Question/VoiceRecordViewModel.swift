@@ -20,7 +20,7 @@ final class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlay
     let questionTrigger = PublishSubject<Void>()
     let questionResult : PublishSubject<QuestionResponseModel> = PublishSubject()
     //녹음파일 전송
-    let postRecordTrigger = PublishSubject<QuestionResponseModel>()
+    let postRecordTrigger = PublishSubject<[Int]>()
     let postRecordResult : PublishSubject<AnswerResponseModel> = PublishSubject()
     
     //녹음
@@ -37,7 +37,7 @@ final class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlay
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             return paths.first!
         }()
-        let fileName = UUID().uuidString + ".wav"
+        let fileName = UUID().uuidString + ".m4a"
         let url = documentsUrl.appendingPathComponent(fileName)
         return url
     }()
@@ -46,7 +46,7 @@ final class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlay
     override init() {
         let provider = NetworkProvider(endpoint: endpointURL)
         questionNetwork = provider.questionNetwork()
-        postRecorderNetwork = provider.RecordNetwork()
+        postRecorderNetwork = provider.PostRecorderNetwork()
         
         super.init()
         questionTrigger.flatMapLatest { _ in
@@ -79,9 +79,9 @@ final class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlay
         .disposed(by: self.disposeBag)
         //다음페이지로 넘어갈 경우 녹음된 파일을 서버로 전송
         postRecordTrigger.flatMapLatest { question in
-            return self.postRecorderNetwork.postAnswer(analysisId: "", questionId: "")
+            return self.postRecorderNetwork.postAnswer(analysisId: question[0], questionId: question[1], dataURL: self.record)
         }
-        .bind(postRecordResult)
+        .bind(to: postRecordResult)
         .disposed(by: disposeBag)
     }
 }

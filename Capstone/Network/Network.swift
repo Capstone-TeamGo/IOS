@@ -53,6 +53,32 @@ final class Network<T: Decodable> {
                 return try JSONDecoder().decode(T.self, from: data)
             }
     }
-    //MARK: - MartipartFormData Method
-    
+    //MARK: - MultipartFormData Method
+    public func formDataNetwork(path: String, params: [String:Any], dataURL : URL) -> Observable<T> {
+        let fullpath = "\(endpoint)\(path)"
+        //토큰 유효성 검사
+        let accessToken = KeychainWrapper.standard.string(forKey: "JWTaccessToken") ?? ""
+        do {
+            let audioData = try Data(contentsOf: dataURL)
+            return Observable.create { observer in
+                AF.upload(multipartFormData: { formData in
+                    formData.append(audioData, withName: "file", fileName: "recording.m4a", mimeType: "audio/mp4")
+                }, to: fullpath, method: .post, headers:  ["Authorization":"\(accessToken)","Content-Type": "multipart/form-data"])
+                .responseDecodable(of: T.self) { response in
+                    print(response.debugDescription)
+                    switch response.result {
+                    case .success(let data):
+                        observer.onNext(data)
+                        observer.onCompleted()
+                    case .failure(let error):
+                        observer.onError(error)
+                    }
+                }
+                return Disposables.create()
+            }
+        } catch {
+            print("Failed to load audio data: \(error)")
+            return Disposables.create() as! Observable<T>
+        }
+    }
 }

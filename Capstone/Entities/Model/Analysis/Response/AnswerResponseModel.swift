@@ -6,12 +6,14 @@
 //
 
 import Foundation
-struct AnswerResponseModel {
+struct AnswerResponseModel : Codable {
     let code : Int?
     let state : String?
     let message : String?
+    let errorCode: Int?
+    let details : [String]?
     let data : AnswerID?
 }
-struct AnswerID {
+struct AnswerID : Codable {
     let answerId : Int
 }
