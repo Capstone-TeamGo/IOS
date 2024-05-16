@@ -207,9 +207,16 @@ private extension ForthQuestionViewController {
             .disposed(by: disposeBag)
         nextBtn.rx.tap
             .subscribe { _ in
-                self.navigationController?.pushViewController(LoadingViewController(), animated: true)
+                self.voiceRecordViewModel.postRecordTrigger.onNext([self.question.data?.analysisId ?? 0, self.question.data?.questionIds?[3] ?? 0])
+                //전송 중 -> 로딩인디케이터 넣을 필요 O
             }
             .disposed(by: disposeBag)
-        
+        voiceRecordViewModel.postRecordResult.subscribe { [weak self] result in
+            guard let self = self else { return }
+            if result.element?.code == 200 {
+                self.navigationController?.pushViewController(LoadingViewController(), animated: true)
+            }
+        }
+        .disposed(by: disposeBag)
     }
 }
