@@ -34,5 +34,9 @@ final class NetworkProvider {
         let network = Network<QuestionResponseModel>(endpoint)
         return QuestionNetwork(network: network)
     }
-    
+    //녹음파일 전송
+    public func PostRecorderNetwork() -> AnalysisNetwork {
+        let network = Network<AnswerResponseModel>(endpoint)
+        return AnalysisNetwork(network: network)
+    }
 }

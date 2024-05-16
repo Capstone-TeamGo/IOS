@@ -12,7 +12,7 @@ import RxCocoa
 import UIKit
 import AVFoundation
 
-class ForthQuestionViewController : UIViewController {
+final class ForthQuestionViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let voiceRecordViewModel = VoiceRecordViewModel()
     private var timer : Timer?
@@ -115,7 +115,7 @@ class ForthQuestionViewController : UIViewController {
     }
 }
 //MARK: - UI Layout
-extension ForthQuestionViewController {
+private extension ForthQuestionViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
         self.title = ""
@@ -164,7 +164,7 @@ extension ForthQuestionViewController {
     }
 }
 //MARK: - Binding
-extension ForthQuestionViewController {
+private extension ForthQuestionViewController {
     private func setTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
@@ -207,9 +207,16 @@ extension ForthQuestionViewController {
             .disposed(by: disposeBag)
         nextBtn.rx.tap
             .subscribe { _ in
-                self.navigationController?.pushViewController(LoadingViewController(), animated: true)
+                self.voiceRecordViewModel.postRecordTrigger.onNext([self.question.data?.analysisId ?? 0, self.question.data?.questionIds?[3] ?? 0])
+                //전송 중 -> 로딩인디케이터 넣을 필요 O
             }
             .disposed(by: disposeBag)
-        
+        voiceRecordViewModel.postRecordResult.subscribe { [weak self] result in
+            guard let self = self else { return }
+            if result.element?.code == 200 {
+                self.navigationController?.pushViewController(LoadingViewController(), animated: true)
+            }
+        }
+        .disposed(by: disposeBag)
     }
 }

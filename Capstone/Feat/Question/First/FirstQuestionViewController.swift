@@ -12,7 +12,7 @@ import RxCocoa
 import UIKit
 import AVFoundation
 
-class FirstQuestionViewController : UIViewController {
+final class FirstQuestionViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let voiceRecordViewModel = VoiceRecordViewModel()
     private var timer : Timer?
@@ -97,11 +97,10 @@ class FirstQuestionViewController : UIViewController {
         super.viewDidLoad()
         setLayout()
         setBinding()
-        setTimer()
     }
 }
 //MARK: - UI Layout
-extension FirstQuestionViewController {
+private extension FirstQuestionViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
         self.title = ""
@@ -157,7 +156,7 @@ extension FirstQuestionViewController {
         timer?.fire()
     }
     @objc private func updateProgress() {
-        let progressValue = Float(voiceRecordViewModel.audioRecorder.currentTime) / Float(60) //5분 제한
+        let progressValue = Float(voiceRecordViewModel.audioRecorder.currentTime) / Float(60) //1분 제한
         if Float(voiceRecordViewModel.audioRecorder.currentTime) >= Float(60) {
             self.voiceRecordViewModel.stopTrigger.onNext(())
             self.mic.tintColor = .systemGray
@@ -182,33 +181,59 @@ extension FirstQuestionViewController {
             .disposed(by: disposeBag)
         mic.rx.tap
             .subscribe(onNext: {[weak self] in
-                self?.voiceRecordViewModel.recordTrigger.onNext(())
-                self?.mic.tintColor = .systemGreen
-                self?.stop.tintColor = .systemGray
-                self?.play.tintColor = .systemGray
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.voiceRecordViewModel.recordTrigger.onNext(())
+                    self.mic.tintColor = .systemGreen
+                    self.stop.tintColor = .systemGray
+                    self.play.tintColor = .systemGray
+                    
+                    self.setTimer()
+                }
             })
             .disposed(by: disposeBag)
         play.rx.tap
             .subscribe(onNext: {[weak self] in
-                self?.voiceRecordViewModel.playTrigger.onNext(())
-                self?.mic.tintColor = .systemGray
-                self?.stop.tintColor = .systemGray
-                self?.play.tintColor = .systemBlue
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.voiceRecordViewModel.playTrigger.onNext(())
+                    self.mic.tintColor = .systemGray
+                    self.stop.tintColor = .systemGray
+                    self.play.tintColor = .systemBlue
+                    
+                    self.timer?.invalidate() //타이머 정지
+                    self.timer = nil
+                }
             })
             .disposed(by: disposeBag)
         stop.rx.tap
             .subscribe(onNext: {[weak self] in
-                self?.voiceRecordViewModel.stopTrigger.onNext(())
-                self?.mic.tintColor = .systemGray
-                self?.stop.tintColor = .systemRed
-                self?.play.tintColor = .systemGray
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.voiceRecordViewModel.stopTrigger.onNext(())
+                    self.mic.tintColor = .systemGray
+                    self.stop.tintColor = .systemRed
+                    self.play.tintColor = .systemGray
+                    
+                    self.timer?.invalidate() //타이머 정지
+                    self.timer = nil
+                }
             })
             .disposed(by: disposeBag)
         nextBtn.rx.tap
             .subscribe { _ in
                 guard let question = self.question else { return }
-                self.navigationController?.pushViewController(SecondQuestionViewController(question: question), animated: true)
+                self.voiceRecordViewModel.postRecordTrigger.onNext([question.data?.analysisId ?? 0, question.data?.questionIds?[0] ?? 0])
+                //전송 중 -> 로딩인디케이터 넣을 필요 O
             }
             .disposed(by: disposeBag)
+        voiceRecordViewModel.postRecordResult.subscribe { [weak self] result in
+            guard let self = self else { return }
+            guard let question = self.question else { return }
+            if result.element?.code == 200 {
+                self.navigationController?.pushViewController(SecondQuestionViewController(question: question), animated: true)
+            }
+        }
+        .disposed(by: disposeBag)
     }
 }

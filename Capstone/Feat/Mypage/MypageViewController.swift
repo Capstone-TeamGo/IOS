@@ -12,7 +12,7 @@ import RxCocoa
 import AuthenticationServices
 import SwiftKeychainWrapper
 
-class MypageViewController: UIViewController{
+final class MypageViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mypageViewModel = MypageViewModel()
     //MARK: UI Components

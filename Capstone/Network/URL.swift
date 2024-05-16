@@ -19,3 +19,4 @@ let questionURL = "/analysis" //질문 텍스트, 음성
 
 //MARK: - Feeling
 let feelingWeekURL = "/analysis/week" //일주일 감정
+

@@ -11,13 +11,18 @@ import RxCocoa
 import AVFAudio
 import AVFoundation
 
-class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+final class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     private let disposeBag = DisposeBag()
     private var questionNetwork : QuestionNetwork
+    private var postRecorderNetwork : AnalysisNetwork
     
     //질문 가져오기 시작
     let questionTrigger = PublishSubject<Void>()
     let questionResult : PublishSubject<QuestionResponseModel> = PublishSubject()
+    //녹음파일 전송
+    let postRecordTrigger = PublishSubject<[Int]>()
+    let postRecordResult : PublishSubject<AnswerResponseModel> = PublishSubject()
+    
     //녹음
     let recordTrigger = PublishSubject<Void>()
     //재생
@@ -27,19 +32,21 @@ class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
     
     var audioRecorder : AVAudioRecorder = AVAudioRecorder()
     private var audioPlayer : AVAudioPlayer = AVAudioPlayer()
-    private let record : URL = {
+    private lazy var record : URL = {
         let documentsUrl : URL = {
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             return paths.first!
         }()
-        let fileName = UUID().uuidString + ".wav"
+        let fileName = UUID().uuidString + ".m4a"
         let url = documentsUrl.appendingPathComponent(fileName)
         return url
     }()
     
+    
     override init() {
         let provider = NetworkProvider(endpoint: endpointURL)
         questionNetwork = provider.questionNetwork()
+        postRecorderNetwork = provider.PostRecorderNetwork()
         
         super.init()
         questionTrigger.flatMapLatest { _ in
@@ -70,6 +77,12 @@ class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDele
             self.recordStop()
         }
         .disposed(by: self.disposeBag)
+        //다음페이지로 넘어갈 경우 녹음된 파일을 서버로 전송
+        postRecordTrigger.flatMapLatest { question in
+            return self.postRecorderNetwork.postAnswer(analysisId: question[0], questionId: question[1], dataURL: self.record)
+        }
+        .bind(to: postRecordResult)
+        .disposed(by: disposeBag)
     }
 }
 //MARK: - VoiceRecord
@@ -92,21 +105,29 @@ extension VoiceRecordViewModel {
         }
     }
     private func configure(completion: @escaping(Bool) -> Void) {
-        let recorderSettings : [String: Any] = [
-            AVFormatIDKey: Int(kAudioFormatLinearPCM),
-            AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue,
-            AVEncoderBitRateKey: 320_000, //비트율 320kpbs
-            AVNumberOfChannelsKey: 2, //오디오 채널 2
-            AVSampleRateKey: 44_100.0 //샘플율 44.100hz
-        ]
+        let audioSession = AVAudioSession.sharedInstance()
         do {
+            //녹음 및 재생
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try audioSession.setActive(true)
+            
+            let recorderSettings: [String: Any] = [
+                AVFormatIDKey: kAudioFormatLinearPCM,
+                AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue,
+                AVEncoderBitRateKey: 320_000, //비트율 320kpbs
+                AVNumberOfChannelsKey: 2, //오디오 채널 2
+                AVSampleRateKey: 44_100.0 //샘플율 44.100hz
+            ]
+            
             self.audioRecorder = try AVAudioRecorder(url: self.record, settings: recorderSettings)
             self.audioRecorder.delegate = self
             self.audioRecorder.prepareToRecord()
+            
+            completion(true)
         } catch {
             print("Failed to initialize AVAudioRecorder: \(error)")
+            completion(false)
         }
-        completion(true)
     }
     private func recordStart() {
         print("녹음 시작")
@@ -118,6 +139,7 @@ extension VoiceRecordViewModel {
             fatalError(error.localizedDescription)
         }
         recorder.record()
+        print(recorder.isRecording)
     }
     private func recordStop() {
         print("녹음 정지")
@@ -134,6 +156,7 @@ extension VoiceRecordViewModel {
         print("재생 시작")
         do {
             self.audioPlayer = try AVAudioPlayer(contentsOf: self.record)
+            self.audioPlayer.volume = 1.0
             self.audioPlayer.delegate = self
             self.audioPlayer.play()
         } catch {
