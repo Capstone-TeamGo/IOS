@@ -24,4 +24,7 @@ extension UIColor {
     static let FifthryColor : UIColor = {
         return UIColor(named: "FifthryColor") ?? .white
     }()
+    static let BackgroundColor : UIColor = {
+        return UIColor(named: "BackgroundColor") ?? .white
+    }()
 }

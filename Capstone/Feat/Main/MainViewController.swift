@@ -18,11 +18,20 @@ final class MainViewController: UIViewController{
     private let feelingTrigger = PublishSubject<Void>()
     
     //MARK: UI Components
+    private let naviLogo : UILabel = {
+        let label = UILabel()
+        label.text = "CheeYou"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .FifthryColor
+        label.textAlignment = .left
+        return label
+    }()
+    //명언
     private let naviImage : UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFit
-        image.backgroundColor = .white
-        image.image = UIImage(named: "appIcon")
+        image.image = nil
+        image.contentMode = .scaleAspectFill
+        image.backgroundColor = .clear
         return image
     }()
     //분석 버튼
@@ -30,7 +39,7 @@ final class MainViewController: UIViewController{
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon1"), for: .normal)
         btn.setImage(UIImage(named: "mainIcon1"), for: .highlighted)
-        btn.backgroundColor = .ThirdryColor
+        btn.backgroundColor = .white
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
         btn.layer.masksToBounds = true
@@ -42,7 +51,7 @@ final class MainViewController: UIViewController{
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon2"), for: .normal)
         btn.setImage(UIImage(named: "mainIcon2"), for: .highlighted)
-        btn.backgroundColor = .FourthryColor
+        btn.backgroundColor = .white
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
         btn.layer.masksToBounds = true
@@ -53,7 +62,7 @@ final class MainViewController: UIViewController{
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon4"), for: .normal)
         btn.setImage(UIImage(named: "mainIcon4"), for: .highlighted)
-        btn.backgroundColor = .SecondaryColor
+        btn.backgroundColor = .white
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
         btn.layer.masksToBounds = true
@@ -64,20 +73,23 @@ final class MainViewController: UIViewController{
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon3"), for: .normal)
         btn.setImage(UIImage(named: "mainIcon3"), for: .highlighted)
-        btn.backgroundColor = .FifthryColor
+        btn.backgroundColor = .white
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
         btn.layer.masksToBounds = true
         return btn
     }()
     //차트
-    private let Chart : LineChartView = {
-        let view = LineChartView()
-        view.backgroundColor = .clear
+    private let Chart : BarChartView = {
+        let view = BarChartView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        view.layer.masksToBounds = true
         view.xAxis.drawGridLinesEnabled = false
         view.leftAxis.drawGridLinesEnabled = false
         view.rightAxis.drawGridLinesEnabled = false
         view.rightAxis.drawLabelsEnabled = false
+        view.leftAxis.drawLabelsEnabled = false
         return view
     }()
     override func viewDidLoad() {
@@ -101,77 +113,88 @@ extension MainViewController {
     private func setNavigation() {
         self.title = "홈"
         self.view.backgroundColor = .white
-        self.navigationItem.titleView = naviImage
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: naviLogo)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.BackgroundColor]
         self.navigationController?.navigationBar.tintColor = .white
     }
 }
 //MARK: - UI Layout
 private extension MainViewController {
     private func setLayout() {
-        self.view.addSubview(analyzeBtn)
-        self.view.addSubview(consultingBtn)
-        self.view.addSubview(recordBtn)
-        self.view.addSubview(recommandBtn)
-        self.view.addSubview(Chart)
-        analyzeBtn.snp.makeConstraints { make in
+        let View = UIView()
+        View.backgroundColor = .BackgroundColor
+        View.addSubview(naviImage)
+        View.addSubview(analyzeBtn)
+        View.addSubview(consultingBtn)
+        View.addSubview(recordBtn)
+        View.addSubview(recommandBtn)
+        View.addSubview(Chart)
+        self.view.addSubview(View)
+        View.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        naviImage.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview().inset(self.view.frame.height / 8)
+            make.height.equalTo(40)
+        }
+        analyzeBtn.snp.makeConstraints { make in
+            make.top.equalTo(naviImage.snp.bottom).offset(30)
             make.height.equalToSuperview().dividedBy(3.5)
             make.width.equalToSuperview().dividedBy(2.5)
-            make.leading.equalToSuperview().inset(30)
+            make.leading.equalToSuperview().inset(20)
         }
         consultingBtn.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(30)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalToSuperview().dividedBy(4.5)
             make.top.equalTo(analyzeBtn.snp.bottom).offset(10)
         }
         recordBtn.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(self.view.frame.height / 8)
+            make.top.equalTo(naviImage.snp.bottom).offset(30)
             make.height.equalTo(analyzeBtn.snp.height).dividedBy(2).inset(2.5)
             make.leading.equalTo(analyzeBtn.snp.trailing).offset(10)
-            make.trailing.equalToSuperview().inset(30)
+            make.trailing.equalToSuperview().inset(20)
         }
         recommandBtn.snp.makeConstraints { make in
             make.height.equalTo(analyzeBtn.snp.height).dividedBy(2).inset(2.5)
             make.top.equalTo(recordBtn.snp.bottom).offset(10)
             make.leading.equalTo(recordBtn.snp.leading).inset(0)
-            make.trailing.equalToSuperview().inset(30)
+            make.trailing.equalToSuperview().inset(20)
         }
         Chart.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(30)
-            make.top.equalTo(consultingBtn.snp.bottom).offset(30)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(consultingBtn.snp.bottom).offset(10)
             make.bottom.equalToSuperview().inset(self.view.frame.height / 9)
         }
     }
     private func setchart(model : FeelingRequestModel) {
-        var entries = [ChartDataEntry]()
+        var entries = [BarChartDataEntry]()
         if let feels = model.data?.feelingStateResponsesDto {
             var index : Double = 0.0
             for feel in feels {
-                entries.append(ChartDataEntry(x: index, y: feel.avgFeelingState ?? 0.0))
+                entries.append(BarChartDataEntry(x: index, y: feel.avgFeelingState ?? 0.0))
                 index += 1
             }
         }
         for index in 0...7 {
-            entries.append(ChartDataEntry(x: Double(index), y: Double(index)))
+            entries.append(BarChartDataEntry(x: Double(index), y: Double(index)))
         }
-        let dataSet = LineChartDataSet(entries: entries, label: "최근 7일 심리분석 결과")
-        dataSet.colors = [.ThirdryColor]
-        dataSet.circleColors = [.red]
-        dataSet.circleRadius = 2
+        let dataSet = BarChartDataSet(entries: entries, label: "최근 7일 심리분석 결과")
+        dataSet.colors = [.systemGreen]
         dataSet.drawValuesEnabled = false
         
-        let data = LineChartData(dataSet: dataSet)
+        let data = BarChartData(dataSet: dataSet)
         data.setValueTextColor(.black)
         data.setValueFont(UIFont.systemFont(ofSize: 12))
         
-        
         Chart.data = data
-        Chart.animate(xAxisDuration: 1.5, yAxisDuration: 1.5)
+        Chart.animate(xAxisDuration: 0, yAxisDuration: 1.5)
     }
 }
 //MARK: - set Binding
 private extension MainViewController {
     private func setBinding() {
+        self.naviImage.image = UIImage(named: "image1")
         self.mainViewModel.feelingTrigger.onNext(())
         self.mainViewModel.feelingResult.subscribe(onNext: {[weak self] result in
             guard let self = self else { return }

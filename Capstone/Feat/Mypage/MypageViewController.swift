@@ -16,12 +16,13 @@ final class MypageViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mypageViewModel = MypageViewModel()
     //MARK: UI Components
-    private let naviImage : UIImageView = {
-        let image = UIImageView()
-        image.contentMode = .scaleAspectFit
-        image.backgroundColor = .white
-        image.image = UIImage(named: "appIcon")
-        return image
+    private let naviLogo : UILabel = {
+        let label = UILabel()
+        label.text = "CheeYou"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .FifthryColor
+        label.textAlignment = .left
+        return label
     }()
     //이미지
     private let personImage : UIImageView = {
@@ -84,13 +85,15 @@ final class MypageViewController: UIViewController{
         btn.configuration = .bordered()
         return btn
     }()
-    private let vsLabel : UILabel = {
-        let label = UILabel()
+    private let vsLabel : UITextView = {
+        let label = UITextView()
         label.backgroundColor = .white
-        label.text = "CheeYou v 1.0.0"
+        label.text = "CheeYou v 1.0.0\nMade by CapstoneTeam3"
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 13)
         label.textAlignment = .center
+        label.isUserInteractionEnabled = false
+        label.isScrollEnabled = false
         return label
     }()
     override func viewDidLoad() {
@@ -114,7 +117,8 @@ extension MypageViewController {
     private func setNavigation() {
         self.title = "마이페이지"
         self.view.backgroundColor = .white
-        self.navigationItem.titleView = naviImage
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: naviLogo)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         self.navigationController?.navigationBar.tintColor = .white
     }
 }
@@ -169,7 +173,7 @@ private extension MypageViewController {
         vsLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(feedBackBtn.snp.bottom).offset(40)
-            make.height.equalTo(15)
+            make.bottom.equalToSuperview().inset(self.view.frame.height / 9)
         }
     }
 }
@@ -188,6 +192,12 @@ private extension MypageViewController {
         logoutBtn.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             self.mypageViewModel.logoutTrigger.onNext(())
+        }.disposed(by: disposeBag)
+        feedBackBtn.rx.tap.bind { [weak self] in
+            guard let self = self else { return  }
+            if let url = URL(string: "https://forms.gle/EG8UVLx8vfuoCuAS7"){
+                UIApplication.shared.open(url)
+            }
         }.disposed(by: disposeBag)
     }
     private func setBindView() {
