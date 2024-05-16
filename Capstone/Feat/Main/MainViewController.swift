@@ -90,6 +90,7 @@ final class MainViewController: UIViewController{
         view.rightAxis.drawGridLinesEnabled = false
         view.rightAxis.drawLabelsEnabled = false
         view.leftAxis.drawLabelsEnabled = false
+        view.isUserInteractionEnabled = false
         return view
     }()
     override func viewDidLoad() {

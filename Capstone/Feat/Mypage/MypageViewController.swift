@@ -30,7 +30,7 @@ final class MypageViewController: UIViewController{
         view.backgroundColor = .white
         view.contentMode = .scaleAspectFit
         view.image = UIImage(systemName: "person.circle.fill")
-        view.tintColor = .lightGray
+        view.tintColor = .BackgroundColor
         return view
     }()
     //개인 정보 텍스트
