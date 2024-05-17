@@ -69,7 +69,7 @@ final class MainViewController: UIViewController{
         return btn
     }()
     //추천 버튼
-    private lazy var recommandBtn : UIButton = {
+    private lazy var growingBtn : UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(named: "mainIcon3"), for: .normal)
         btn.setImage(UIImage(named: "mainIcon3"), for: .highlighted)
@@ -77,6 +77,7 @@ final class MainViewController: UIViewController{
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
         btn.layer.masksToBounds = true
+        btn.addTarget(self, action: #selector(growingBtnTapped), for: .touchUpInside)
         return btn
     }()
     //차트
@@ -128,7 +129,7 @@ private extension MainViewController {
         View.addSubview(analyzeBtn)
         View.addSubview(consultingBtn)
         View.addSubview(recordBtn)
-        View.addSubview(recommandBtn)
+        View.addSubview(growingBtn)
         View.addSubview(Chart)
         self.view.addSubview(View)
         View.snp.makeConstraints { make in
@@ -156,7 +157,7 @@ private extension MainViewController {
             make.leading.equalTo(analyzeBtn.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(20)
         }
-        recommandBtn.snp.makeConstraints { make in
+        growingBtn.snp.makeConstraints { make in
             make.height.equalTo(analyzeBtn.snp.height).dividedBy(2).inset(2.5)
             make.top.equalTo(recordBtn.snp.bottom).offset(10)
             make.leading.equalTo(recordBtn.snp.leading).inset(0)
@@ -207,5 +208,8 @@ private extension MainViewController {
     }
     @objc func analyzeBtnTapped() {
         self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)
+    }
+    @objc func growingBtnTapped() {
+        self.navigationController?.pushViewController(GrowingViewController(), animated: true)
     }
 }

@@ -20,6 +20,8 @@
 		E4B1E69F2BF3C15D00ECADFA /* AnalysisNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E69E2BF3C15C00ECADFA /* AnalysisNetwork.swift */; };
 		E4B1E6A22BF3C4B500ECADFA /* AnswerRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6A12BF3C4B500ECADFA /* AnswerRequestModel.swift */; };
 		E4B1E6A52BF3C62A00ECADFA /* AnswerResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6A42BF3C62A00ECADFA /* AnswerResponseModel.swift */; };
+		E4B1E6D62BF71ECF00ECADFA /* GrowingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6D52BF71ECF00ECADFA /* GrowingViewController.swift */; };
+		E4B1E6D82BF71F0600ECADFA /* GrowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6D72BF71F0600ECADFA /* GrowingViewModel.swift */; };
 		E4B9A53F2BD243510073F7B9 /* LoginNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A53E2BD243510073F7B9 /* LoginNetwork.swift */; };
 		E4B9A5412BD243F80073F7B9 /* LoginResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5402BD243F80073F7B9 /* LoginResponseModel.swift */; };
 		E4B9A5442BD28DAC0073F7B9 /* QuestionNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B9A5432BD28DAC0073F7B9 /* QuestionNetwork.swift */; };
@@ -97,6 +99,8 @@
 		E4B1E69E2BF3C15C00ECADFA /* AnalysisNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisNetwork.swift; sourceTree = "<group>"; };
 		E4B1E6A12BF3C4B500ECADFA /* AnswerRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerRequestModel.swift; sourceTree = "<group>"; };
 		E4B1E6A42BF3C62A00ECADFA /* AnswerResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerResponseModel.swift; sourceTree = "<group>"; };
+		E4B1E6D52BF71ECF00ECADFA /* GrowingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowingViewController.swift; sourceTree = "<group>"; };
+		E4B1E6D72BF71F0600ECADFA /* GrowingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowingViewModel.swift; sourceTree = "<group>"; };
 		E4B9A53E2BD243510073F7B9 /* LoginNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetwork.swift; sourceTree = "<group>"; };
 		E4B9A5402BD243F80073F7B9 /* LoginResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponseModel.swift; sourceTree = "<group>"; };
 		E4B9A5432BD28DAC0073F7B9 /* QuestionNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionNetwork.swift; sourceTree = "<group>"; };
@@ -303,6 +307,15 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		E4B1E6D42BF71EB600ECADFA /* Growing */ = {
+			isa = PBXGroup;
+			children = (
+				E4B1E6D52BF71ECF00ECADFA /* GrowingViewController.swift */,
+				E4B1E6D72BF71F0600ECADFA /* GrowingViewModel.swift */,
+			);
+			path = Growing;
+			sourceTree = "<group>";
+		};
 		E4B9A53D2BD243480073F7B9 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -456,6 +469,7 @@
 		E4D401DE2BB2CBF600B4E5C4 /* Feat */ = {
 			isa = PBXGroup;
 			children = (
+				E4B1E6D42BF71EB600ECADFA /* Growing */,
 				E4D402162BB472B500B4E5C4 /* Result */,
 				E4D4020D2BB4092800B4E5C4 /* Question */,
 				E4D402072BB3EE5900B4E5C4 /* Mypage */,
@@ -757,10 +771,12 @@
 				E4B9A5442BD28DAC0073F7B9 /* QuestionNetwork.swift in Sources */,
 				E4D4020F2BB4094F00B4E5C4 /* FirstQuestionViewController.swift in Sources */,
 				E4EC74512BEA10E600D1C9FD /* URL.swift in Sources */,
+				E4B1E6D82BF71F0600ECADFA /* GrowingViewModel.swift in Sources */,
 				E4D402152BB40E2100B4E5C4 /* ForthQuestionViewController.swift in Sources */,
 				E4D402112BB40E0700B4E5C4 /* SecondQuestionViewController.swift in Sources */,
 				E4B1E6A52BF3C62A00ECADFA /* AnswerResponseModel.swift in Sources */,
 				E4D401C62BB2C60C00B4E5C4 /* AppDelegate.swift in Sources */,
+				E4B1E6D62BF71ECF00ECADFA /* GrowingViewController.swift in Sources */,
 				E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */,
 				E4D401C82BB2C60C00B4E5C4 /* SceneDelegate.swift in Sources */,
 				E4D401E12BB2CD1B00B4E5C4 /* Color + Extensioin.swift in Sources */,
