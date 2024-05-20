@@ -69,11 +69,10 @@ final class LoginViewModel : NSObject, ASAuthorizationControllerDelegate, ASAuth
     }
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            if let code = appleIDCredential.authorizationCode?.base64EncodedString(),
-               let name = appleIDCredential.fullName{
-                let email = appleIDCredential.email ?? "Permission@Denied"
-                self.serverLoginTrigger.onNext(LoginRequestModel(socialId: code, nickname: name.familyName ?? "익명", email: email, socialType: "APPLE"))
-            }
+            let name = appleIDCredential.fullName
+            let email = appleIDCredential.email ?? "Permission@Denied"
+            let userIdentifier = appleIDCredential.user
+            self.serverLoginTrigger.onNext(LoginRequestModel(socialId: userIdentifier, nickname: name?.familyName ?? "익명", email: email, socialType: "APPLE"))
         }
     }
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
