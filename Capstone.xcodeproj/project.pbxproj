@@ -10,6 +10,9 @@
 		E461BD502BDA5540008CFD7D /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD4F2BDA5540008CFD7D /* MypageViewModel.swift */; };
 		E461BD532BDA5D0A008CFD7D /* FeelingNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD522BDA5D0A008CFD7D /* FeelingNetwork.swift */; };
 		E461BD572BDA5D45008CFD7D /* FeelingRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD562BDA5D45008CFD7D /* FeelingRequestModel.swift */; };
+		E4713A582BFC58CB0044F4C4 /* ReissueResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A572BFC58CB0044F4C4 /* ReissueResponseModel.swift */; };
+		E4713A5D2BFC659A0044F4C4 /* ReissueNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A5C2BFC659A0044F4C4 /* ReissueNetwork.swift */; };
+		E4713A602BFC71F40044F4C4 /* ReissueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A5F2BFC71F40044F4C4 /* ReissueViewModel.swift */; };
 		E4989EE12BC8FD9500D888DC /* VoiceRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE02BC8FD9400D888DC /* VoiceRecordViewModel.swift */; };
 		E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */; };
 		E4B1E6912BEE7A6000ECADFA /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */; };
@@ -95,6 +98,9 @@
 		E461BD4F2BDA5540008CFD7D /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
 		E461BD522BDA5D0A008CFD7D /* FeelingNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingNetwork.swift; sourceTree = "<group>"; };
 		E461BD562BDA5D45008CFD7D /* FeelingRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingRequestModel.swift; sourceTree = "<group>"; };
+		E4713A572BFC58CB0044F4C4 /* ReissueResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueResponseModel.swift; sourceTree = "<group>"; };
+		E4713A5C2BFC659A0044F4C4 /* ReissueNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueNetwork.swift; sourceTree = "<group>"; };
+		E4713A5F2BFC71F40044F4C4 /* ReissueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueViewModel.swift; sourceTree = "<group>"; };
 		E4989EE02BC8FD9400D888DC /* VoiceRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordViewModel.swift; sourceTree = "<group>"; };
 		E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Url + Extensioin.swift"; sourceTree = "<group>"; };
 		E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
@@ -214,6 +220,31 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		E4713A552BFC58B80044F4C4 /* Reissue */ = {
+			isa = PBXGroup;
+			children = (
+				E4713A562BFC58BE0044F4C4 /* Response */,
+			);
+			path = Reissue;
+			sourceTree = "<group>";
+		};
+		E4713A562BFC58BE0044F4C4 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				E4713A572BFC58CB0044F4C4 /* ReissueResponseModel.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		E4713A5E2BFC71E00044F4C4 /* Reissue */ = {
+			isa = PBXGroup;
+			children = (
+				E4713A5C2BFC659A0044F4C4 /* ReissueNetwork.swift */,
+				E4713A5F2BFC71F40044F4C4 /* ReissueViewModel.swift */,
+			);
+			path = Reissue;
+			sourceTree = "<group>";
+		};
 		E4989EDF2BC8FD8600D888DC /* First */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +360,7 @@
 		E4B9A53D2BD243480073F7B9 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				E4713A5E2BFC71E00044F4C4 /* Reissue */,
 				E4B9A53E2BD243510073F7B9 /* LoginNetwork.swift */,
 				E4B1E6982BEF556C00ECADFA /* LogoutNetwork.swift */,
 			);
@@ -390,6 +422,7 @@
 		E4C58BE32BCE93A700A1AD58 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				E4713A552BFC58B80044F4C4 /* Reissue */,
 				E4B1E68D2BEDE9BB00ECADFA /* Logout */,
 				E4C58BE42BCE93B400A1AD58 /* Login */,
 			);
@@ -795,6 +828,7 @@
 				E4D402152BB40E2100B4E5C4 /* ForthQuestionViewController.swift in Sources */,
 				E4D402112BB40E0700B4E5C4 /* SecondQuestionViewController.swift in Sources */,
 				E4B1E6A52BF3C62A00ECADFA /* AnswerResponseModel.swift in Sources */,
+				E4713A5D2BFC659A0044F4C4 /* ReissueNetwork.swift in Sources */,
 				E4D401C62BB2C60C00B4E5C4 /* AppDelegate.swift in Sources */,
 				E4B1E6D62BF71ECF00ECADFA /* GrowingViewController.swift in Sources */,
 				E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */,
@@ -805,6 +839,7 @@
 				E461BD532BDA5D0A008CFD7D /* FeelingNetwork.swift in Sources */,
 				E4D402062BB3ED1200B4E5C4 /* TabBarViewController.swift in Sources */,
 				E4C58BE82BCE93CA00A1AD58 /* LoginRequestModel.swift in Sources */,
+				E4713A582BFC58CB0044F4C4 /* ReissueResponseModel.swift in Sources */,
 				E4D4021E2BB53FB500B4E5C4 /* ResultViewController.swift in Sources */,
 				E4D402002BB3E63E00B4E5C4 /* MainViewController.swift in Sources */,
 				E4D402032BB3ED0200B4E5C4 /* MainViewModel.swift in Sources */,
@@ -816,6 +851,7 @@
 				E4B1E6942BEE7BB500ECADFA /* Network.swift in Sources */,
 				E461BD502BDA5540008CFD7D /* MypageViewModel.swift in Sources */,
 				E4B1E6A22BF3C4B500ECADFA /* AnswerRequestModel.swift in Sources */,
+				E4713A602BFC71F40044F4C4 /* ReissueViewModel.swift in Sources */,
 				E4B1E69F2BF3C15D00ECADFA /* AnalysisNetwork.swift in Sources */,
 				E4B1E6992BEF556C00ECADFA /* LogoutNetwork.swift in Sources */,
 			);

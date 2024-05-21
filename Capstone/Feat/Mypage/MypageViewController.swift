@@ -61,7 +61,7 @@ final class MypageViewController: UIViewController{
     private let logoutBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
-        btn.setTitle("로그아웃", for: .normal)
+        btn.setTitle("🔓     로그아웃", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.setTitleColor(.gray, for: .highlighted)
         btn.configuration = .bordered()
@@ -70,7 +70,7 @@ final class MypageViewController: UIViewController{
     private let listBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
-        btn.setTitle("분석 기록", for: .normal)
+        btn.setTitle("💳    내 구독권", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.setTitleColor(.gray, for: .highlighted)
         btn.configuration = .bordered()
@@ -79,7 +79,7 @@ final class MypageViewController: UIViewController{
     private let feedBackBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
-        btn.setTitle("피드백 보내기", for: .normal)
+        btn.setTitle("🕊️ 피드백 보내기", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.setTitleColor(.gray, for: .highlighted)
         btn.configuration = .bordered()
