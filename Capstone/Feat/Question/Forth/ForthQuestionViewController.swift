@@ -11,6 +11,8 @@ import RxSwift
 import RxCocoa
 import UIKit
 import AVFoundation
+import NVActivityIndicatorView
+import SCLAlertView
 
 final class ForthQuestionViewController : UIViewController {
     private let disposeBag = DisposeBag()
@@ -98,6 +100,10 @@ final class ForthQuestionViewController : UIViewController {
         view.layer.masksToBounds = true
         return view
     }()
+    private let loadingIndicator : NVActivityIndicatorView = {
+        let view = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50), type: .ballBeat, color: .white)
+        return view
+    }()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
@@ -128,6 +134,7 @@ private extension ForthQuestionViewController {
         self.view.addSubview(play)
         self.view.addSubview(stop)
         self.view.addSubview(nextBtn)
+        self.view.addSubview(loadingIndicator)
         image.snp.makeConstraints { make in
             make.leading.trailing.top.bottom.equalToSuperview().inset(0)
         }
@@ -162,6 +169,9 @@ private extension ForthQuestionViewController {
             make.trailing.equalToSuperview().inset(30)
             make.bottom.equalToSuperview().inset(50)
             make.height.equalTo(20)
+        }
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
 }
@@ -209,6 +219,7 @@ private extension ForthQuestionViewController {
                         guard let self = self else { return }
                         DispatchQueue.main.async {
                             self.voiceRecordViewModel.recordTrigger.onNext(())
+                            self.loadingIndicator.stopAnimating()
                             self.mic.tintColor = .systemGreen
                             self.stop.tintColor = .systemGray
                             self.play.tintColor = .systemGray
@@ -222,6 +233,7 @@ private extension ForthQuestionViewController {
                         guard let self = self else { return }
                         DispatchQueue.main.async {
                             self.voiceRecordViewModel.playTrigger.onNext(())
+                            self.loadingIndicator.stopAnimating()
                             self.mic.tintColor = .systemGray
                             self.stop.tintColor = .systemGray
                             self.play.tintColor = .systemBlue
@@ -236,6 +248,7 @@ private extension ForthQuestionViewController {
                         guard let self = self else { return }
                         DispatchQueue.main.async {
                             self.voiceRecordViewModel.stopTrigger.onNext(())
+                            self.loadingIndicator.stopAnimating()
                             self.mic.tintColor = .systemGray
                             self.stop.tintColor = .systemRed
                             self.play.tintColor = .systemGray
@@ -248,15 +261,26 @@ private extension ForthQuestionViewController {
                 self.nextBtn.rx.tap
                     .subscribe { _ in
                         self.voiceRecordViewModel.postRecordTrigger.onNext([self.question.data?.analysisId ?? 0, self.question.data?.questionIds?[3] ?? 0])
-                        //전송 중 -> 로딩인디케이터 넣을 필요 O
+                        DispatchQueue.main.async {
+                            self.loadingIndicator.startAnimating()
+                        }
                     }
                     .disposed(by: self.disposeBag)
-                self.voiceRecordViewModel.postRecordResult.subscribe { [weak self] result in
+                self.voiceRecordViewModel.postRecordResult.subscribe(onNext: { [weak self] result in
                     guard let self = self else { return }
-                    if result.element?.code == 200 {
-                        self.navigationController?.pushViewController(LoadingViewController(), animated: true)
+                    if result.code == 200 {
+                        DispatchQueue.main.async {
+                            self.loadingIndicator.stopAnimating()
+                            self.navigationController?.pushViewController(LoadingViewController(), animated: true)
+                        }
+                    }else if result.code == nil {
+                        DispatchQueue.main.async {
+                            let alert = SCLAlertView()
+                            alert.showError("녹음을 완료해 주세요")
+                            self.loadingIndicator.stopAnimating()
+                        }
                     }
-                }
+                })
                 .disposed(by: self.disposeBag)
             }
         }.disposed(by: disposeBag)
