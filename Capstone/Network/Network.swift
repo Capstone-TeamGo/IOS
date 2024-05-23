@@ -77,4 +77,24 @@ final class Network<T: Decodable> {
             return Disposables.create() as! Observable<T>
         }
     }
+    //MARK: - SentimentAnalysisNetwork
+    public func postSentimentNetwork(path: String) -> Observable<T> {
+        let fullpath = "\(endpoint)\(path)"
+        let accessToken = KeychainWrapper.standard.string(forKey: "JWTaccessToken") ?? ""
+        return Observable.create { observer in
+            AF.request(fullpath, method: .post, headers: ["Authorization":"\(accessToken)","Content-Type":"application/json"])
+                .validate()
+                .responseDecodable(of: T.self) { response in
+                    print("\(response.debugDescription)")
+                    switch response.result {
+                    case .success(let data):
+                        observer.onNext(data)
+                        observer.onCompleted()
+                    case .failure(let error):
+                        observer.onError(error)
+                    }
+                }
+            return Disposables.create()
+        }
+    }
 }

@@ -14,6 +14,9 @@
 		E4713A5D2BFC659A0044F4C4 /* ReissueNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A5C2BFC659A0044F4C4 /* ReissueNetwork.swift */; };
 		E4713A602BFC71F40044F4C4 /* ReissueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A5F2BFC71F40044F4C4 /* ReissueViewModel.swift */; };
 		E4713A632BFF185E0044F4C4 /* SCLAlertView in Frameworks */ = {isa = PBXBuildFile; productRef = E4713A622BFF185E0044F4C4 /* SCLAlertView */; };
+		E4713A652BFF32950044F4C4 /* SentimentAnalysisNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A642BFF32950044F4C4 /* SentimentAnalysisNetwork.swift */; };
+		E4713A672BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A662BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift */; };
+		E4713A6A2BFF360D0044F4C4 /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A692BFF360D0044F4C4 /* LoadingViewModel.swift */; };
 		E4989EE12BC8FD9500D888DC /* VoiceRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE02BC8FD9400D888DC /* VoiceRecordViewModel.swift */; };
 		E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */; };
 		E4B1E6912BEE7A6000ECADFA /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */; };
@@ -97,6 +100,9 @@
 		E4713A572BFC58CB0044F4C4 /* ReissueResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueResponseModel.swift; sourceTree = "<group>"; };
 		E4713A5C2BFC659A0044F4C4 /* ReissueNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueNetwork.swift; sourceTree = "<group>"; };
 		E4713A5F2BFC71F40044F4C4 /* ReissueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueViewModel.swift; sourceTree = "<group>"; };
+		E4713A642BFF32950044F4C4 /* SentimentAnalysisNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentAnalysisNetwork.swift; sourceTree = "<group>"; };
+		E4713A662BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentAnalysisResponseModel.swift; sourceTree = "<group>"; };
+		E4713A692BFF360D0044F4C4 /* LoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
 		E4989EE02BC8FD9400D888DC /* VoiceRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordViewModel.swift; sourceTree = "<group>"; };
 		E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Url + Extensioin.swift"; sourceTree = "<group>"; };
 		E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
@@ -237,6 +243,15 @@
 			path = Reissue;
 			sourceTree = "<group>";
 		};
+		E4713A682BFF35FF0044F4C4 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E4D402182BB52FC500B4E5C4 /* LoadingViewController.swift */,
+				E4713A692BFF360D0044F4C4 /* LoadingViewModel.swift */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
 		E4989EDF2BC8FD8600D888DC /* First */ = {
 			isa = PBXGroup;
 			children = (
@@ -320,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				E4B1E69E2BF3C15C00ECADFA /* AnalysisNetwork.swift */,
+				E4713A642BFF32950044F4C4 /* SentimentAnalysisNetwork.swift */,
 			);
 			path = Analysis;
 			sourceTree = "<group>";
@@ -336,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				E4B1E6A42BF3C62A00ECADFA /* AnswerResponseModel.swift */,
+				E4713A662BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -575,7 +592,7 @@
 		E4D402162BB472B500B4E5C4 /* Result */ = {
 			isa = PBXGroup;
 			children = (
-				E4D402182BB52FC500B4E5C4 /* LoadingViewController.swift */,
+				E4713A682BFF35FF0044F4C4 /* Loading */,
 				E4D4021D2BB53FB500B4E5C4 /* ResultViewController.swift */,
 			);
 			path = Result;
@@ -813,10 +830,13 @@
 				E4D402112BB40E0700B4E5C4 /* SecondQuestionViewController.swift in Sources */,
 				E4B1E6A52BF3C62A00ECADFA /* AnswerResponseModel.swift in Sources */,
 				E4713A5D2BFC659A0044F4C4 /* ReissueNetwork.swift in Sources */,
+				E4713A652BFF32950044F4C4 /* SentimentAnalysisNetwork.swift in Sources */,
 				E4D401C62BB2C60C00B4E5C4 /* AppDelegate.swift in Sources */,
+				E4713A6A2BFF360D0044F4C4 /* LoadingViewModel.swift in Sources */,
 				E4B1E6D62BF71ECF00ECADFA /* GrowingViewController.swift in Sources */,
 				E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */,
 				E4D401C82BB2C60C00B4E5C4 /* SceneDelegate.swift in Sources */,
+				E4713A672BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift in Sources */,
 				E4D401E12BB2CD1B00B4E5C4 /* Color + Extensioin.swift in Sources */,
 				E4C58BEA2BCE946700A1AD58 /* LoginViewModel.swift in Sources */,
 				E4D402132BB40E1600B4E5C4 /* ThirdQuestionViewController.swift in Sources */,

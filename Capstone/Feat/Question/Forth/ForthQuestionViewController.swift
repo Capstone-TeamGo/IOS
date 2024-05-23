@@ -201,19 +201,12 @@ private extension ForthQuestionViewController {
                     self.navigationController?.pushViewController(LoginViewController(), animated: true)
                 }
             } else {
-                self.voiceRecordViewModel.questionTrigger.onNext(())
-                self.voiceRecordViewModel.questionResult
-                    .subscribe(onNext: {[weak self] question in
-                        guard let self = self else { return }
-                        guard let audioURL = URL(string: question.data?.accessUrls?.first ?? "") else {return}
-                        DispatchQueue.main.async {
-                            self.question = question
-                            self.questionText.text = question.data?.questionTexts?.first
-                            self.player = AVPlayer(url: audioURL)
-                            self.player?.play()
-                        }
-                    })
-                    .disposed(by: self.disposeBag)
+                DispatchQueue.main.async {
+                    guard let audioURL = URL(string: self.question.data?.accessUrls?[3] ?? "") else {return}
+                    self.questionText.text = self.question.data?.questionTexts?[3]
+                    self.player = AVPlayer(url: audioURL)
+                    self.player?.play()
+                }
                 self.mic.rx.tap
                     .subscribe(onNext: {[weak self] in
                         guard let self = self else { return }
@@ -271,7 +264,7 @@ private extension ForthQuestionViewController {
                     if result.code == 200 {
                         DispatchQueue.main.async {
                             self.loadingIndicator.stopAnimating()
-                            self.navigationController?.pushViewController(LoadingViewController(), animated: true)
+                            self.navigationController?.pushViewController(LoadingViewController(question: self.question), animated: true)
                         }
                     }else if result.code == nil {
                         DispatchQueue.main.async {
