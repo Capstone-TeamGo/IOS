@@ -22,10 +22,8 @@ final class Network<T: Decodable> {
     //MARK: - General Get Method
     public func getNetwork(path: String) -> Observable<T> {
         let fullPath = "\(endpoint)\(path)"
-        //토큰 유효성 검사
-        
         let accessToken = KeychainWrapper.standard.string(forKey: "JWTaccessToken") ?? ""
-        return RxAlamofire.data(.get, fullPath, headers: ["Authorization":"\(accessToken)","Content-Type":"Application/json"])
+        return RxAlamofire.data(.get, fullPath, headers: ["Authorization":"\(accessToken)","Content-Type":"application/json"])
             .observe(on: queue)
             .debug()
             .map { data -> T in
@@ -35,10 +33,8 @@ final class Network<T: Decodable> {
     //MARK: - General Post Method
     public func postNetwork(path: String, params: [String:Any]) -> Observable<T> {
         let fullpath = "\(endpoint)\(path)"
-        //토큰 유효성 검사
-        
         let accessToken = KeychainWrapper.standard.string(forKey: "JWTaccessToken") ?? ""
-        return RxAlamofire.data(.post, fullpath, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization":"\(accessToken)","Content-Type":"Application/json"])
+        return RxAlamofire.data(.post, fullpath, parameters: params, encoding: JSONEncoding.default, headers: ["Authorization":"\(accessToken)","Content-Type":"application/json"])
             .observe(on: queue)
             .debug()
             .map { data -> T in
@@ -48,7 +44,7 @@ final class Network<T: Decodable> {
     //MARK: - Auth/Login Method
     public func loginNetwork(path: String, params: [String:Any]) -> Observable<T> {
         let fullpath = "\(endpoint)\(path)"
-        return RxAlamofire.data(.post, fullpath, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type":"Application/json"])
+        return RxAlamofire.data(.post, fullpath, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type":"application/json"])
             .observe(on: queue)
             .debug()
             .map { data -> T in
@@ -58,8 +54,6 @@ final class Network<T: Decodable> {
     //MARK: - MultipartFormData Method
     public func formDataNetwork(path: String, params: [String:Any], dataURL : URL) -> Observable<T> {
         let fullpath = "\(endpoint)\(path)"
-        //토큰 유효성 검사
-        
         let accessToken = KeychainWrapper.standard.string(forKey: "JWTaccessToken") ?? ""
         do {
             let audioData = try Data(contentsOf: dataURL)

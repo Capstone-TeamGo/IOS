@@ -15,7 +15,8 @@ import DGCharts
 final class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mainViewModel = MainViewModel()
-    private let reissueModel = ReissueViewModel()
+    //토큰 유효성 검사
+    private let reissueViewModel = ReissueViewModel()
     
     //MARK: UI Components
     private let naviLogo : UILabel = {
@@ -204,22 +205,23 @@ private extension MainViewController {
         self.naviImage.image = UIImage(named: imageNames[randomIndex])
     }
     private func setBinding() {
-//        self.reissueModel.reissueTrigger.onNext(())
-//        reissueModel.judgementReissue.bind{ bool in
-//            if bool == false {
-//                DispatchQueue.main.async {
-//                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
-//                }
-//            }
-//        }.disposed(by: disposeBag)
-        self.mainViewModel.feelingTrigger.onNext(())
-        self.mainViewModel.feelingResult.subscribe(onNext: {[weak self] result in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.setchart(model: result)
+        self.reissueViewModel.reissueTrigger.onNext(())
+        self.reissueViewModel.reissueExpire.bind(onNext: { expire in
+            if expire == true {
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                }
+            } else {
+                self.mainViewModel.feelingTrigger.onNext(())
+                self.mainViewModel.feelingResult.subscribe(onNext: {[weak self] result in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.setchart(model: result)
+                    }
+                })
+                .disposed(by: self.disposeBag)
             }
-        })
-        .disposed(by: self.disposeBag)
+        }).disposed(by: disposeBag)
     }
     @objc func analyzeBtnTapped() {
         self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)

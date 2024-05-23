@@ -171,9 +171,9 @@ private extension GrowingViewController {
             make.leading.equalTo(progress.snp.trailing).offset(10)
             make.bottom.equalToSuperview().inset(self.view.frame.height / 7)
         }
-        if let gifUrl = Bundle.main.url(forResource: "healing4", withExtension: "gif") {
-            tree.kf.setImage(with: gifUrl)
-        }
+//        if let gifUrl = Bundle.main.url(forResource: "healing4", withExtension: "gif") {
+//            tree.kf.setImage(with: gifUrl)
+//        }
     }
 }
 //MARK: - Binding

@@ -11,8 +11,13 @@ struct ReissueResponseModel : Codable {
     let state : String?
     let message : String?
     let data : ReissueData?
+    let errorCode : Int?
+    let details : ReissueDetail?
 }
 struct ReissueData : Codable {
     let accessToken : String?
+    let refreshToken : String?
+}
+struct ReissueDetail : Codable {
     let refreshToken : String?
 }
