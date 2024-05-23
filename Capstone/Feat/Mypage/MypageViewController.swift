@@ -15,6 +15,7 @@ import SwiftKeychainWrapper
 final class MypageViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mypageViewModel = MypageViewModel()
+    private let reissueViewModel = ReissueViewModel()
     //MARK: UI Components
     private let naviLogo : UILabel = {
         let label = UILabel()
@@ -61,7 +62,7 @@ final class MypageViewController: UIViewController{
     private let logoutBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
-        btn.setTitle("로그아웃", for: .normal)
+        btn.setTitle("🔓     로그아웃", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.setTitleColor(.gray, for: .highlighted)
         btn.configuration = .bordered()
@@ -70,7 +71,7 @@ final class MypageViewController: UIViewController{
     private let listBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
-        btn.setTitle("분석 기록", for: .normal)
+        btn.setTitle("💳    내 구독권", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.setTitleColor(.gray, for: .highlighted)
         btn.configuration = .bordered()
@@ -79,7 +80,7 @@ final class MypageViewController: UIViewController{
     private let feedBackBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
-        btn.setTitle("피드백 보내기", for: .normal)
+        btn.setTitle("🕊️ 피드백 보내기", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.setTitleColor(.gray, for: .highlighted)
         btn.configuration = .bordered()
@@ -180,21 +181,33 @@ private extension MypageViewController {
 //MARK: - Binding
 private extension MypageViewController {
     private func setBinding() {
-        mypageViewModel.logoutResult.subscribe(onNext: { [weak self] result in
-            guard let self = self else { return }
-            if result.code == 200 {
-                KeychainWrapper.standard.removeAllKeys() //저장된 토큰 삭제
+        //토큰 유효성 검사
+        reissueViewModel.reissueTrigger.onNext(())
+        reissueViewModel.reissueExpire.bind { expire in
+            if expire == true {
                 DispatchQueue.main.async {
                     self.navigationController?.pushViewController(LoginViewController(), animated: true)
                 }
+            } else {
+                //MARK: - Logout Binding
+                self.logoutBtn.rx.tap.bind { [weak self] in
+                    guard let self = self else { return }
+                    self.mypageViewModel.logoutTrigger.onNext(())
+                }.disposed(by: self.disposeBag)
+                
+                self.mypageViewModel.logoutResult.subscribe(onNext: { [weak self] result in
+                    guard let self = self else { return }
+                    if result.code == 200 {
+                        KeychainWrapper.standard.removeAllKeys() //저장된 토큰 삭제
+                        DispatchQueue.main.async {
+                            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                        }
+                    }
+                }).disposed(by: self.disposeBag)
             }
-        }).disposed(by: disposeBag)
-        logoutBtn.rx.tap.bind { [weak self] in
-            guard let self = self else { return }
-            self.mypageViewModel.logoutTrigger.onNext(())
         }.disposed(by: disposeBag)
-        feedBackBtn.rx.tap.bind { [weak self] in
-            guard let self = self else { return  }
+        //피드백 버튼
+        feedBackBtn.rx.tap.bind { _ in
             if let url = URL(string: "https://forms.gle/EG8UVLx8vfuoCuAS7"){
                 UIApplication.shared.open(url)
             }

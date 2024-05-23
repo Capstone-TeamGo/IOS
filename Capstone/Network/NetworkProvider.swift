@@ -14,6 +14,7 @@ final class NetworkProvider {
     init(endpoint: String) {
         self.endpoint = endpointURL
     }
+    //MARK: - Auth
     //로그인
     public func loginNetwork() -> LoginNetwork {
         let network = Network<LoginResponseModel>(endpoint)
@@ -24,11 +25,18 @@ final class NetworkProvider {
         let network = Network<LogoutResponseModel>(endpoint)
         return LogoutNetwork(network: network)
     }
+    //토큰 재발행
+    public func reissueNetwork() -> ReissueNetwork {
+        let network = Network<ReissueResponseModel>(endpoint)
+        return ReissueNetwork(network: network)
+    }
+    //MARK: - Analysis
     //감정 분석(일주일)
     public func feelingWeekNetwork() -> FeelingNetwork {
         let network = Network<FeelingRequestModel>(endpoint)
         return FeelingNetwork(network: network)
     }
+    //MARK: - Question
     //질문 가져오기
     public func questionNetwork() -> QuestionNetwork {
         let network = Network<QuestionResponseModel>(endpoint)

@@ -15,6 +15,9 @@ import AVFoundation
 final class FirstQuestionViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let voiceRecordViewModel = VoiceRecordViewModel()
+    private let reissueViewModel = ReissueViewModel()
+    
+    //Audio(AVFoundation)
     private var timer : Timer?
     private var player : AVPlayer?
     private var question : QuestionResponseModel?
@@ -166,74 +169,84 @@ extension FirstQuestionViewController {
         progress.setProgress(progressValue, animated: true)
     }
     private func setBinding() {
-        voiceRecordViewModel.questionTrigger.onNext(())
-        voiceRecordViewModel.questionResult
-            .subscribe(onNext: {[weak self] question in
-                guard let self = self else { return }
-                guard let audioURL = URL(string: question.data?.accessUrls?.first ?? "") else {return}
+        //토큰 유효성 검사
+        reissueViewModel.reissueTrigger.onNext(())
+        reissueViewModel.reissueExpire.bind { expire in
+            if expire == true {
                 DispatchQueue.main.async {
-                    self.question = question
-                    self.questionText.text = question.data?.questionTexts?.first
-                    self.player = AVPlayer(url: audioURL)
-                    self.player?.play()
+                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
                 }
-            })
-            .disposed(by: disposeBag)
-        mic.rx.tap
-            .subscribe(onNext: {[weak self] in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    self.voiceRecordViewModel.recordTrigger.onNext(())
-                    self.mic.tintColor = .systemGreen
-                    self.stop.tintColor = .systemGray
-                    self.play.tintColor = .systemGray
-                    
-                    self.setTimer()
+            } else {
+                self.voiceRecordViewModel.questionTrigger.onNext(())
+                self.voiceRecordViewModel.questionResult
+                    .subscribe(onNext: {[weak self] question in
+                        guard let self = self else { return }
+                        guard let audioURL = URL(string: question.data?.accessUrls?.first ?? "") else {return}
+                        DispatchQueue.main.async {
+                            self.question = question
+                            self.questionText.text = question.data?.questionTexts?.first
+                            self.player = AVPlayer(url: audioURL)
+                            self.player?.play()
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
+                self.mic.rx.tap
+                    .subscribe(onNext: {[weak self] in
+                        guard let self = self else { return }
+                        DispatchQueue.main.async {
+                            self.voiceRecordViewModel.recordTrigger.onNext(())
+                            self.mic.tintColor = .systemGreen
+                            self.stop.tintColor = .systemGray
+                            self.play.tintColor = .systemGray
+                            
+                            self.setTimer()
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
+                self.play.rx.tap
+                    .subscribe(onNext: {[weak self] in
+                        guard let self = self else { return }
+                        DispatchQueue.main.async {
+                            self.voiceRecordViewModel.playTrigger.onNext(())
+                            self.mic.tintColor = .systemGray
+                            self.stop.tintColor = .systemGray
+                            self.play.tintColor = .systemBlue
+                            
+                            self.timer?.invalidate() //타이머 정지
+                            self.timer = nil
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
+                self.stop.rx.tap
+                    .subscribe(onNext: {[weak self] in
+                        guard let self = self else { return }
+                        DispatchQueue.main.async {
+                            self.voiceRecordViewModel.stopTrigger.onNext(())
+                            self.mic.tintColor = .systemGray
+                            self.stop.tintColor = .systemRed
+                            self.play.tintColor = .systemGray
+                            
+                            self.timer?.invalidate() //타이머 정지
+                            self.timer = nil
+                        }
+                    })
+                    .disposed(by: self.disposeBag)
+                self.nextBtn.rx.tap
+                    .subscribe { _ in
+                        guard let question = self.question else { return }
+                        self.voiceRecordViewModel.postRecordTrigger.onNext([question.data?.analysisId ?? 0, question.data?.questionIds?[0] ?? 0])
+                        //전송 중 -> 로딩인디케이터 넣을 필요 O
+                    }
+                    .disposed(by: self.disposeBag)
+                self.voiceRecordViewModel.postRecordResult.subscribe { [weak self] result in
+                    guard let self = self else { return }
+                    guard let question = self.question else { return }
+                    if result.element?.code == 200 {
+                        self.navigationController?.pushViewController(SecondQuestionViewController(question: question), animated: true)
+                    }
                 }
-            })
-            .disposed(by: disposeBag)
-        play.rx.tap
-            .subscribe(onNext: {[weak self] in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    self.voiceRecordViewModel.playTrigger.onNext(())
-                    self.mic.tintColor = .systemGray
-                    self.stop.tintColor = .systemGray
-                    self.play.tintColor = .systemBlue
-                    
-                    self.timer?.invalidate() //타이머 정지
-                    self.timer = nil
-                }
-            })
-            .disposed(by: disposeBag)
-        stop.rx.tap
-            .subscribe(onNext: {[weak self] in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    self.voiceRecordViewModel.stopTrigger.onNext(())
-                    self.mic.tintColor = .systemGray
-                    self.stop.tintColor = .systemRed
-                    self.play.tintColor = .systemGray
-                    
-                    self.timer?.invalidate() //타이머 정지
-                    self.timer = nil
-                }
-            })
-            .disposed(by: disposeBag)
-        nextBtn.rx.tap
-            .subscribe { _ in
-                guard let question = self.question else { return }
-                self.voiceRecordViewModel.postRecordTrigger.onNext([question.data?.analysisId ?? 0, question.data?.questionIds?[0] ?? 0])
-                //전송 중 -> 로딩인디케이터 넣을 필요 O
+                .disposed(by: self.disposeBag)
             }
-            .disposed(by: disposeBag)
-        voiceRecordViewModel.postRecordResult.subscribe { [weak self] result in
-            guard let self = self else { return }
-            guard let question = self.question else { return }
-            if result.element?.code == 200 {
-                self.navigationController?.pushViewController(SecondQuestionViewController(question: question), animated: true)
-            }
-        }
-        .disposed(by: disposeBag)
+        }.disposed(by: disposeBag)
     }
 }

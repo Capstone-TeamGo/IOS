@@ -11,6 +11,8 @@ struct FeelingRequestModel : Codable {
     let state : String?
     let message : String?
     let data : FeelingData?
+    let errorCode : Int?
+    let details : String?
 }
 struct FeelingData : Codable {
     let feelingStateResponsesDto : [FeelingState]?

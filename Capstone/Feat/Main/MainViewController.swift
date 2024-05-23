@@ -15,7 +15,8 @@ import DGCharts
 final class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mainViewModel = MainViewModel()
-    private let feelingTrigger = PublishSubject<Void>()
+    //토큰 유효성 검사
+    private let reissueViewModel = ReissueViewModel()
     
     //MARK: UI Components
     private let naviLogo : UILabel = {
@@ -107,6 +108,7 @@ extension MainViewController {
         super.viewWillAppear(animated)
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = false
+        self.randomImage()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -195,16 +197,31 @@ private extension MainViewController {
 }
 //MARK: - set Binding
 private extension MainViewController {
+    private func randomImage() {
+        let imageNames = ["image1", "image2", "image3", "image4", "image5"]
+        // 랜덤 인덱스 생성
+        let randomIndex = Int.random(in: 0..<imageNames.count)
+        //이미지 랜덤 바꾸기
+        self.naviImage.image = UIImage(named: imageNames[randomIndex])
+    }
     private func setBinding() {
-        self.naviImage.image = UIImage(named: "image1")
-        self.mainViewModel.feelingTrigger.onNext(())
-        self.mainViewModel.feelingResult.subscribe(onNext: {[weak self] result in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.setchart(model: result)
+        self.reissueViewModel.reissueTrigger.onNext(())
+        self.reissueViewModel.reissueExpire.bind(onNext: { expire in
+            if expire == true {
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                }
+            } else {
+                self.mainViewModel.feelingTrigger.onNext(())
+                self.mainViewModel.feelingResult.subscribe(onNext: {[weak self] result in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.setchart(model: result)
+                    }
+                })
+                .disposed(by: self.disposeBag)
             }
-        })
-        .disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
     }
     @objc func analyzeBtnTapped() {
         self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)
