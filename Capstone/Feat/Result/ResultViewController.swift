@@ -26,7 +26,7 @@ final class ResultViewController : UIViewController {
     }()
     private let decLabel : UITextView = {
         let label = UITextView()
-        label.text = "@@님의 심리분석 결과에 맞는 챗봇이 생성되었습니다."
+        label.text = "심리분석 결과에 맞는 상담사가 생성되었습니다."
         label.textColor = .lightGray
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.backgroundColor = .clear

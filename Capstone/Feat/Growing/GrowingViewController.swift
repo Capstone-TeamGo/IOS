@@ -13,51 +13,16 @@ import SnapKit
 import Kingfisher
 
 final class GrowingViewController : UIViewController {
+    private let disposeBag = DisposeBag()
+    private let reissueViewModel = ReissueViewModel()
     //MARK: - UI Components
-    private let frame : UIImageView = {
+    private let topFrame : UIImageView = {
         let view = UIImageView()
         view.backgroundColor = .clear
-        view.image = UIImage(named: "gameFrame")
+        view.image = UIImage(named: "topFrame")
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
         return view
-    }()
-    //캐릭터 관리 버튼
-    //힐링이 업그레이드를 시키기 위한 버튼 -> 감정 분석 페이지로 이동
-    private let upBtn : UIButton = {
-        let btn = UIButton()
-        btn.layer.cornerRadius = 15
-        btn.layer.masksToBounds = true
-        btn.backgroundColor = .SecondaryColor
-        btn.setTitle("🌳", for: .normal)
-        return btn
-    }()
-    //힐링이 위한 설명 버튼 -> 설명 페이지
-    private let explainBtn : UIButton = {
-        let btn = UIButton()
-        btn.layer.cornerRadius = 15
-        btn.layer.masksToBounds = true
-        btn.backgroundColor = .ThirdryColor
-        btn.setTitle("📝", for: .normal)
-        return btn
-    }()
-    //힐링이 ??
-    private let Btn1 : UIButton = {
-        let btn = UIButton()
-        btn.layer.cornerRadius = 15
-        btn.layer.masksToBounds = true
-        btn.backgroundColor = .FourthryColor
-        btn.setTitle("🍃", for: .normal)
-        return btn
-    }()
-    //힐링이 ??
-    private let Btn2 : UIButton = {
-        let btn = UIButton()
-        btn.layer.cornerRadius = 15
-        btn.layer.masksToBounds = true
-        btn.backgroundColor = .FifthryColor
-        btn.setTitle("🌸", for: .normal)
-        return btn
     }()
     //GIf
     private let tree : UIImageView = {
@@ -87,22 +52,46 @@ final class GrowingViewController : UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 15)
         return label
     }()
+    private let bottomFrame : UIImageView = {
+        let view = UIImageView()
+        view.backgroundColor = .clear
+        view.image = UIImage(named: "bottomFrame")
+        view.contentMode = .scaleAspectFit
+        view.clipsToBounds = true
+        return view
+    }()
+    private let bottomText : UITextView = {
+        let view = UITextView()
+        view.backgroundColor = .clear
+        view.textColor = .gray
+        view.font = UIFont.systemFont(ofSize: 13)
+        view.isUserInteractionEnabled = false
+        view.isScrollEnabled = false
+        return view
+    }()
+    private let upBtn : UIButton = {
+        let btn = UIButton()
+        btn.setTitle("힐링이 성장시키기 >", for: .normal)
+        btn.setTitleColor(.systemGreen, for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        return btn
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         UINavigation()
         setLayout()
+        TypingAnimation()
+        setBinding()
     }
 }
 //MARK: - UINavigation
 extension GrowingViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.tintColor = .black
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = .white
     }
     private func UINavigation() {
@@ -113,70 +102,84 @@ extension GrowingViewController {
 //MARK: - UI Layout
 private extension GrowingViewController {
     private func setLayout() {
-        let BtnView = UIView()
-        BtnView.backgroundColor = .white
-        BtnView.addSubview(upBtn)
-        BtnView.addSubview(explainBtn)
-        BtnView.addSubview(Btn1)
-        BtnView.addSubview(Btn2)
-        
-        self.view.addSubview(BtnView)
-        self.view.addSubview(frame)
+        self.title = ""
+        self.view.addSubview(topFrame)
         self.view.addSubview(tree)
         self.view.addSubview(progress)
         self.view.addSubview(percent)
+        self.view.addSubview(bottomFrame)
+        self.view.addSubview(bottomText)
+        self.view.addSubview(upBtn)
         
-        frame.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(20)
-        }
-        upBtn.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(0)
-            make.width.height.equalTo(50)
-        }
-        explainBtn.snp.makeConstraints { make in
-            make.leading.equalTo(upBtn.snp.trailing).offset(30)
-            make.width.height.equalTo(50)
-        }
-        Btn1.snp.makeConstraints { make in
-            make.leading.equalTo(explainBtn.snp.trailing).offset(30)
-            make.width.height.equalTo(50)
-        }
-        Btn2.snp.makeConstraints { make in
-            make.leading.equalTo(Btn1.snp.trailing).offset(30)
-            make.width.height.equalTo(50)
-            make.trailing.equalToSuperview().inset(0)
-        }
-        BtnView.snp.makeConstraints { make in
-            make.width.equalTo(290)
-            make.height.equalTo(50)
-            make.top.equalToSuperview().inset(self.view.frame.height / 9)
-            make.centerX.equalToSuperview()
+        topFrame.snp.makeConstraints { make in
+            make.center.equalToSuperview().inset(100)
+            make.height.equalToSuperview().dividedBy(4)
         }
         tree.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(130)
-            make.center.equalToSuperview()
-            make.top.equalToSuperview().inset(self.view.frame.height / 5)
-            make.bottom.equalToSuperview().inset(self.view.frame.height / 2.5)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(topFrame.snp.top).offset(20)
+            make.height.equalToSuperview().dividedBy(5)
         }
         progress.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(20)
+            make.leading.equalToSuperview().inset(30)
             make.trailing.equalToSuperview().inset(90)
             make.height.equalTo(20)
-            make.bottom.equalToSuperview().inset(self.view.frame.height / 7)
+            make.top.equalToSuperview().inset(self.view.frame.height / 9)
+            make.centerX.equalToSuperview()
         }
         percent.snp.makeConstraints { make in
             make.height.equalTo(20)
             make.trailing.equalToSuperview().inset(20)
             make.leading.equalTo(progress.snp.trailing).offset(10)
+            make.top.equalToSuperview().inset(self.view.frame.height / 9)
+        }
+        bottomFrame.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(topFrame.snp.bottom).offset(20)
+            make.bottom.equalToSuperview().inset(self.view.frame.height / 10)
+        }
+        bottomText.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(100)
+            make.top.equalTo(topFrame.snp.bottom).offset(60)
+        }
+        upBtn.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(100)
             make.bottom.equalToSuperview().inset(self.view.frame.height / 7)
         }
-//        if let gifUrl = Bundle.main.url(forResource: "healing4", withExtension: "gif") {
-//            tree.kf.setImage(with: gifUrl)
-//        }
+        if let gifUrl = Bundle.main.url(forResource: "flowerInit", withExtension: "gif") {
+            tree.kf.setImage(with: gifUrl)
+        }
+    }
+    private func TypingAnimation() {
+        let fullText : String = "나만의 힐링이를 키워보세요! 많은 감정 분석과 상담을 받을수록 힐링이는 더 성장해요!🌳 힐링이를 성장시켜 혜택을 받아보세요🕊️"
+        Observable<Int>
+            .interval(.milliseconds(100), scheduler: MainScheduler.instance)
+            .take(fullText.count)
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                let stringIndex = fullText.index(fullText.startIndex, offsetBy: index)
+                self.bottomText.text += String(fullText[stringIndex])
+            }).disposed(by: disposeBag)
     }
 }
 //MARK: - Binding
 private extension GrowingViewController {
-    
+    private func setBinding() {
+        //토큰 유효성 검사
+        reissueViewModel.reissueTrigger.onNext(())
+        reissueViewModel.reissueExpire.bind(onNext: { [weak self] expire in
+            guard let self = self else { return }
+            if expire == true {
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                }
+            } else {
+                upBtn.rx.tap.bind { _ in
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)
+                    }
+                }.disposed(by: disposeBag)
+            }
+        }).disposed(by: disposeBag)
+    }
 }

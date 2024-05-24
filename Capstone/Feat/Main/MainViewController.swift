@@ -93,13 +93,13 @@ final class MainViewController: UIViewController{
         view.rightAxis.drawLabelsEnabled = false
         view.leftAxis.drawLabelsEnabled = false
         view.isUserInteractionEnabled = false
+        view.noDataText = "감정 분석 데이터가 존재하지 않습니다."
         return view
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigation()
         setLayout()
-        setBinding()
     }
 }
 //MARK: - UI Navigation
@@ -109,6 +109,7 @@ extension MainViewController {
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = false
         self.randomImage()
+        self.setBinding()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -179,9 +180,6 @@ private extension MainViewController {
                 entries.append(BarChartDataEntry(x: index, y: feel.avgFeelingState ?? 0.0))
                 index += 1
             }
-        }
-        for index in 0...7 {
-            entries.append(BarChartDataEntry(x: Double(index), y: Double(index)))
         }
         let dataSet = BarChartDataSet(entries: entries, label: "최근 7일 심리분석 결과")
         dataSet.colors = [.systemGreen]

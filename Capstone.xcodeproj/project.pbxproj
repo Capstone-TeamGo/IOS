@@ -13,6 +13,15 @@
 		E4713A582BFC58CB0044F4C4 /* ReissueResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A572BFC58CB0044F4C4 /* ReissueResponseModel.swift */; };
 		E4713A5D2BFC659A0044F4C4 /* ReissueNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A5C2BFC659A0044F4C4 /* ReissueNetwork.swift */; };
 		E4713A602BFC71F40044F4C4 /* ReissueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A5F2BFC71F40044F4C4 /* ReissueViewModel.swift */; };
+		E4713A632BFF185E0044F4C4 /* SCLAlertView in Frameworks */ = {isa = PBXBuildFile; productRef = E4713A622BFF185E0044F4C4 /* SCLAlertView */; };
+		E4713A652BFF32950044F4C4 /* SentimentAnalysisNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A642BFF32950044F4C4 /* SentimentAnalysisNetwork.swift */; };
+		E4713A672BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A662BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift */; };
+		E4713A6A2BFF360D0044F4C4 /* LoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A692BFF360D0044F4C4 /* LoadingViewModel.swift */; };
+		E4713A7F2C00E8420044F4C4 /* gift.gif in Resources */ = {isa = PBXBuildFile; fileRef = E4713A7A2C00E8420044F4C4 /* gift.gif */; };
+		E4713A802C00E8420044F4C4 /* flowerInit.gif in Resources */ = {isa = PBXBuildFile; fileRef = E4713A7B2C00E8420044F4C4 /* flowerInit.gif */; };
+		E4713A812C00E8420044F4C4 /* leaf.gif in Resources */ = {isa = PBXBuildFile; fileRef = E4713A7C2C00E8420044F4C4 /* leaf.gif */; };
+		E4713A822C00E8420044F4C4 /* natural.gif in Resources */ = {isa = PBXBuildFile; fileRef = E4713A7D2C00E8420044F4C4 /* natural.gif */; };
+		E4713A832C00E8420044F4C4 /* flower.gif in Resources */ = {isa = PBXBuildFile; fileRef = E4713A7E2C00E8420044F4C4 /* flower.gif */; };
 		E4989EE12BC8FD9500D888DC /* VoiceRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE02BC8FD9400D888DC /* VoiceRecordViewModel.swift */; };
 		E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */; };
 		E4B1E6912BEE7A6000ECADFA /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */; };
@@ -96,6 +105,14 @@
 		E4713A572BFC58CB0044F4C4 /* ReissueResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueResponseModel.swift; sourceTree = "<group>"; };
 		E4713A5C2BFC659A0044F4C4 /* ReissueNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueNetwork.swift; sourceTree = "<group>"; };
 		E4713A5F2BFC71F40044F4C4 /* ReissueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReissueViewModel.swift; sourceTree = "<group>"; };
+		E4713A642BFF32950044F4C4 /* SentimentAnalysisNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentAnalysisNetwork.swift; sourceTree = "<group>"; };
+		E4713A662BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentAnalysisResponseModel.swift; sourceTree = "<group>"; };
+		E4713A692BFF360D0044F4C4 /* LoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModel.swift; sourceTree = "<group>"; };
+		E4713A7A2C00E8420044F4C4 /* gift.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gift.gif; sourceTree = "<group>"; };
+		E4713A7B2C00E8420044F4C4 /* flowerInit.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flowerInit.gif; sourceTree = "<group>"; };
+		E4713A7C2C00E8420044F4C4 /* leaf.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = leaf.gif; sourceTree = "<group>"; };
+		E4713A7D2C00E8420044F4C4 /* natural.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = natural.gif; sourceTree = "<group>"; };
+		E4713A7E2C00E8420044F4C4 /* flower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flower.gif; sourceTree = "<group>"; };
 		E4989EE02BC8FD9400D888DC /* VoiceRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordViewModel.swift; sourceTree = "<group>"; };
 		E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Url + Extensioin.swift"; sourceTree = "<group>"; };
 		E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
@@ -178,6 +195,7 @@
 				E4D401F72BB3E1CC00B4E5C4 /* Kingfisher in Frameworks */,
 				E4D401EE2BB2CE1E00B4E5C4 /* RxSwift in Frameworks */,
 				E4D401F12BB2CE2D00B4E5C4 /* Alamofire in Frameworks */,
+				E4713A632BFF185E0044F4C4 /* SCLAlertView in Frameworks */,
 				E4D401EC2BB2CE1E00B4E5C4 /* RxRelay in Frameworks */,
 				E4D401E42BB2CDFE00B4E5C4 /* SnapKit in Frameworks */,
 			);
@@ -233,6 +251,15 @@
 				E4713A5F2BFC71F40044F4C4 /* ReissueViewModel.swift */,
 			);
 			path = Reissue;
+			sourceTree = "<group>";
+		};
+		E4713A682BFF35FF0044F4C4 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				E4D402182BB52FC500B4E5C4 /* LoadingViewController.swift */,
+				E4713A692BFF360D0044F4C4 /* LoadingViewModel.swift */,
+			);
+			path = Loading;
 			sourceTree = "<group>";
 		};
 		E4989EDF2BC8FD8600D888DC /* First */ = {
@@ -318,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				E4B1E69E2BF3C15C00ECADFA /* AnalysisNetwork.swift */,
+				E4713A642BFF32950044F4C4 /* SentimentAnalysisNetwork.swift */,
 			);
 			path = Analysis;
 			sourceTree = "<group>";
@@ -334,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				E4B1E6A42BF3C62A00ECADFA /* AnswerResponseModel.swift */,
+				E4713A662BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -573,7 +602,7 @@
 		E4D402162BB472B500B4E5C4 /* Result */ = {
 			isa = PBXGroup;
 			children = (
-				E4D402182BB52FC500B4E5C4 /* LoadingViewController.swift */,
+				E4713A682BFF35FF0044F4C4 /* Loading */,
 				E4D4021D2BB53FB500B4E5C4 /* ResultViewController.swift */,
 			);
 			path = Result;
@@ -582,6 +611,11 @@
 		E4D4021A2BB52FDA00B4E5C4 /* GIF */ = {
 			isa = PBXGroup;
 			children = (
+				E4713A7E2C00E8420044F4C4 /* flower.gif */,
+				E4713A7B2C00E8420044F4C4 /* flowerInit.gif */,
+				E4713A7A2C00E8420044F4C4 /* gift.gif */,
+				E4713A7C2C00E8420044F4C4 /* leaf.gif */,
+				E4713A7D2C00E8420044F4C4 /* natural.gif */,
 				E4D4021B2BB52FEB00B4E5C4 /* confetti.gif */,
 			);
 			path = GIF;
@@ -669,6 +703,7 @@
 				E4D401FB2BB3E1E500B4E5C4 /* NVActivityIndicatorViewExtended */,
 				E4D4020B2BB3EFB400B4E5C4 /* DGCharts */,
 				E4B1E6962BEE7C2400ECADFA /* RxAlamofire */,
+				E4713A622BFF185E0044F4C4 /* SCLAlertView */,
 			);
 			productName = Capstone;
 			productReference = E4D401C22BB2C60C00B4E5C4 /* Capstone.app */;
@@ -719,6 +754,7 @@
 				E4D401F82BB3E1E500B4E5C4 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 				E4D4020A2BB3EFB400B4E5C4 /* XCRemoteSwiftPackageReference "Charts" */,
 				E4B1E6952BEE7C2400ECADFA /* XCRemoteSwiftPackageReference "RxAlamofire" */,
+				E4713A612BFF185E0044F4C4 /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */,
 			);
 			productRefGroup = E4D401C32BB2C60C00B4E5C4 /* Products */;
 			projectDirPath = "";
@@ -759,9 +795,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4D401D22BB2C60D00B4E5C4 /* LaunchScreen.storyboard in Resources */,
+				E4713A812C00E8420044F4C4 /* leaf.gif in Resources */,
+				E4713A832C00E8420044F4C4 /* flower.gif in Resources */,
 				E4D4021C2BB52FEB00B4E5C4 /* confetti.gif in Resources */,
+				E4713A7F2C00E8420044F4C4 /* gift.gif in Resources */,
 				E4D401CF2BB2C60D00B4E5C4 /* Assets.xcassets in Resources */,
 				E4D401DD2BB2C6FC00B4E5C4 /* Color.xcassets in Resources */,
+				E4713A822C00E8420044F4C4 /* natural.gif in Resources */,
+				E4713A802C00E8420044F4C4 /* flowerInit.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,10 +850,13 @@
 				E4D402112BB40E0700B4E5C4 /* SecondQuestionViewController.swift in Sources */,
 				E4B1E6A52BF3C62A00ECADFA /* AnswerResponseModel.swift in Sources */,
 				E4713A5D2BFC659A0044F4C4 /* ReissueNetwork.swift in Sources */,
+				E4713A652BFF32950044F4C4 /* SentimentAnalysisNetwork.swift in Sources */,
 				E4D401C62BB2C60C00B4E5C4 /* AppDelegate.swift in Sources */,
+				E4713A6A2BFF360D0044F4C4 /* LoadingViewModel.swift in Sources */,
 				E4B1E6D62BF71ECF00ECADFA /* GrowingViewController.swift in Sources */,
 				E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */,
 				E4D401C82BB2C60C00B4E5C4 /* SceneDelegate.swift in Sources */,
+				E4713A672BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift in Sources */,
 				E4D401E12BB2CD1B00B4E5C4 /* Color + Extensioin.swift in Sources */,
 				E4C58BEA2BCE946700A1AD58 /* LoginViewModel.swift in Sources */,
 				E4D402132BB40E1600B4E5C4 /* ThirdQuestionViewController.swift in Sources */,
@@ -1224,6 +1268,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E4713A612BFF185E0044F4C4 /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vikmeup/SCLAlertView-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.8.2;
+			};
+		};
 		E4B1E6952BEE7C2400ECADFA /* XCRemoteSwiftPackageReference "RxAlamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxAlamofire.git";
@@ -1291,6 +1343,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E4713A622BFF185E0044F4C4 /* SCLAlertView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4713A612BFF185E0044F4C4 /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */;
+			productName = SCLAlertView;
+		};
 		E4B1E6962BEE7C2400ECADFA /* RxAlamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E4B1E6952BEE7C2400ECADFA /* XCRemoteSwiftPackageReference "RxAlamofire" */;

@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import AVFAudio
 import AVFoundation
+import SCLAlertView
 
 final class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     private let disposeBag = DisposeBag()
@@ -37,12 +38,10 @@ final class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlay
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             return paths.first!
         }()
-        let fileName = UUID().uuidString + ".m4a"
+        let fileName = UUID().uuidString + ".wav"
         let url = documentsUrl.appendingPathComponent(fileName)
         return url
     }()
-    
-    
     override init() {
         let provider = NetworkProvider(endpoint: endpointURL)
         questionNetwork = provider.questionNetwork()
@@ -78,11 +77,29 @@ final class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlay
         }
         .disposed(by: self.disposeBag)
         //다음페이지로 넘어갈 경우 녹음된 파일을 서버로 전송
-        postRecordTrigger.flatMapLatest { question in
-            return self.postRecorderNetwork.postAnswer(analysisId: question[0], questionId: question[1], dataURL: self.record)
-        }
-        .bind(to: postRecordResult)
+        postRecordTrigger.subscribe(onNext: { [weak self] question in
+            guard let self = self else { return }
+            // 녹음된 파일이 있는지 확인
+            do {
+                let fileAttributes = try FileManager.default.attributesOfItem(atPath: self.record.path)
+                if let fileSize = fileAttributes[.size] as? NSNumber, fileSize.intValue > 0 {
+                    self.postRecorderNetwork.postAnswer(analysisId: question[0], questionId: question[1], dataURL: self.record)
+                        .subscribe(onNext: { [weak self] result in
+                            guard let self = self else { return }
+                            self.postRecordResult.onNext(result)
+                        })
+                        .disposed(by: self.disposeBag)
+                } else {
+                    let errorModel = AnswerResponseModel(code: nil, state: nil, message: "Recorded file is empty", errorCode: nil, details: nil, data: nil)
+                    self.postRecordResult.onNext(errorModel)
+                }
+            } catch {
+                let errorModel = AnswerResponseModel(code: nil, state: nil, message: error.localizedDescription, errorCode: nil, details: nil, data: nil)
+                self.postRecordResult.onNext(errorModel)
+            }
+        })
         .disposed(by: disposeBag)
+        
     }
 }
 //MARK: - VoiceRecord
