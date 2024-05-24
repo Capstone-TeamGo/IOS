@@ -21,10 +21,16 @@ final class LoadingViewModel {
         let provider = NetworkProvider(endpoint: endpointURL)
         sentimentAnalysisNetwork = provider.sentimentAnalysisNetwork()
         
-        sentimentAnalysisTrigger.flatMapLatest { analysisId in
-            return self.sentimentAnalysisNetwork.postSentimentAnalysis(path: "\(SentimentAnalysisURL)\(analysisId)")
-        }
-        .bind(to: sentimentAnalysisResult)
+        sentimentAnalysisTrigger.subscribe(onNext : { [weak self] analysisId in
+            guard let self = self else { return }
+            let fullPath : String = "\(SentimentAnalysisURL)\(analysisId)"
+            self.sentimentAnalysisNetwork.postSentimentAnalysis(path: fullPath)
+                .subscribe(onNext: { [weak self] result in
+                    guard let self = self else { return }
+                    self.sentimentAnalysisResult.onNext(result)
+                })
+                .disposed(by: self.disposeBag)
+        })
         .disposed(by: disposeBag)
     }
 }

@@ -12,12 +12,9 @@ struct ReissueResponseModel : Codable {
     let message : String?
     let data : ReissueData?
     let errorCode : Int?
-    let details : ReissueDetail?
+    let details : [String]?
 }
 struct ReissueData : Codable {
     let accessToken : String?
-    let refreshToken : String?
-}
-struct ReissueDetail : Codable {
     let refreshToken : String?
 }

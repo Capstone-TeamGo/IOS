@@ -93,7 +93,7 @@ private extension LoadingViewController {
             make.center.equalToSuperview()
         }
         progress.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(30)
             make.height.equalTo(20)
             make.top.equalTo(image.snp.bottom).offset(50)
         }
@@ -106,41 +106,45 @@ private extension LoadingViewController {
 //MARK: - Binding
 private extension LoadingViewController {
     private func updateProgress() {
-        if progress.progress != 0.9 {
-            progress.progress += 0.1
+        guard self.progress.progress < 1.0 else { return }
+        self.progress.progress += 0.01
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.updateProgress()
         }
     }
     private func setBinding() {
+        //토큰 유효성 검사
+        
         if let analysisId = self.question.data?.analysisId {
             self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
-            Observable<Int>.interval(.milliseconds(1), scheduler: MainScheduler.instance)
-                .take(until: loadingViewModel.sentimentAnalysisResult.filter { $0.code != 403 })
-                .subscribe(onNext: { [weak self] _ in
-                    guard let self = self else { return }
-                    self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
-                })
-                .disposed(by: disposeBag)
-            
-            // 일정 시간 간격으로 진행바를 업데이트하는 Observable 생성
-            Observable<Int>.interval(.milliseconds(2000), scheduler: MainScheduler.instance)
+            Observable<Int>.interval(.milliseconds(5000), scheduler: MainScheduler.instance)
                 .take(until: loadingViewModel.sentimentAnalysisResult.filter { $0.code == 200 })
                 .subscribe(onNext: { [weak self] _ in
                     guard let self = self else { return }
+                    print("서버로 전송")
+                    self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
                     self.updateProgress()
                 })
                 .disposed(by: disposeBag)
             loadingViewModel.sentimentAnalysisResult
                 .filter { $0.code == 200 }
-                .take(1)
-                .subscribe(onNext: { [weak self] _ in
+                .take(1)  // This ensures the navigation happens only once
+                .subscribe(onNext: { [weak self] result in
                     guard let self = self else { return }
                     DispatchQueue.main.async {
-                        self.progress.progress = 1.0
-                        let resultVC = ResultViewController()
-                        self.navigationController?.pushViewController(resultVC, animated: true)
+                        // 프로그레스 바를 1.0으로 설정
+                        if self.progress.progress != 1.0 {
+                            self.progress.progress = 1.0
+                        }
+                        // 0.5초 후 ResultViewController로 이동
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            let resultVC = ResultViewController()
+                            self.navigationController?.pushViewController(resultVC, animated: true)
+                        }
                     }
                 })
                 .disposed(by: disposeBag)
         }
     }
+    
 }

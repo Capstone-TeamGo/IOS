@@ -33,7 +33,13 @@ final class ReissueViewModel {
         .bind(to: reissueResult)
         .disposed(by: disposeBag)
         
-        reissueResult.bind(onNext: { [weak self] result in
+        reissueResult
+            .catch { error in
+                KeychainWrapper.standard.removeAllKeys()
+                self.reissueExpire.onNext((true))
+                return Observable.empty()
+            }
+            .bind(onNext: { [weak self] result in
             guard let self = self else { return }
             if result.code == 200 {
                 if let JWTaccessToken = KeychainWrapper.standard.string(forKey: "JWTaccessToken") {
@@ -41,7 +47,7 @@ final class ReissueViewModel {
                     KeychainWrapper.standard.remove(forKey: "JWTaccessToken")
                     KeychainWrapper.standard.set(JWTaccessToken, forKey: "JWTaccessToken")
                 }
-            }else if result.code == 401 {
+            }else if result.code == 404 {
                 KeychainWrapper.standard.removeAllKeys()
                 self.reissueExpire.onNext((true))
             }else{

@@ -38,12 +38,10 @@ final class VoiceRecordViewModel: NSObject, AVAudioRecorderDelegate, AVAudioPlay
             let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
             return paths.first!
         }()
-        let fileName = UUID().uuidString + ".m4a"
+        let fileName = UUID().uuidString + ".wav"
         let url = documentsUrl.appendingPathComponent(fileName)
         return url
     }()
-    
-    
     override init() {
         let provider = NetworkProvider(endpoint: endpointURL)
         questionNetwork = provider.questionNetwork()
