@@ -15,6 +15,7 @@ import UIKit
 final class LoadingViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let loadingViewModel = LoadingViewModel()
+    private let reissueViewModel = ReissueViewModel()
     var question : QuestionResponseModel
     init(question: QuestionResponseModel) {
         self.question = question
@@ -108,43 +109,52 @@ private extension LoadingViewController {
     private func updateProgress() {
         guard self.progress.progress < 1.0 else { return }
         self.progress.progress += 0.01
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             self.updateProgress()
         }
     }
     private func setBinding() {
         //토큰 유효성 검사
-        
-        if let analysisId = self.question.data?.analysisId {
-            self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
-            Observable<Int>.interval(.milliseconds(5000), scheduler: MainScheduler.instance)
-                .take(until: loadingViewModel.sentimentAnalysisResult.filter { $0.code == 200 })
-                .subscribe(onNext: { [weak self] _ in
-                    guard let self = self else { return }
-                    print("서버로 전송")
+        reissueViewModel.reissueTrigger.onNext(())
+        reissueViewModel.reissueExpire.bind(onNext: { expire in
+            if expire == true {
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                }
+            } else {
+                if let analysisId = self.question.data?.analysisId {
                     self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
                     self.updateProgress()
-                })
-                .disposed(by: disposeBag)
-            loadingViewModel.sentimentAnalysisResult
-                .filter { $0.code == 200 }
-                .take(1)  // This ensures the navigation happens only once
-                .subscribe(onNext: { [weak self] result in
-                    guard let self = self else { return }
-                    DispatchQueue.main.async {
-                        // 프로그레스 바를 1.0으로 설정
-                        if self.progress.progress != 1.0 {
-                            self.progress.progress = 1.0
-                        }
-                        // 0.5초 후 ResultViewController로 이동
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            let resultVC = ResultViewController()
-                            self.navigationController?.pushViewController(resultVC, animated: true)
-                        }
-                    }
-                })
-                .disposed(by: disposeBag)
-        }
+                    Observable<Int>.interval(.milliseconds(5000), scheduler: MainScheduler.instance)
+                        .take(until: self.loadingViewModel.sentimentAnalysisResult.filter { $0.code == 200 })
+                        .subscribe(onNext: { [weak self] _ in
+                            guard let self = self else { return }
+                            print("서버로 전송")
+                            self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
+                        })
+                        .disposed(by: self.disposeBag)
+                    self.loadingViewModel.sentimentAnalysisResult
+                        .filter { $0.code == 200 }
+                        .take(1) 
+                        .subscribe(onNext: { [weak self] result in
+                            guard let self = self else { return }
+                            DispatchQueue.main.async {
+                                // 프로그레스 바를 1.0으로 설정
+                                if self.progress.progress != 1.0 {
+                                    self.progress.progress = 1.0
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        let resultVC = ResultViewController()
+                                        self.navigationController?.pushViewController(resultVC, animated: true)
+                                    }
+                                }else {
+                                    let resultVC = ResultViewController()
+                                    self.navigationController?.pushViewController(resultVC, animated: true)
+                                }
+                            }
+                        })
+                        .disposed(by: self.disposeBag)
+                }
+            }
+        }).disposed(by: disposeBag)
     }
-    
 }

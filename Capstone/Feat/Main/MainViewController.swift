@@ -100,7 +100,6 @@ final class MainViewController: UIViewController{
         super.viewDidLoad()
         setNavigation()
         setLayout()
-        setBinding()
     }
 }
 //MARK: - UI Navigation
@@ -110,6 +109,7 @@ extension MainViewController {
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = false
         self.randomImage()
+        self.setBinding()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -176,7 +176,6 @@ private extension MainViewController {
         var entries = [BarChartDataEntry]()
         if let feels = model.data?.feelingStateResponsesDto {
             var index : Double = 0.0
-            print(feels)
             for feel in feels {
                 entries.append(BarChartDataEntry(x: index, y: feel.avgFeelingState ?? 0.0))
                 index += 1
