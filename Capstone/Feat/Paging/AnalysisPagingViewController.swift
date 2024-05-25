@@ -80,7 +80,7 @@ private extension AnalysisPagingViewController {
                     self.navigationController?.pushViewController(LoginViewController(), animated: true)
                 }
             }else{
-                self.analysisPagingViewModel.pagingTrigger.onNext(())
+                self.analysisPagingViewModel.refreshTrigger.onNext(())
                 self.analysisPagingViewModel.pagingResult.bind(to: tableView.rx.items(cellIdentifier: AnalysisPagingTableViewCell.id, cellType: AnalysisPagingTableViewCell.self)) { index, model, cell in
                     cell.configure(model: model)
                     cell.selectionStyle = .none
@@ -93,9 +93,24 @@ private extension AnalysisPagingViewController {
                     .disposed(by: disposeBag)
                 self.refresh.rx.controlEvent(.valueChanged)
                     .subscribe { _ in
-                        self.analysisPagingViewModel.pagingTrigger.onNext(())
+                        self.analysisPagingViewModel.refreshTrigger.onNext(())
                         self.refresh.endRefreshing()
                     }.disposed(by: disposeBag)
+                self.tableView.rx.contentOffset
+                    .flatMapLatest { [weak self] contentOffset -> Observable<Void> in
+                        guard let self = self else { return Observable.empty() }
+                        let contentHeight = self.tableView.contentSize.height
+                        let offsetY = contentOffset.y
+                        let frameHeight = self.tableView.frame.size.height
+                        
+                        if offsetY > (contentHeight - frameHeight) {
+                            return Observable.just(())
+                        } else {
+                            return Observable.empty()
+                        }
+                    }
+                    .bind(to: self.analysisPagingViewModel.nextPageTrigger)
+                    .disposed(by: self.disposeBag)
             }
         }).disposed(by: disposeBag)
     }
