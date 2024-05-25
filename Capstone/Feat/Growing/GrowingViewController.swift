@@ -67,6 +67,7 @@ final class GrowingViewController : UIViewController {
         view.font = UIFont.systemFont(ofSize: 13)
         view.isUserInteractionEnabled = false
         view.isScrollEnabled = false
+        view.isEditable = false
         return view
     }()
     private let upBtn : UIButton = {

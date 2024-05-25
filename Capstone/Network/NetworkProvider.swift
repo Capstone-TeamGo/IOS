@@ -41,6 +41,16 @@ final class NetworkProvider {
         let network = Network<SentimentAnalysisResponseModel>(endpoint)
         return SentimentAnalysisNetwork(network: network)
     }
+    //과거기록 조회(페이징)
+    public func analysisPagingNetwork() -> AnalysisPagingNetwork {
+        let network = Network<AnalysisPagingResponseModel>(endpoint)
+        return AnalysisPagingNetwork(network: network)
+    }
+    //과거기록 조회(상세)
+    public func analysisDetailNetwork() -> AnalysisDetailNetwork {
+        let network = Network<AnalysisDetailResponseModel>(endpoint)
+        return AnalysisDetailNetwork(network: network)
+    }
     //MARK: - Question
     //질문 가져오기
     public func questionNetwork() -> QuestionNetwork {

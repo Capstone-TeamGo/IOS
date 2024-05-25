@@ -67,6 +67,7 @@ final class MainViewController: UIViewController{
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
         btn.layer.masksToBounds = true
+        btn.addTarget(self, action: #selector(recordBtnTapped), for: .touchUpInside)
         return btn
     }()
     //추천 버튼
@@ -226,5 +227,8 @@ private extension MainViewController {
     }
     @objc func growingBtnTapped() {
         self.navigationController?.pushViewController(GrowingViewController(), animated: true)
+    }
+    @objc func recordBtnTapped() {
+        self.navigationController?.pushViewController(AnalysisPagingViewController(), animated: true)
     }
 }
