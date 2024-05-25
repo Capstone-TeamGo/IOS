@@ -23,12 +23,20 @@ final class Network<T: Decodable> {
     public func getNetwork(path: String) -> Observable<T> {
         let fullPath = "\(endpoint)\(path)"
         let accessToken = KeychainWrapper.standard.string(forKey: "JWTaccessToken") ?? ""
-        return RxAlamofire.data(.get, fullPath, headers: ["Authorization":"\(accessToken)","Content-Type":"application/json"])
-            .observe(on: queue)
-            .debug()
-            .map { data -> T in
-                return try JSONDecoder().decode(T.self, from: data)
-            }
+        return Observable.create { observer in
+            AF.request(fullPath, method : .get, headers: ["Authorization":"\(accessToken)","Content-Type":"application/json"])
+                .validate()
+                .responseDecodable(of: T.self) { response in
+                    switch response.result {
+                case .success(let data):
+                    observer.onNext(data)
+                    observer.onCompleted()
+                case.failure(let error):
+                    observer.onError(error)
+                    }
+                }
+            return Disposables.create()
+        }
     }
     //MARK: - General Post Method
     public func postNetwork(path: String, params: [String:Any]) -> Observable<T> {
@@ -38,7 +46,6 @@ final class Network<T: Decodable> {
             AF.request(fullpath, method : .post, parameters : params, encoding : JSONEncoding.default, headers: ["Authorization":"\(accessToken)","Content-Type":"application/json"])
                 .validate()
                 .responseDecodable(of: T.self) { response in
-                    print(response.debugDescription)
                     switch response.result {
                 case .success(let data):
                     observer.onNext(data)

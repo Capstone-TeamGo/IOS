@@ -55,6 +55,7 @@ final class AnalysisPagingViewController : UIViewController {
 private extension AnalysisPagingViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
+        self.title = ""
         self.view.addSubview(imageView)
         self.tableView.refreshControl = refresh
         self.view.addSubview(tableView)
