@@ -26,6 +26,8 @@
 		E4713A872C0104040044F4C4 /* AnalysisPagingResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A862C0104040044F4C4 /* AnalysisPagingResponseModel.swift */; };
 		E4713A8A2C0107BF0044F4C4 /* AnalysisPagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A892C0107BF0044F4C4 /* AnalysisPagingViewController.swift */; };
 		E4713A8C2C0107C50044F4C4 /* AnalysisPagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A8B2C0107C50044F4C4 /* AnalysisPagingViewModel.swift */; };
+		E4713A902C01AC990044F4C4 /* AnalysisPagingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A8F2C01AC990044F4C4 /* AnalysisPagingTableViewCell.swift */; };
+		E4713A932C01B30F0044F4C4 /* AnalysisDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A922C01B30F0044F4C4 /* AnalysisDetailViewController.swift */; };
 		E4989EE12BC8FD9500D888DC /* VoiceRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE02BC8FD9400D888DC /* VoiceRecordViewModel.swift */; };
 		E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */; };
 		E4B1E6912BEE7A6000ECADFA /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */; };
@@ -121,6 +123,8 @@
 		E4713A862C0104040044F4C4 /* AnalysisPagingResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisPagingResponseModel.swift; sourceTree = "<group>"; };
 		E4713A892C0107BF0044F4C4 /* AnalysisPagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisPagingViewController.swift; sourceTree = "<group>"; };
 		E4713A8B2C0107C50044F4C4 /* AnalysisPagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisPagingViewModel.swift; sourceTree = "<group>"; };
+		E4713A8F2C01AC990044F4C4 /* AnalysisPagingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisPagingTableViewCell.swift; sourceTree = "<group>"; };
+		E4713A922C01B30F0044F4C4 /* AnalysisDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDetailViewController.swift; sourceTree = "<group>"; };
 		E4989EE02BC8FD9400D888DC /* VoiceRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordViewModel.swift; sourceTree = "<group>"; };
 		E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Url + Extensioin.swift"; sourceTree = "<group>"; };
 		E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
@@ -273,10 +277,20 @@
 		E4713A882C0107A10044F4C4 /* Paging */ = {
 			isa = PBXGroup;
 			children = (
+				E4713A912C01AEDD0044F4C4 /* Detail */,
 				E4713A892C0107BF0044F4C4 /* AnalysisPagingViewController.swift */,
 				E4713A8B2C0107C50044F4C4 /* AnalysisPagingViewModel.swift */,
+				E4713A8F2C01AC990044F4C4 /* AnalysisPagingTableViewCell.swift */,
 			);
 			path = Paging;
+			sourceTree = "<group>";
+		};
+		E4713A912C01AEDD0044F4C4 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E4713A922C01B30F0044F4C4 /* AnalysisDetailViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		E4989EDF2BC8FD8600D888DC /* First */ = {
@@ -860,6 +874,7 @@
 				E4B9A5412BD243F80073F7B9 /* LoginResponseModel.swift in Sources */,
 				E4B9A53F2BD243510073F7B9 /* LoginNetwork.swift in Sources */,
 				E4B1E6912BEE7A6000ECADFA /* NetworkProvider.swift in Sources */,
+				E4713A902C01AC990044F4C4 /* AnalysisPagingTableViewCell.swift in Sources */,
 				E4D401CA2BB2C60C00B4E5C4 /* LoginViewController.swift in Sources */,
 				E4B1E69B2BEF601600ECADFA /* LogoutResponseModel.swift in Sources */,
 				E4B9A5442BD28DAC0073F7B9 /* QuestionNetwork.swift in Sources */,
@@ -896,6 +911,7 @@
 				E4989EE12BC8FD9500D888DC /* VoiceRecordViewModel.swift in Sources */,
 				E4B1E6942BEE7BB500ECADFA /* Network.swift in Sources */,
 				E4713A8A2C0107BF0044F4C4 /* AnalysisPagingViewController.swift in Sources */,
+				E4713A932C01B30F0044F4C4 /* AnalysisDetailViewController.swift in Sources */,
 				E461BD502BDA5540008CFD7D /* MypageViewModel.swift in Sources */,
 				E4B1E6A22BF3C4B500ECADFA /* AnswerRequestModel.swift in Sources */,
 				E4713A602BFC71F40044F4C4 /* ReissueViewModel.swift in Sources */,
