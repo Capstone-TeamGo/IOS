@@ -101,6 +101,7 @@ final class MainViewController: UIViewController{
         super.viewDidLoad()
         setNavigation()
         setLayout()
+        setBinding()
     }
 }
 //MARK: - UI Navigation

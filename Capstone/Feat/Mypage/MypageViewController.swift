@@ -101,7 +101,6 @@ final class MypageViewController: UIViewController{
         super.viewDidLoad()
         setNavigation()
         setLayout()
-        setBinding()
     }
 }
 //MARK: - UI Navigation
@@ -110,6 +109,7 @@ extension MypageViewController {
         super.viewWillAppear(animated)
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = false
+        self.setBinding()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
