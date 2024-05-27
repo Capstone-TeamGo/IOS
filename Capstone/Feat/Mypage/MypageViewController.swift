@@ -71,7 +71,7 @@ final class MypageViewController: UIViewController{
     private let listBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
-        btn.setTitle("💳    내 구독권", for: .normal)
+        btn.setTitle("🌳    내 힐링이", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.setTitleColor(.gray, for: .highlighted)
         btn.configuration = .bordered()
@@ -211,6 +211,10 @@ private extension MypageViewController {
             if let url = URL(string: "https://forms.gle/EG8UVLx8vfuoCuAS7"){
                 UIApplication.shared.open(url)
             }
+        }.disposed(by: disposeBag)
+        //힐링이 이동 버튼
+        listBtn.rx.tap.bind { _ in
+            self.navigationController?.pushViewController(GrowingViewController(), animated: true)
         }.disposed(by: disposeBag)
     }
     private func setBindView() {

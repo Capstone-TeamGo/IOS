@@ -43,9 +43,9 @@ final class ReissueViewModel {
             guard let self = self else { return }
             if result.code == 200 {
                 if let JWTaccessToken = result.data?.accessToken {
-                    self.reissueExpire.onNext((false))
                     KeychainWrapper.standard.remove(forKey: "JWTaccessToken")
                     KeychainWrapper.standard.set(JWTaccessToken, forKey: "JWTaccessToken")
+                    self.reissueExpire.onNext((false))
                 }
             }else if result.code == 404 {
                 KeychainWrapper.standard.removeAllKeys()
