@@ -215,10 +215,16 @@ private extension MainViewController {
                 }
             } else {
                 self.mainViewModel.feelingTrigger.onNext(())
-                self.mainViewModel.feelingResult.subscribe(onNext: {[weak self] result in
+                self.mainViewModel.feelingResult
+                    .subscribe(onNext: {[weak self] result in
                     guard let self = self else { return }
                     DispatchQueue.main.async {
                         self.setchart(model: result)
+                    }
+                }, onError: {[weak self] error in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ErrorViewController(), animated: false)
                     }
                 })
                 .disposed(by: self.disposeBag)

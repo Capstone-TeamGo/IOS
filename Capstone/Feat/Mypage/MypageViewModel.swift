@@ -22,6 +22,9 @@ final class MypageViewModel {
         
         logoutTrigger.flatMapLatest {_ in
             return self.logoutNetwork.getLogout()
+                .catch { error in
+                    return Observable.empty()
+                }
         }
         .bind(to: logoutResult)
         .disposed(by: disposeBag)

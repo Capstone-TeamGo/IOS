@@ -6,30 +6,66 @@
 //
 
 import XCTest
+//import RxSwift
+//import RxCocoa
+//@testable import Capstone
 
 final class CapstoneUnitsTests: XCTestCase {
-
+    //메인 테스트
+//    var mainViewModel : MainViewModel!
+//    var disposeBag : DisposeBag!
+    //테스트 시작
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+//        mainViewModel = MainViewModel()
+//        disposeBag = DisposeBag()
     }
-
+    //테스트 종료
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+//       mainViewModel = nil
+//       disposeBag = nil
     }
-
+    //테스트 성공
+//    func testFeelingTriggerSuccess() throws {
+//        let expectation = XCTestExpectation(description: "Feeling result is received")
+//
+//        mainViewModel.feelingResult
+//            .subscribe(onNext: { result in
+//                XCTAssertNotNil(result, "Expected non-nil result")
+//                expectation.fulfill()
+//            }, onError: { error in
+//                XCTFail("Expected no error, but got \(error)")
+//            })
+//            .disposed(by: disposeBag)
+//
+//        mainViewModel.feelingTrigger.onNext(())
+//
+//        wait(for: [expectation], timeout: 5.0)
+//    }
+//    //테스트 실패
+//    func testFeelingTriggerError() throws {
+//        let expectation = XCTestExpectation(description: "Error is received")
+//
+//        mainViewModel.feelingResult
+//            .subscribe(onNext: { result in
+//                XCTFail("Expected error, but got result \(result)")
+//            }, onError: { error in
+//                expectation.fulfill()
+//            })
+//            .disposed(by: disposeBag)
+//
+//        mainViewModel.feelingTrigger.onNext(())
+//
+//        wait(for: [expectation], timeout: 5.0)
+//    }
+    
     func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        
     }
-
+    
     func testPerformanceExample() throws {
-        // This is an example of a performance test case.
         measure {
-            // Put the code you want to measure the time of here.
+            
         }
     }
-
+    
 }

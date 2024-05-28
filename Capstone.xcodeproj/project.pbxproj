@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E40CDC952C05B19100A51DE0 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E40CDC942C05B19100A51DE0 /* RxCocoa */; };
+		E40CDC972C05B19100A51DE0 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = E40CDC962C05B19100A51DE0 /* RxRelay */; };
+		E40CDC992C05B19100A51DE0 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E40CDC982C05B19100A51DE0 /* RxSwift */; };
 		E461BD502BDA5540008CFD7D /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD4F2BDA5540008CFD7D /* MypageViewModel.swift */; };
 		E461BD532BDA5D0A008CFD7D /* FeelingNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD522BDA5D0A008CFD7D /* FeelingNetwork.swift */; };
 		E461BD572BDA5D45008CFD7D /* FeelingRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD562BDA5D45008CFD7D /* FeelingRequestModel.swift */; };
@@ -31,6 +34,7 @@
 		E4713A952C01B8C90044F4C4 /* AnalysisDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A942C01B8C90044F4C4 /* AnalysisDetailViewModel.swift */; };
 		E4713A972C01BA800044F4C4 /* AnalysisDetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A962C01BA800044F4C4 /* AnalysisDetailResponseModel.swift */; };
 		E4713A9A2C01BB7B0044F4C4 /* AnalysisDetailNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713A992C01BB7B0044F4C4 /* AnalysisDetailNetwork.swift */; };
+		E4713AB02C0594730044F4C4 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4713AAF2C0594730044F4C4 /* ErrorViewController.swift */; };
 		E4989EE12BC8FD9500D888DC /* VoiceRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE02BC8FD9400D888DC /* VoiceRecordViewModel.swift */; };
 		E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */; };
 		E4B1E6912BEE7A6000ECADFA /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */; };
@@ -61,9 +65,6 @@
 		E4D401E12BB2CD1B00B4E5C4 /* Color + Extensioin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D401E02BB2CD1B00B4E5C4 /* Color + Extensioin.swift */; };
 		E4D401E42BB2CDFE00B4E5C4 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E4D401E32BB2CDFE00B4E5C4 /* SnapKit */; };
 		E4D401E72BB2CE0B00B4E5C4 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = E4D401E62BB2CE0B00B4E5C4 /* SwiftKeychainWrapper */; };
-		E4D401EA2BB2CE1E00B4E5C4 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E4D401E92BB2CE1E00B4E5C4 /* RxCocoa */; };
-		E4D401EC2BB2CE1E00B4E5C4 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = E4D401EB2BB2CE1E00B4E5C4 /* RxRelay */; };
-		E4D401EE2BB2CE1E00B4E5C4 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E4D401ED2BB2CE1E00B4E5C4 /* RxSwift */; };
 		E4D401F12BB2CE2D00B4E5C4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E4D401F02BB2CE2D00B4E5C4 /* Alamofire */; };
 		E4D401F72BB3E1CC00B4E5C4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E4D401F62BB3E1CC00B4E5C4 /* Kingfisher */; };
 		E4D401FA2BB3E1E500B4E5C4 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = E4D401F92BB3E1E500B4E5C4 /* NVActivityIndicatorView */; };
@@ -131,6 +132,7 @@
 		E4713A942C01B8C90044F4C4 /* AnalysisDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDetailViewModel.swift; sourceTree = "<group>"; };
 		E4713A962C01BA800044F4C4 /* AnalysisDetailResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDetailResponseModel.swift; sourceTree = "<group>"; };
 		E4713A992C01BB7B0044F4C4 /* AnalysisDetailNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDetailNetwork.swift; sourceTree = "<group>"; };
+		E4713AAF2C0594730044F4C4 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		E4989EE02BC8FD9400D888DC /* VoiceRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordViewModel.swift; sourceTree = "<group>"; };
 		E4989EE72BC8FE5500D888DC /* Url + Extensioin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Url + Extensioin.swift"; sourceTree = "<group>"; };
 		E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
@@ -206,16 +208,16 @@
 			files = (
 				E4D401FC2BB3E1E500B4E5C4 /* NVActivityIndicatorViewExtended in Frameworks */,
 				E4D401FA2BB3E1E500B4E5C4 /* NVActivityIndicatorView in Frameworks */,
+				E40CDC952C05B19100A51DE0 /* RxCocoa in Frameworks */,
 				E4D4020C2BB3EFB400B4E5C4 /* DGCharts in Frameworks */,
-				E4D401EA2BB2CE1E00B4E5C4 /* RxCocoa in Frameworks */,
 				E4B1E6972BEE7C2400ECADFA /* RxAlamofire in Frameworks */,
 				E4D401E72BB2CE0B00B4E5C4 /* SwiftKeychainWrapper in Frameworks */,
+				E40CDC992C05B19100A51DE0 /* RxSwift in Frameworks */,
 				E4D401F72BB3E1CC00B4E5C4 /* Kingfisher in Frameworks */,
-				E4D401EE2BB2CE1E00B4E5C4 /* RxSwift in Frameworks */,
 				E4D401F12BB2CE2D00B4E5C4 /* Alamofire in Frameworks */,
 				E4713A632BFF185E0044F4C4 /* SCLAlertView in Frameworks */,
-				E4D401EC2BB2CE1E00B4E5C4 /* RxRelay in Frameworks */,
 				E4D401E42BB2CDFE00B4E5C4 /* SnapKit in Frameworks */,
+				E40CDC972C05B19100A51DE0 /* RxRelay in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +309,14 @@
 				E4713A992C01BB7B0044F4C4 /* AnalysisDetailNetwork.swift */,
 			);
 			path = Paging;
+			sourceTree = "<group>";
+		};
+		E4713AAE2C0594690044F4C4 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				E4713AAF2C0594730044F4C4 /* ErrorViewController.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		E4989EDF2BC8FD8600D888DC /* First */ = {
@@ -581,6 +591,7 @@
 		E4D401DE2BB2CBF600B4E5C4 /* Feat */ = {
 			isa = PBXGroup;
 			children = (
+				E4713AAE2C0594690044F4C4 /* Error */,
 				E4713A882C0107A10044F4C4 /* Paging */,
 				E4B1E6D42BF71EB600ECADFA /* Growing */,
 				E4D402162BB472B500B4E5C4 /* Result */,
@@ -745,9 +756,6 @@
 			packageProductDependencies = (
 				E4D401E32BB2CDFE00B4E5C4 /* SnapKit */,
 				E4D401E62BB2CE0B00B4E5C4 /* SwiftKeychainWrapper */,
-				E4D401E92BB2CE1E00B4E5C4 /* RxCocoa */,
-				E4D401EB2BB2CE1E00B4E5C4 /* RxRelay */,
-				E4D401ED2BB2CE1E00B4E5C4 /* RxSwift */,
 				E4D401F02BB2CE2D00B4E5C4 /* Alamofire */,
 				E4D401F62BB3E1CC00B4E5C4 /* Kingfisher */,
 				E4D401F92BB3E1E500B4E5C4 /* NVActivityIndicatorView */,
@@ -755,6 +763,9 @@
 				E4D4020B2BB3EFB400B4E5C4 /* DGCharts */,
 				E4B1E6962BEE7C2400ECADFA /* RxAlamofire */,
 				E4713A622BFF185E0044F4C4 /* SCLAlertView */,
+				E40CDC942C05B19100A51DE0 /* RxCocoa */,
+				E40CDC962C05B19100A51DE0 /* RxRelay */,
+				E40CDC982C05B19100A51DE0 /* RxSwift */,
 			);
 			productName = Capstone;
 			productReference = E4D401C22BB2C60C00B4E5C4 /* Capstone.app */;
@@ -799,13 +810,13 @@
 			packageReferences = (
 				E4D401E22BB2CDFE00B4E5C4 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				E4D401E52BB2CE0B00B4E5C4 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
-				E4D401E82BB2CE1E00B4E5C4 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				E4D401EF2BB2CE2D00B4E5C4 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E4D401F52BB3E1CC00B4E5C4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E4D401F82BB3E1E500B4E5C4 /* XCRemoteSwiftPackageReference "NVActivityIndicatorView" */,
 				E4D4020A2BB3EFB400B4E5C4 /* XCRemoteSwiftPackageReference "Charts" */,
 				E4B1E6952BEE7C2400ECADFA /* XCRemoteSwiftPackageReference "RxAlamofire" */,
 				E4713A612BFF185E0044F4C4 /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */,
+				E40CDC932C05B19100A51DE0 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = E4D401C32BB2C60C00B4E5C4 /* Products */;
 			projectDirPath = "";
@@ -937,6 +948,7 @@
 				E4713A602BFC71F40044F4C4 /* ReissueViewModel.swift in Sources */,
 				E4713A8C2C0107C50044F4C4 /* AnalysisPagingViewModel.swift in Sources */,
 				E4B1E69F2BF3C15D00ECADFA /* AnalysisNetwork.swift in Sources */,
+				E4713AB02C0594730044F4C4 /* ErrorViewController.swift in Sources */,
 				E4B1E6992BEF556C00ECADFA /* LogoutNetwork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1328,6 +1340,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		E40CDC932C05B19100A51DE0 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		E4713A612BFF185E0044F4C4 /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/vikmeup/SCLAlertView-Swift.git";
@@ -1358,14 +1378,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.0.0;
-			};
-		};
-		E4D401E82BB2CE1E00B4E5C4 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
 			};
 		};
 		E4D401EF2BB2CE2D00B4E5C4 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
@@ -1403,6 +1415,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E40CDC942C05B19100A51DE0 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E40CDC932C05B19100A51DE0 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		E40CDC962C05B19100A51DE0 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E40CDC932C05B19100A51DE0 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		E40CDC982C05B19100A51DE0 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E40CDC932C05B19100A51DE0 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
 		E4713A622BFF185E0044F4C4 /* SCLAlertView */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E4713A612BFF185E0044F4C4 /* XCRemoteSwiftPackageReference "SCLAlertView-Swift" */;
@@ -1422,21 +1449,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E4D401E52BB2CE0B00B4E5C4 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
-		};
-		E4D401E92BB2CE1E00B4E5C4 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E4D401E82BB2CE1E00B4E5C4 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		E4D401EB2BB2CE1E00B4E5C4 /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E4D401E82BB2CE1E00B4E5C4 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		E4D401ED2BB2CE1E00B4E5C4 /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E4D401E82BB2CE1E00B4E5C4 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
 		};
 		E4D401F02BB2CE2D00B4E5C4 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

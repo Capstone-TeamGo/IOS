@@ -199,6 +199,10 @@ extension FirstQuestionViewController {
                             self.player = AVPlayer(url: audioURL)
                             self.player?.play()
                         }
+                    }, onError: { error in
+                        DispatchQueue.main.async {
+                            self.navigationController?.pushViewController(ErrorViewController(), animated: true)
+                        }
                     })
                     .disposed(by: self.disposeBag)
                 self.mic.rx.tap
@@ -268,6 +272,10 @@ extension FirstQuestionViewController {
                             alert.showError("녹음을 완료해 주세요")
                             self.loadingIndicator.stopAnimating()
                         }
+                    }
+                }, onError: { error in
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ErrorViewController(), animated: true)
                     }
                 })
                 .disposed(by: self.disposeBag)

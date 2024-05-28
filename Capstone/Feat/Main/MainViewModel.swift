@@ -16,13 +16,15 @@ final class MainViewModel {
     //일주일 감정 가져오기
     let feelingTrigger = PublishSubject<Void>()
     let feelingResult : PublishSubject<FeelingRequestModel> = PublishSubject()
-    
     init() {
         let provider = NetworkProvider(endpoint: endpointURL)
         feelingNetwork = provider.feelingWeekNetwork()
         
         feelingTrigger.flatMapLatest { _ in
             return self.feelingNetwork.getFeelingWeek()
+                .catch { error in
+                    return Observable.empty()
+                }
         }
         .bind(to: feelingResult)
         .disposed(by: disposeBag)

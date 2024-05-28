@@ -43,7 +43,8 @@ final class LoginViewModel : NSObject, ASAuthorizationControllerDelegate, ASAuth
         }
         .bind(to: serverLoginResult)
         .disposed(by: disposeBag)
-        self.serverLoginResult.subscribe(onNext: {[weak self] result in
+        self.serverLoginResult
+            .subscribe(onNext: {[weak self] result in
             guard let self = self else{return}
             if result.code == 200 {
                 if let accessToken = result.data?.accessToken,

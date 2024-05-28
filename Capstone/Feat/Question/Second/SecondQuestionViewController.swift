@@ -275,6 +275,10 @@ private extension SecondQuestionViewController {
                             self.loadingIndicator.stopAnimating()
                         }
                     }
+                }, onError: { error in
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(ErrorViewController(), animated: true)
+                    }
                 })
                 .disposed(by: self.disposeBag)
             }

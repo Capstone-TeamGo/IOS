@@ -197,7 +197,8 @@ private extension MypageViewController {
                     self.mypageViewModel.logoutTrigger.onNext(())
                 }.disposed(by: self.disposeBag)
                 
-                self.mypageViewModel.logoutResult.subscribe(onNext: { [weak self] result in
+                self.mypageViewModel.logoutResult
+                    .subscribe(onNext: { [weak self] result in
                     guard let self = self else { return }
                     if result.code == 200 {
                         KeychainWrapper.standard.removeAllKeys() //저장된 토큰 삭제
@@ -205,7 +206,11 @@ private extension MypageViewController {
                             self.navigationController?.pushViewController(LoginViewController(), animated: true)
                         }
                     }
-                }).disposed(by: self.disposeBag)
+                    }, onError: { error in
+                        DispatchQueue.main.async {
+                            self.navigationController?.pushViewController(ErrorViewController(), animated: false)
+                        }
+                    }).disposed(by: self.disposeBag)
             }
         }.disposed(by: disposeBag)
         //피드백 버튼
