@@ -206,7 +206,9 @@ private extension MainViewController {
     }
     private func setBinding() {
         self.reissueViewModel.reissueTrigger.onNext(())
-        self.reissueViewModel.reissueExpire.bind(onNext: { expire in
+        self.reissueViewModel.reissueExpire
+            .take(1)
+            .bind(onNext: { expire in
             if expire == true {
                 DispatchQueue.main.async {
                     self.navigationController?.pushViewController(LoginViewController(), animated: true)

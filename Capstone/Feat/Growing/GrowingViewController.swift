@@ -152,7 +152,7 @@ private extension GrowingViewController {
         }
     }
     private func TypingAnimation() {
-        let fullText : String = "나만의 힐링이를 키워보세요! 많은 감정 분석과 상담을 받을수록 힐링이는 더 성장해요!🌳 힐링이를 성장시켜 혜택을 받아보세요🕊️"
+        let fullText : String = "나만의 힐링이를 키워보세요! 많은 감정 분석과 상담을 받을수록 힐링이는 더 성장해요!🌳"
         Observable<Int>
             .interval(.milliseconds(100), scheduler: MainScheduler.instance)
             .take(fullText.count)
@@ -168,7 +168,9 @@ private extension GrowingViewController {
     private func setBinding() {
         //토큰 유효성 검사
         reissueViewModel.reissueTrigger.onNext(())
-        reissueViewModel.reissueExpire.bind(onNext: { [weak self] expire in
+        reissueViewModel.reissueExpire
+            .take(1)
+            .bind(onNext: { [weak self] expire in
             guard let self = self else { return }
             if expire == true {
                 DispatchQueue.main.async {

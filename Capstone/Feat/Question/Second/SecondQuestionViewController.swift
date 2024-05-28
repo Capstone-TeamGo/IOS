@@ -195,7 +195,9 @@ private extension SecondQuestionViewController {
     private func setBinding() {
         //토큰 유효성 검사
         reissueViewModel.reissueTrigger.onNext(())
-        reissueViewModel.reissueExpire.bind { expire in
+        reissueViewModel.reissueExpire
+            .take(1)
+            .bind { expire in
             if expire == true {
                 DispatchQueue.main.async {
                     self.navigationController?.pushViewController(LoginViewController(), animated: true)
