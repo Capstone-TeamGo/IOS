@@ -12,14 +12,18 @@ import RxCocoa
 import AuthenticationServices
 
 final class TabBarViewController: UITabBarController {
+    private let disposeBag = DisposeBag()
+    private let reissueViewModel = ReissueViewModel()
     //MARK: UI Components
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        self.reissueViewModel.reissueTrigger.onNext(())
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         setTabBar()
+        setBinding()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -43,5 +47,22 @@ private extension TabBarViewController {
         MypageVC.tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(systemName: "person.fill"), tag: 1)
         let mypageNavigationController = UINavigationController(rootViewController: MypageVC)
         viewControllers = [homeNavigationController, mypageNavigationController]
+    }
+}
+//MARK: - Binding
+private extension TabBarViewController {
+    private func setBinding() {
+        //토큰 유효성 검사
+        self.reissueViewModel.reissueTrigger.onNext(())
+        self.reissueViewModel.reissueExpire
+            .bind(onNext: { expire in
+                if expire == true {
+                    print("TabBar - JWTaccessToken Expried!")
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                    }
+                }else { print("TabBar - JWTaccessToken not Expried!") }
+            })
+            .disposed(by: disposeBag)
     }
 }

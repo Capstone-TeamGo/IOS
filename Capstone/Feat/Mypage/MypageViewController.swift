@@ -184,13 +184,14 @@ private extension MypageViewController {
         //토큰 유효성 검사
         reissueViewModel.reissueTrigger.onNext(())
         reissueViewModel.reissueExpire
-            .take(1)
             .bind { expire in
             if expire == true {
+                print("Mypage - JWTaccessToken Expried!")
                 DispatchQueue.main.async {
                     self.navigationController?.pushViewController(LoginViewController(), animated: true)
                 }
             } else {
+                print("Mypage - JWTaccessToken not Expried!")
                 //MARK: - Logout Binding
                 self.logoutBtn.rx.tap.bind { [weak self] in
                     guard let self = self else { return }
