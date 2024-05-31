@@ -16,8 +16,10 @@ final class ResultViewController : UIViewController {
     private let disposeBag = DisposeBag()
     //MARK: - UI Components
     var analysisId : String
-    init(analysisId: String) {
+    var feelingState : Double
+    init(analysisId: String, feelingState : Double) {
         self.analysisId = analysisId
+        self.feelingState = feelingState
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
@@ -50,7 +52,18 @@ final class ResultViewController : UIViewController {
         btn.setImage(UIImage(named: "Chat"), for: .normal)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         btn.backgroundColor = .clear
+        btn.addTarget(self, action: #selector(chatBtnTapped), for: .touchUpInside)
         return btn
+    }()
+    //현재 우울점수
+    private var depressedLabel : UILabel = {
+        let label = UILabel()
+        label.text = nil
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        return label
     }()
     private let image : UIImageView = {
         let view = UIImageView()
@@ -78,9 +91,12 @@ private extension ResultViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
         self.title = ""
+        self.TypingAnimation(finalScore: self.feelingState)
+        
         self.view.addSubview(titleLabel)
         self.view.addSubview(decLabel)
         self.view.addSubview(chatBtn)
+        self.view.addSubview(depressedLabel)
         self.view.addSubview(image)
         
         titleLabel.snp.makeConstraints { make in
@@ -98,12 +114,40 @@ private extension ResultViewController {
             make.top.equalTo(decLabel.snp.bottom).offset(0)
             make.height.equalTo(30)
         }
+        depressedLabel.snp.makeConstraints { make in
+            make.height.equalTo(30)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(chatBtn.snp.bottom).offset(20)
+        }
         image.snp.makeConstraints { make in
             make.trailing.leading.equalToSuperview().inset(30)
-            make.top.equalTo(chatBtn.snp.bottom).offset(100)
-            make.height.equalTo(250)
+            make.top.equalTo(depressedLabel.snp.bottom).offset(100)
+            make.height.equalToSuperview().dividedBy(3)
         }
     }
+    private func TypingAnimation(finalScore: Double) {
+        let duration: Double = 2.0 // 애니메이션 지속 시간 (초)
+        let increment: Double = 0.1 // 점수 증가 단위
+        let interval: Double = duration / (finalScore / increment) // 애니메이션 주기
+        var currentScore: Double = 0.0 // 초기 점수
+        
+        let fullText: (Double) -> String = { score in
+            return "심리분석 결과 우울 점수 : \(String(format: "%.1f", score))점"
+        }
+        
+        Observable<Int>
+            .interval(.milliseconds(Int(interval * 1000)), scheduler: MainScheduler.instance)
+            .take(Int(finalScore / increment) + 1) // 최종 점수까지 증가
+            .subscribe(onNext: { [weak self] index in
+                guard let self = self else { return }
+                currentScore += increment
+                if currentScore > finalScore {
+                    currentScore = finalScore
+                }
+                self.depressedLabel.text = fullText(currentScore)
+            }).disposed(by: disposeBag)
+    }
+    
     @objc private func chatBtnTapped() {
         self.navigationController?.pushViewController(ConsultingViewController(analysisId: analysisId), animated: true)
     }

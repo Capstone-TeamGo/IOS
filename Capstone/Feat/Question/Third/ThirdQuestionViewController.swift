@@ -140,8 +140,8 @@ private extension ThirdQuestionViewController {
         }
         questionText.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(80)
-            make.top.equalToSuperview().offset(self.view.frame.height / 8)
+//            make.height.equalTo(100)
+            make.top.equalToSuperview().offset(self.view.frame.height / 9)
         }
         progress.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)

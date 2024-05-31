@@ -125,8 +125,8 @@ private extension FirstQuestionViewController {
         }
         questionText.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(80)
-            make.top.equalToSuperview().offset(self.view.frame.height / 8)
+//            make.height.equalTo(100)
+            make.top.equalToSuperview().offset(self.view.frame.height / 9)
         }
         progress.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
@@ -189,6 +189,7 @@ extension FirstQuestionViewController {
                 }
             } else {
                 self.voiceRecordViewModel.questionTrigger.onNext(())
+                self.loadingIndicator.startAnimating()
                 self.voiceRecordViewModel.questionResult
                     .subscribe(onNext: {[weak self] question in
                         guard let self = self else { return }
@@ -198,6 +199,7 @@ extension FirstQuestionViewController {
                             self.questionText.text = question.data?.questionTexts?.first
                             self.player = AVPlayer(url: audioURL)
                             self.player?.play()
+                            self.loadingIndicator.stopAnimating()
                         }
                     }, onError: { error in
                         DispatchQueue.main.async {

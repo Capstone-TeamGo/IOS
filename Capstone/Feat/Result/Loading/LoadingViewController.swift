@@ -11,6 +11,7 @@ import RxCocoa
 import SnapKit
 import Kingfisher
 import UIKit
+import NVActivityIndicatorView
 
 final class LoadingViewController : UIViewController {
     private let disposeBag = DisposeBag()
@@ -59,6 +60,12 @@ final class LoadingViewController : UIViewController {
         view.tintColor = .systemGreen
         return view
     }()
+    //로딩인디케이터
+    private let loadingIndicator : NVActivityIndicatorView = {
+        let view = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40), type: .ballBeat)
+        view.color = .gray
+        return view
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
@@ -75,6 +82,7 @@ private extension LoadingViewController {
         self.view.addSubview(decLabel)
         self.view.addSubview(image)
         self.view.addSubview(progress)
+        self.view.addSubview(loadingIndicator)
         
         titleLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
@@ -98,7 +106,9 @@ private extension LoadingViewController {
             make.height.equalTo(20)
             make.top.equalTo(image.snp.bottom).offset(50)
         }
-        
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
         if let gifUrl = Bundle.main.url(forResource: "confetti", withExtension: "gif") {
             image.kf.setImage(with: gifUrl)
         }
@@ -133,6 +143,9 @@ private extension LoadingViewController {
                             guard let self = self else { return }
                             print("서버로 전송")
                             self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
+                            if progress.progress >= 0.9 {
+                                self.loadingIndicator.startAnimating()
+                            }
                         })
                         .disposed(by: self.disposeBag)
                     self.loadingViewModel.sentimentAnalysisResult
@@ -141,15 +154,16 @@ private extension LoadingViewController {
                         .subscribe(onNext: { [weak self] result in
                             guard let self = self else { return }
                             DispatchQueue.main.async {
+                                self.loadingIndicator.stopAnimating()
                                 // 프로그레스 바를 1.0으로 설정
                                 if self.progress.progress != 1.0 {
                                     self.progress.progress = 1.0
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        let resultVC = ResultViewController(analysisId: "\(self.question.data?.analysisId ?? 0)")
+                                        let resultVC = ResultViewController(analysisId: "\(self.question.data?.analysisId ?? 0)", feelingState: result.data?.feelingState ?? 0.0)
                                         self.navigationController?.pushViewController(resultVC, animated: true)
                                     }
                                 }else {
-                                    let resultVC = ResultViewController(analysisId: "\(self.question.data?.analysisId ?? 0)")
+                                    let resultVC = ResultViewController(analysisId: "\(self.question.data?.analysisId ?? 0)", feelingState: result.data?.feelingState ?? 0.0)
                                     self.navigationController?.pushViewController(resultVC, animated: true)
                                 }
                             }
