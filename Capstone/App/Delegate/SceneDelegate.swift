@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //로그인 유무 체크가 필요(메서드)
         if let _ = KeychainWrapper.standard.string(forKey: "JWTaccessToken"),
            let _ = KeychainWrapper.standard.string(forKey: "JWTrefreshToken"){
-            let viewController = ConsultingViewController()
+            let viewController = ConsultingViewController(analysisId: "")
             let navigationController = UINavigationController(rootViewController: viewController)
             window?.rootViewController = navigationController
         }else{

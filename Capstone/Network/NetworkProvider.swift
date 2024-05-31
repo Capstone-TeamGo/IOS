@@ -62,4 +62,9 @@ final class NetworkProvider {
         let network = Network<AnswerResponseModel>(endpoint)
         return AnalysisNetwork(network: network)
     }
+    //MARK: - Counsel
+    public func counselNetwork() -> CounselNetwork {
+        let network = Network<CounselResponseModel>(endpoint)
+        return CounselNetwork(network: network)
+    }
 }
