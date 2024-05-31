@@ -22,3 +22,8 @@ let questionURL = "/analysis" //질문 텍스트, 음성
 let feelingWeekURL = "/analysis/week" //일주일 감정
 let SentimentAnalysisURL = "/analysis/"//감정 분석하기
 let analysisPagingURL = "/analysis" //분석 페이징 조회
+
+//MARK: - Counsel
+let CounselURL = "/counsel" //상담하기
+
+

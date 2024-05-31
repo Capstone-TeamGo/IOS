@@ -10,6 +10,10 @@
 		E40CDC952C05B19100A51DE0 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E40CDC942C05B19100A51DE0 /* RxCocoa */; };
 		E40CDC972C05B19100A51DE0 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = E40CDC962C05B19100A51DE0 /* RxRelay */; };
 		E40CDC992C05B19100A51DE0 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E40CDC982C05B19100A51DE0 /* RxSwift */; };
+		E40CDC9E2C098F4700A51DE0 /* ConsultingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CDC9D2C098F4700A51DE0 /* ConsultingViewController.swift */; };
+		E40CDCA02C098F4F00A51DE0 /* ConsultingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CDC9F2C098F4F00A51DE0 /* ConsultingViewModel.swift */; };
+		E40CDCA32C09902D00A51DE0 /* CounselNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CDCA22C09902D00A51DE0 /* CounselNetwork.swift */; };
+		E40CDCA72C09904300A51DE0 /* CounselResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CDCA62C09904300A51DE0 /* CounselResponseModel.swift */; };
 		E461BD502BDA5540008CFD7D /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD4F2BDA5540008CFD7D /* MypageViewModel.swift */; };
 		E461BD532BDA5D0A008CFD7D /* FeelingNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD522BDA5D0A008CFD7D /* FeelingNetwork.swift */; };
 		E461BD572BDA5D45008CFD7D /* FeelingRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD562BDA5D45008CFD7D /* FeelingRequestModel.swift */; };
@@ -109,6 +113,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E40CDC9D2C098F4700A51DE0 /* ConsultingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingViewController.swift; sourceTree = "<group>"; };
+		E40CDC9F2C098F4F00A51DE0 /* ConsultingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingViewModel.swift; sourceTree = "<group>"; };
+		E40CDCA22C09902D00A51DE0 /* CounselNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounselNetwork.swift; sourceTree = "<group>"; };
+		E40CDCA62C09904300A51DE0 /* CounselResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounselResponseModel.swift; sourceTree = "<group>"; };
 		E461BD4F2BDA5540008CFD7D /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
 		E461BD522BDA5D0A008CFD7D /* FeelingNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingNetwork.swift; sourceTree = "<group>"; };
 		E461BD562BDA5D45008CFD7D /* FeelingRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingRequestModel.swift; sourceTree = "<group>"; };
@@ -224,6 +232,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E40CDC9C2C098F3A00A51DE0 /* Consulting */ = {
+			isa = PBXGroup;
+			children = (
+				E40CDCA82C0990D800A51DE0 /* Counsel */,
+			);
+			path = Consulting;
+			sourceTree = "<group>";
+		};
+		E40CDCA12C09902000A51DE0 /* Counsel */ = {
+			isa = PBXGroup;
+			children = (
+				E40CDCA22C09902D00A51DE0 /* CounselNetwork.swift */,
+			);
+			path = Counsel;
+			sourceTree = "<group>";
+		};
+		E40CDCA42C09903200A51DE0 /* Counsel */ = {
+			isa = PBXGroup;
+			children = (
+				E40CDCA52C09903600A51DE0 /* Response */,
+			);
+			path = Counsel;
+			sourceTree = "<group>";
+		};
+		E40CDCA52C09903600A51DE0 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				E40CDCA62C09904300A51DE0 /* CounselResponseModel.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		E40CDCA82C0990D800A51DE0 /* Counsel */ = {
+			isa = PBXGroup;
+			children = (
+				E40CDC9D2C098F4700A51DE0 /* ConsultingViewController.swift */,
+				E40CDC9F2C098F4F00A51DE0 /* ConsultingViewModel.swift */,
+			);
+			path = Counsel;
+			sourceTree = "<group>";
+		};
 		E461BD512BDA5D01008CFD7D /* Feeling */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +406,7 @@
 				E4EC74502BEA10E600D1C9FD /* URL.swift */,
 				E4B1E6932BEE7BB500ECADFA /* Network.swift */,
 				E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */,
+				E40CDCA12C09902000A51DE0 /* Counsel */,
 				E4B1E69D2BF3C14C00ECADFA /* Analysis */,
 				E461BD512BDA5D01008CFD7D /* Feeling */,
 				E4B9A5422BD28D9E0073F7B9 /* Question */,
@@ -490,6 +540,7 @@
 		E4C58BE22BCE939000A1AD58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E40CDCA42C09903200A51DE0 /* Counsel */,
 				E4B1E69C2BF3C10F00ECADFA /* Analysis */,
 				E461BD542BDA5D2F008CFD7D /* Feeling */,
 				E4B9A5452BD28DC60073F7B9 /* Question */,
@@ -591,6 +642,7 @@
 		E4D401DE2BB2CBF600B4E5C4 /* Feat */ = {
 			isa = PBXGroup;
 			children = (
+				E40CDC9C2C098F3A00A51DE0 /* Consulting */,
 				E4713AAE2C0594690044F4C4 /* Error */,
 				E4713A882C0107A10044F4C4 /* Paging */,
 				E4B1E6D42BF71EB600ECADFA /* Growing */,
@@ -905,6 +957,7 @@
 				E4713A902C01AC990044F4C4 /* AnalysisPagingTableViewCell.swift in Sources */,
 				E4D401CA2BB2C60C00B4E5C4 /* LoginViewController.swift in Sources */,
 				E4B1E69B2BEF601600ECADFA /* LogoutResponseModel.swift in Sources */,
+				E40CDCA32C09902D00A51DE0 /* CounselNetwork.swift in Sources */,
 				E4B9A5442BD28DAC0073F7B9 /* QuestionNetwork.swift in Sources */,
 				E4D4020F2BB4094F00B4E5C4 /* FirstQuestionViewController.swift in Sources */,
 				E4EC74512BEA10E600D1C9FD /* URL.swift in Sources */,
@@ -932,7 +985,9 @@
 				E4713A582BFC58CB0044F4C4 /* ReissueResponseModel.swift in Sources */,
 				E4D4021E2BB53FB500B4E5C4 /* ResultViewController.swift in Sources */,
 				E4D402002BB3E63E00B4E5C4 /* MainViewController.swift in Sources */,
+				E40CDCA02C098F4F00A51DE0 /* ConsultingViewModel.swift in Sources */,
 				E4D402032BB3ED0200B4E5C4 /* MainViewModel.swift in Sources */,
+				E40CDC9E2C098F4700A51DE0 /* ConsultingViewController.swift in Sources */,
 				E4713A852C0103800044F4C4 /* AnalysisPagingNetwork.swift in Sources */,
 				E4B9A5492BD28DF60073F7B9 /* QuestionResponseModel.swift in Sources */,
 				E461BD572BDA5D45008CFD7D /* FeelingRequestModel.swift in Sources */,
@@ -944,6 +999,7 @@
 				E4713A932C01B30F0044F4C4 /* AnalysisDetailViewController.swift in Sources */,
 				E461BD502BDA5540008CFD7D /* MypageViewModel.swift in Sources */,
 				E4713A9A2C01BB7B0044F4C4 /* AnalysisDetailNetwork.swift in Sources */,
+				E40CDCA72C09904300A51DE0 /* CounselResponseModel.swift in Sources */,
 				E4B1E6A22BF3C4B500ECADFA /* AnswerRequestModel.swift in Sources */,
 				E4713A602BFC71F40044F4C4 /* ReissueViewModel.swift in Sources */,
 				E4713A8C2C0107C50044F4C4 /* AnalysisPagingViewModel.swift in Sources */,
