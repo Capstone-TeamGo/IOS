@@ -60,6 +60,16 @@
 		E4C58BDC2BCE44A200A1AD58 /* CapstoneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BDB2BCE44A200A1AD58 /* CapstoneUITestsLaunchTests.swift */; };
 		E4C58BE82BCE93CA00A1AD58 /* LoginRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BE72BCE93CA00A1AD58 /* LoginRequestModel.swift */; };
 		E4C58BEA2BCE946700A1AD58 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C58BE92BCE946700A1AD58 /* LoginViewModel.swift */; };
+		E4CBE0712C09C0B5008B9842 /* PagingSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBE0702C09C0B5008B9842 /* PagingSegmentViewController.swift */; };
+		E4CBE0742C09C2D5008B9842 /* ConsultingPagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBE0732C09C2D5008B9842 /* ConsultingPagingViewController.swift */; };
+		E4CBE0762C09C308008B9842 /* ConsultingPagingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBE0752C09C308008B9842 /* ConsultingPagingViewModel.swift */; };
+		E4CBE0782C09C341008B9842 /* ConsultingPagingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBE0772C09C341008B9842 /* ConsultingPagingTableViewCell.swift */; };
+		E4CBE07B2C09C38E008B9842 /* ConsultingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBE07A2C09C38E008B9842 /* ConsultingDetailViewController.swift */; };
+		E4CBE07D2C09C3CA008B9842 /* ConsultingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBE07C2C09C3CA008B9842 /* ConsultingDetailViewModel.swift */; };
+		E4CBE0822C09C4FC008B9842 /* ConsultingPagingResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBE0812C09C4FC008B9842 /* ConsultingPagingResponseModel.swift */; };
+		E4CBE0862C09C636008B9842 /* ConsultingNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBE0852C09C636008B9842 /* ConsultingNetwork.swift */; };
+		E4CBE0882C09C6C3008B9842 /* ConsultingDetailNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBE0872C09C6C3008B9842 /* ConsultingDetailNetwork.swift */; };
+		E4CBE08A2C09C6D6008B9842 /* ConsultingDetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CBE0892C09C6D6008B9842 /* ConsultingDetailResponseModel.swift */; };
 		E4D401C62BB2C60C00B4E5C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D401C52BB2C60C00B4E5C4 /* AppDelegate.swift */; };
 		E4D401C82BB2C60C00B4E5C4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D401C72BB2C60C00B4E5C4 /* SceneDelegate.swift */; };
 		E4D401CA2BB2C60C00B4E5C4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D401C92BB2C60C00B4E5C4 /* LoginViewController.swift */; };
@@ -164,6 +174,16 @@
 		E4C58BDB2BCE44A200A1AD58 /* CapstoneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapstoneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E4C58BE72BCE93CA00A1AD58 /* LoginRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequestModel.swift; sourceTree = "<group>"; };
 		E4C58BE92BCE946700A1AD58 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		E4CBE0702C09C0B5008B9842 /* PagingSegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingSegmentViewController.swift; sourceTree = "<group>"; };
+		E4CBE0732C09C2D5008B9842 /* ConsultingPagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingPagingViewController.swift; sourceTree = "<group>"; };
+		E4CBE0752C09C308008B9842 /* ConsultingPagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingPagingViewModel.swift; sourceTree = "<group>"; };
+		E4CBE0772C09C341008B9842 /* ConsultingPagingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingPagingTableViewCell.swift; sourceTree = "<group>"; };
+		E4CBE07A2C09C38E008B9842 /* ConsultingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingDetailViewController.swift; sourceTree = "<group>"; };
+		E4CBE07C2C09C3CA008B9842 /* ConsultingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingDetailViewModel.swift; sourceTree = "<group>"; };
+		E4CBE0812C09C4FC008B9842 /* ConsultingPagingResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingPagingResponseModel.swift; sourceTree = "<group>"; };
+		E4CBE0852C09C636008B9842 /* ConsultingNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingNetwork.swift; sourceTree = "<group>"; };
+		E4CBE0872C09C6C3008B9842 /* ConsultingDetailNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingDetailNetwork.swift; sourceTree = "<group>"; };
+		E4CBE0892C09C6D6008B9842 /* ConsultingDetailResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingDetailResponseModel.swift; sourceTree = "<group>"; };
 		E4D401C22BB2C60C00B4E5C4 /* Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D401C52BB2C60C00B4E5C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4D401C72BB2C60C00B4E5C4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -331,33 +351,33 @@
 			path = Loading;
 			sourceTree = "<group>";
 		};
-		E4713A882C0107A10044F4C4 /* Paging */ = {
+		E4713A882C0107A10044F4C4 /* AnalysisPaging */ = {
 			isa = PBXGroup;
 			children = (
-				E4713A912C01AEDD0044F4C4 /* Detail */,
+				E4713A912C01AEDD0044F4C4 /* AnalysisDetail */,
 				E4713A892C0107BF0044F4C4 /* AnalysisPagingViewController.swift */,
 				E4713A8B2C0107C50044F4C4 /* AnalysisPagingViewModel.swift */,
 				E4713A8F2C01AC990044F4C4 /* AnalysisPagingTableViewCell.swift */,
 			);
-			path = Paging;
+			path = AnalysisPaging;
 			sourceTree = "<group>";
 		};
-		E4713A912C01AEDD0044F4C4 /* Detail */ = {
+		E4713A912C01AEDD0044F4C4 /* AnalysisDetail */ = {
 			isa = PBXGroup;
 			children = (
 				E4713A922C01B30F0044F4C4 /* AnalysisDetailViewController.swift */,
 				E4713A942C01B8C90044F4C4 /* AnalysisDetailViewModel.swift */,
 			);
-			path = Detail;
+			path = AnalysisDetail;
 			sourceTree = "<group>";
 		};
-		E4713A982C01BB6C0044F4C4 /* Paging */ = {
+		E4713A982C01BB6C0044F4C4 /* AnalaysisPaging */ = {
 			isa = PBXGroup;
 			children = (
 				E4713A842C0103800044F4C4 /* AnalysisPagingNetwork.swift */,
 				E4713A992C01BB7B0044F4C4 /* AnalysisDetailNetwork.swift */,
 			);
-			path = Paging;
+			path = AnalaysisPaging;
 			sourceTree = "<group>";
 		};
 		E4713AAE2C0594690044F4C4 /* Error */ = {
@@ -406,6 +426,7 @@
 				E4EC74502BEA10E600D1C9FD /* URL.swift */,
 				E4B1E6932BEE7BB500ECADFA /* Network.swift */,
 				E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */,
+				E4CBE0832C09C5DF008B9842 /* Paging */,
 				E40CDCA12C09902000A51DE0 /* Counsel */,
 				E4B1E69D2BF3C14C00ECADFA /* Analysis */,
 				E461BD512BDA5D01008CFD7D /* Feeling */,
@@ -451,7 +472,6 @@
 		E4B1E69D2BF3C14C00ECADFA /* Analysis */ = {
 			isa = PBXGroup;
 			children = (
-				E4713A982C01BB6C0044F4C4 /* Paging */,
 				E4B1E69E2BF3C15C00ECADFA /* AnalysisNetwork.swift */,
 				E4713A642BFF32950044F4C4 /* SentimentAnalysisNetwork.swift */,
 			);
@@ -471,8 +491,6 @@
 			children = (
 				E4B1E6A42BF3C62A00ECADFA /* AnswerResponseModel.swift */,
 				E4713A662BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift */,
-				E4713A862C0104040044F4C4 /* AnalysisPagingResponseModel.swift */,
-				E4713A962C01BA800044F4C4 /* AnalysisDetailResponseModel.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -540,6 +558,7 @@
 		E4C58BE22BCE939000A1AD58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E4CBE07E2C09C4CE008B9842 /* Paging */,
 				E40CDCA42C09903200A51DE0 /* Counsel */,
 				E4B1E69C2BF3C10F00ECADFA /* Analysis */,
 				E461BD542BDA5D2F008CFD7D /* Feeling */,
@@ -582,6 +601,81 @@
 				E4B9A5402BD243F80073F7B9 /* LoginResponseModel.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		E4CBE06F2C09C0A7008B9842 /* PagingSegment */ = {
+			isa = PBXGroup;
+			children = (
+				E4CBE0702C09C0B5008B9842 /* PagingSegmentViewController.swift */,
+				E4CBE0722C09C2C0008B9842 /* ConsultingPaging */,
+				E4713A882C0107A10044F4C4 /* AnalysisPaging */,
+			);
+			path = PagingSegment;
+			sourceTree = "<group>";
+		};
+		E4CBE0722C09C2C0008B9842 /* ConsultingPaging */ = {
+			isa = PBXGroup;
+			children = (
+				E4CBE0792C09C37C008B9842 /* ConsultingDetail */,
+				E4CBE0732C09C2D5008B9842 /* ConsultingPagingViewController.swift */,
+				E4CBE0752C09C308008B9842 /* ConsultingPagingViewModel.swift */,
+				E4CBE0772C09C341008B9842 /* ConsultingPagingTableViewCell.swift */,
+			);
+			path = ConsultingPaging;
+			sourceTree = "<group>";
+		};
+		E4CBE0792C09C37C008B9842 /* ConsultingDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E4CBE07A2C09C38E008B9842 /* ConsultingDetailViewController.swift */,
+				E4CBE07C2C09C3CA008B9842 /* ConsultingDetailViewModel.swift */,
+			);
+			path = ConsultingDetail;
+			sourceTree = "<group>";
+		};
+		E4CBE07E2C09C4CE008B9842 /* Paging */ = {
+			isa = PBXGroup;
+			children = (
+				E4CBE0802C09C4EA008B9842 /* Consulting */,
+				E4CBE07F2C09C4DD008B9842 /* Analaysis */,
+			);
+			path = Paging;
+			sourceTree = "<group>";
+		};
+		E4CBE07F2C09C4DD008B9842 /* Analaysis */ = {
+			isa = PBXGroup;
+			children = (
+				E4713A862C0104040044F4C4 /* AnalysisPagingResponseModel.swift */,
+				E4713A962C01BA800044F4C4 /* AnalysisDetailResponseModel.swift */,
+			);
+			path = Analaysis;
+			sourceTree = "<group>";
+		};
+		E4CBE0802C09C4EA008B9842 /* Consulting */ = {
+			isa = PBXGroup;
+			children = (
+				E4CBE0812C09C4FC008B9842 /* ConsultingPagingResponseModel.swift */,
+				E4CBE0892C09C6D6008B9842 /* ConsultingDetailResponseModel.swift */,
+			);
+			path = Consulting;
+			sourceTree = "<group>";
+		};
+		E4CBE0832C09C5DF008B9842 /* Paging */ = {
+			isa = PBXGroup;
+			children = (
+				E4CBE0842C09C5F6008B9842 /* ConsultingPaging */,
+				E4713A982C01BB6C0044F4C4 /* AnalaysisPaging */,
+			);
+			path = Paging;
+			sourceTree = "<group>";
+		};
+		E4CBE0842C09C5F6008B9842 /* ConsultingPaging */ = {
+			isa = PBXGroup;
+			children = (
+				E4CBE0852C09C636008B9842 /* ConsultingNetwork.swift */,
+				E4CBE0872C09C6C3008B9842 /* ConsultingDetailNetwork.swift */,
+			);
+			path = ConsultingPaging;
 			sourceTree = "<group>";
 		};
 		E4D401B92BB2C60C00B4E5C4 = {
@@ -642,9 +736,9 @@
 		E4D401DE2BB2CBF600B4E5C4 /* Feat */ = {
 			isa = PBXGroup;
 			children = (
+				E4CBE06F2C09C0A7008B9842 /* PagingSegment */,
 				E40CDC9C2C098F3A00A51DE0 /* Consulting */,
 				E4713AAE2C0594690044F4C4 /* Error */,
-				E4713A882C0107A10044F4C4 /* Paging */,
 				E4B1E6D42BF71EB600ECADFA /* Growing */,
 				E4D402162BB472B500B4E5C4 /* Result */,
 				E4D4020D2BB4092800B4E5C4 /* Question */,
@@ -954,6 +1048,7 @@
 				E4B9A5412BD243F80073F7B9 /* LoginResponseModel.swift in Sources */,
 				E4B9A53F2BD243510073F7B9 /* LoginNetwork.swift in Sources */,
 				E4B1E6912BEE7A6000ECADFA /* NetworkProvider.swift in Sources */,
+				E4CBE0742C09C2D5008B9842 /* ConsultingPagingViewController.swift in Sources */,
 				E4713A902C01AC990044F4C4 /* AnalysisPagingTableViewCell.swift in Sources */,
 				E4D401CA2BB2C60C00B4E5C4 /* LoginViewController.swift in Sources */,
 				E4B1E69B2BEF601600ECADFA /* LogoutResponseModel.swift in Sources */,
@@ -969,6 +1064,7 @@
 				E4D402112BB40E0700B4E5C4 /* SecondQuestionViewController.swift in Sources */,
 				E4B1E6A52BF3C62A00ECADFA /* AnswerResponseModel.swift in Sources */,
 				E4713A5D2BFC659A0044F4C4 /* ReissueNetwork.swift in Sources */,
+				E4CBE08A2C09C6D6008B9842 /* ConsultingDetailResponseModel.swift in Sources */,
 				E4713A652BFF32950044F4C4 /* SentimentAnalysisNetwork.swift in Sources */,
 				E4D401C62BB2C60C00B4E5C4 /* AppDelegate.swift in Sources */,
 				E4713A6A2BFF360D0044F4C4 /* LoadingViewModel.swift in Sources */,
@@ -977,32 +1073,40 @@
 				E4D401C82BB2C60C00B4E5C4 /* SceneDelegate.swift in Sources */,
 				E4713A672BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift in Sources */,
 				E4D401E12BB2CD1B00B4E5C4 /* Color + Extensioin.swift in Sources */,
+				E4CBE0882C09C6C3008B9842 /* ConsultingDetailNetwork.swift in Sources */,
+				E4CBE0862C09C636008B9842 /* ConsultingNetwork.swift in Sources */,
 				E4C58BEA2BCE946700A1AD58 /* LoginViewModel.swift in Sources */,
 				E4D402132BB40E1600B4E5C4 /* ThirdQuestionViewController.swift in Sources */,
 				E461BD532BDA5D0A008CFD7D /* FeelingNetwork.swift in Sources */,
 				E4D402062BB3ED1200B4E5C4 /* TabBarViewController.swift in Sources */,
 				E4C58BE82BCE93CA00A1AD58 /* LoginRequestModel.swift in Sources */,
+				E4CBE0762C09C308008B9842 /* ConsultingPagingViewModel.swift in Sources */,
 				E4713A582BFC58CB0044F4C4 /* ReissueResponseModel.swift in Sources */,
 				E4D4021E2BB53FB500B4E5C4 /* ResultViewController.swift in Sources */,
 				E4D402002BB3E63E00B4E5C4 /* MainViewController.swift in Sources */,
 				E40CDCA02C098F4F00A51DE0 /* ConsultingViewModel.swift in Sources */,
 				E4D402032BB3ED0200B4E5C4 /* MainViewModel.swift in Sources */,
 				E40CDC9E2C098F4700A51DE0 /* ConsultingViewController.swift in Sources */,
+				E4CBE0712C09C0B5008B9842 /* PagingSegmentViewController.swift in Sources */,
 				E4713A852C0103800044F4C4 /* AnalysisPagingNetwork.swift in Sources */,
 				E4B9A5492BD28DF60073F7B9 /* QuestionResponseModel.swift in Sources */,
+				E4CBE07D2C09C3CA008B9842 /* ConsultingDetailViewModel.swift in Sources */,
 				E461BD572BDA5D45008CFD7D /* FeelingRequestModel.swift in Sources */,
 				E4D402192BB52FC500B4E5C4 /* LoadingViewController.swift in Sources */,
 				E4D402092BB3EE6300B4E5C4 /* MypageViewController.swift in Sources */,
 				E4989EE12BC8FD9500D888DC /* VoiceRecordViewModel.swift in Sources */,
 				E4B1E6942BEE7BB500ECADFA /* Network.swift in Sources */,
+				E4CBE07B2C09C38E008B9842 /* ConsultingDetailViewController.swift in Sources */,
 				E4713A8A2C0107BF0044F4C4 /* AnalysisPagingViewController.swift in Sources */,
 				E4713A932C01B30F0044F4C4 /* AnalysisDetailViewController.swift in Sources */,
 				E461BD502BDA5540008CFD7D /* MypageViewModel.swift in Sources */,
 				E4713A9A2C01BB7B0044F4C4 /* AnalysisDetailNetwork.swift in Sources */,
 				E40CDCA72C09904300A51DE0 /* CounselResponseModel.swift in Sources */,
+				E4CBE0822C09C4FC008B9842 /* ConsultingPagingResponseModel.swift in Sources */,
 				E4B1E6A22BF3C4B500ECADFA /* AnswerRequestModel.swift in Sources */,
 				E4713A602BFC71F40044F4C4 /* ReissueViewModel.swift in Sources */,
 				E4713A8C2C0107C50044F4C4 /* AnalysisPagingViewModel.swift in Sources */,
+				E4CBE0782C09C341008B9842 /* ConsultingPagingTableViewCell.swift in Sources */,
 				E4B1E69F2BF3C15D00ECADFA /* AnalysisNetwork.swift in Sources */,
 				E4713AB02C0594730044F4C4 /* ErrorViewController.swift in Sources */,
 				E4B1E6992BEF556C00ECADFA /* LogoutNetwork.swift in Sources */,

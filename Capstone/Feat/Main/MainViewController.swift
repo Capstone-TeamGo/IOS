@@ -243,7 +243,7 @@ private extension MainViewController {
         self.navigationController?.pushViewController(GrowingViewController(), animated: true)
     }
     @objc private func recordBtnTapped() {
-        self.navigationController?.pushViewController(AnalysisPagingViewController(), animated: true)
+        self.navigationController?.pushViewController(PagingSegmentViewController(), animated: true)
     }
     @objc private func consultingBtnTapped() {
         self.navigationController?.pushViewController(ConsultingViewController(analysisId: ""), animated: true)

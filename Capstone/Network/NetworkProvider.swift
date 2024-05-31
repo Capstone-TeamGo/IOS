@@ -67,4 +67,14 @@ final class NetworkProvider {
         let network = Network<CounselResponseModel>(endpoint)
         return CounselNetwork(network: network)
     }
+    //상담 페이징 조회
+    public func getCounsel() -> ConsultingNetwork {
+        let network = Network<ConsultingPagingResponseModel>(endpoint)
+        return ConsultingNetwork(network: network)
+    }
+    //상담 상세 조회
+    public func getDetailCounsel() -> ConsultingDetailNetwork {
+        let network = Network<ConsultingDetailResponseModel>(endpoint)
+        return ConsultingDetailNetwork(network: network)
+    }
 }

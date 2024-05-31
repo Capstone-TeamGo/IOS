@@ -25,5 +25,7 @@ let analysisPagingURL = "/analysis" //분석 페이징 조회
 
 //MARK: - Counsel
 let CounselURL = "/counsel" //상담하기
+let CounselPagingURL = "/counsel"//상담 페이징 조회
+let CounselDetailURL = "/counsel/"//상담 페이징 상세 조회
 
 
