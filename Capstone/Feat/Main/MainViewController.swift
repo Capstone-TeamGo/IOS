@@ -182,6 +182,9 @@ private extension MainViewController {
                 entries.append(BarChartDataEntry(x: index, y: feel.avgFeelingState ?? 0.0))
                 index += 1
             }
+        }else{
+            Chart.data = nil
+            return
         }
         let dataSet = BarChartDataSet(entries: entries, label: "최근 7일 심리분석 결과")
         dataSet.colors = [.systemGreen]
