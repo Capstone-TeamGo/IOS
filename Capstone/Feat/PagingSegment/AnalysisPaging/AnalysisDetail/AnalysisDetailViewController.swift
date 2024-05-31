@@ -75,7 +75,7 @@ private extension AnalysisDetailViewController {
         let attributedText = NSMutableAttributedString()
         let largeTextAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 24, weight: .bold),
-            .foregroundColor: UIColor.black
+            .foregroundColor: UIColor.systemGreen
         ]
         let mediumTextAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 18, weight: .medium),
@@ -86,10 +86,15 @@ private extension AnalysisDetailViewController {
         for index in 0...3 {
             if let questionContent = data.questionContent,
                let answerContent = data.answerContent{
-                let QuestionText = NSAttributedString(string: "\n\n\(questionContent[index] ?? "질문")\n\n", attributes: largeTextAttributes)
+                let Qmark = NSAttributedString(string: "\n\nQ.", attributes: largeTextAttributes)
+                let QuestionText = NSAttributedString(string: "\n\n \(questionContent[index] ?? "질문")\n\n", attributes: mediumTextAttributes)
+                let Amark = NSAttributedString(string: "\n\nA.", attributes: largeTextAttributes)
                 let AnswerText = NSAttributedString(string: "\n\n\(answerContent[index] ?? "답변")\n\n", attributes: mediumTextAttributes)
                 
+                
+                attributedText.append(Qmark)
                 attributedText.append(QuestionText)
+                attributedText.append(Amark)
                 attributedText.append(AnswerText)
             }
         }

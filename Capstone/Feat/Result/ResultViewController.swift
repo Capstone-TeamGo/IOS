@@ -59,8 +59,8 @@ final class ResultViewController : UIViewController {
     private var depressedLabel : UILabel = {
         let label = UILabel()
         label.text = nil
-        label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .darkGray
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         label.backgroundColor = .clear
         label.textAlignment = .center
         return label
