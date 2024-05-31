@@ -56,6 +56,7 @@ final class MainViewController: UIViewController{
         btn.imageView?.contentMode = .scaleAspectFit
         btn.layer.cornerRadius = 20
         btn.layer.masksToBounds = true
+        btn.addTarget(self, action: #selector(consultingBtnTapped), for: .touchUpInside)
         return btn
     }()
     //과거 기록 버튼
@@ -232,13 +233,16 @@ private extension MainViewController {
                 }
             }).disposed(by: disposeBag)
     }
-    @objc func analyzeBtnTapped() {
+    @objc private func analyzeBtnTapped() {
         self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)
     }
-    @objc func growingBtnTapped() {
+    @objc private func growingBtnTapped() {
         self.navigationController?.pushViewController(GrowingViewController(), animated: true)
     }
-    @objc func recordBtnTapped() {
+    @objc private func recordBtnTapped() {
         self.navigationController?.pushViewController(AnalysisPagingViewController(), animated: true)
+    }
+    @objc private func consultingBtnTapped() {
+        self.navigationController?.pushViewController(ConsultingViewController(analysisId: ""), animated: true)
     }
 }

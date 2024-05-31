@@ -15,6 +15,15 @@ import UIKit
 final class ResultViewController : UIViewController {
     private let disposeBag = DisposeBag()
     //MARK: - UI Components
+    var analysisId : String
+    init(analysisId: String) {
+        self.analysisId = analysisId
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let titleLabel : UILabel = {
         let label = UILabel()
         label.text = "분석 완료!"
@@ -33,7 +42,7 @@ final class ResultViewController : UIViewController {
         label.textAlignment = .center
         return label
     }()
-    private let chatBtn : UIButton = {
+    private lazy var chatBtn : UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .clear
         btn.setTitle(" 상담 받아보기 ➜", for: .normal)
@@ -94,5 +103,8 @@ private extension ResultViewController {
             make.top.equalTo(chatBtn.snp.bottom).offset(100)
             make.height.equalTo(250)
         }
+    }
+    @objc private func chatBtnTapped() {
+        self.navigationController?.pushViewController(ConsultingViewController(analysisId: analysisId), animated: true)
     }
 }

@@ -145,11 +145,11 @@ private extension LoadingViewController {
                                 if self.progress.progress != 1.0 {
                                     self.progress.progress = 1.0
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        let resultVC = ResultViewController()
+                                        let resultVC = ResultViewController(analysisId: "\(self.question.data?.analysisId ?? 0)")
                                         self.navigationController?.pushViewController(resultVC, animated: true)
                                     }
                                 }else {
-                                    let resultVC = ResultViewController()
+                                    let resultVC = ResultViewController(analysisId: "\(self.question.data?.analysisId ?? 0)")
                                     self.navigationController?.pushViewController(resultVC, animated: true)
                                 }
                             }
