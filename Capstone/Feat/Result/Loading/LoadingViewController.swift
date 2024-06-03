@@ -167,6 +167,10 @@ private extension LoadingViewController {
                                     self.navigationController?.pushViewController(resultVC, animated: true)
                                 }
                             }
+                        }, onError: { error in
+                            DispatchQueue.main.async {
+                                self.navigationController?.pushViewController(ErrorViewController(), animated: true)
+                            }
                         })
                         .disposed(by: self.disposeBag)
                 }

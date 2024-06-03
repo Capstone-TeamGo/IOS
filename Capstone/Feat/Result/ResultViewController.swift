@@ -91,7 +91,13 @@ private extension ResultViewController {
     private func setLayout() {
         self.view.backgroundColor = .white
         self.title = ""
-        self.TypingAnimation(finalScore: self.feelingState)
+        if self.feelingState > 0.0{
+            self.TypingAnimation(finalScore: self.feelingState)
+        }else{
+            self.depressedLabel.text = "분석 실패! 다시 시도해 주세요!"
+            self.decLabel.text = nil
+            self.chatBtn.setTitle(nil, for: .normal)
+        }
         
         self.view.addSubview(titleLabel)
         self.view.addSubview(decLabel)

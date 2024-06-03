@@ -22,6 +22,10 @@ final class ErrorViewController : UIViewController {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.isHidden = true
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        let errorVC = ErrorViewController()
+        window.rootViewController = UINavigationController(rootViewController: errorVC)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +35,7 @@ final class ErrorViewController : UIViewController {
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.isHidden = false
     }
 }
 //MARK: - UI Layout

@@ -27,7 +27,12 @@ final class LoadingViewModel {
             self.sentimentAnalysisNetwork.postSentimentAnalysis(path: fullPath)
                 .subscribe(onNext: { [weak self] result in
                     guard let self = self else { return }
-                    self.sentimentAnalysisResult.onNext(result)
+                    if let feelingState = result.data?.feelingState, !feelingState.isValidInt {
+                        let error = NSError(domain: "InvalidDoubleValue", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid Double value received: \(feelingState)"])
+                        self.sentimentAnalysisResult.onError(error)
+                    } else {
+                        self.sentimentAnalysisResult.onNext(result)
+                    }
                 })
                 .disposed(by: self.disposeBag)
         })
