@@ -177,8 +177,6 @@ private extension GrowingViewController {
             guard let self = self else { return }
             if let count = result.data?.analysisCount{
                 DispatchQueue.main.async {
-                    self.progress.progress = Float((CGFloat(Double(count)*0.01)))
-                    self.percent.text =  "\(Double(count)*0.01)%🏃🏻‍♀️"
                     self.setGIF(count: count)
                 }
             }
@@ -192,6 +190,8 @@ private extension GrowingViewController {
         }.disposed(by: disposeBag)
     }
     private func setGIF(count : Int) {
+        self.progress.progress = Float((CGFloat(Double(count)*0.01)))
+        self.percent.text =  "\((count))%🏃🏻‍♀️"
         if count >= 100 {
             if let gifUrl = Bundle.main.url(forResource: "gift", withExtension: "gif") {
                 tree.kf.setImage(with: gifUrl)
