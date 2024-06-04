@@ -29,3 +29,5 @@ let CounselPagingURL = "/counsel"//상담 페이징 조회
 let CounselDetailURL = "/counsel/"//상담 페이징 상세 조회
 
 
+//MARK: - Mypage
+let mypageURL = "/user/my-page"//마이페이지

@@ -15,7 +15,6 @@ import DGCharts
 final class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mainViewModel = MainViewModel()
-    //토큰 유효성 검사
     private let reissueViewModel = ReissueViewModel()
     
     //MARK: UI Components
@@ -102,6 +101,7 @@ final class MainViewController: UIViewController{
         super.viewDidLoad()
         setNavigation()
         setLayout()
+        setBinding()
     }
 }
 //MARK: - UI Navigation
@@ -111,7 +111,16 @@ extension MainViewController {
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = false
         self.randomImage()
-        self.setBinding()
+        //토큰 유효성 검사
+        reissueViewModel.reissueTrigger.onNext(())
+        reissueViewModel.reissueExpire.bind { expire in
+            if expire == true {
+                self.navigationController?.pushViewController(LoginViewController(), animated: true)
+            }else{
+                print("Main - JWTaccessToken not Expired!")
+            }
+        }.disposed(by: disposeBag)
+        self.mainViewModel.feelingTrigger.onNext(())
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -208,33 +217,20 @@ private extension MainViewController {
         self.naviImage.image = UIImage(named: imageNames[randomIndex])
     }
     private func setBinding() {
-        //토큰 유효성 검사
-        self.reissueViewModel.reissueTrigger.onNext(())
-        self.reissueViewModel.reissueExpire
-            .bind(onNext: { expire in
-                if expire == true {
-                    print("Main - JWTaccessToken Expried!")
-                    DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(LoginViewController(), animated: true)
-                    }
-                } else {
-                    print("Main - JWTaccessToken not Expried!")
-                    self.mainViewModel.feelingTrigger.onNext(())
-                    self.mainViewModel.feelingResult
-                        .subscribe(onNext: {[weak self] result in
-                            guard let self = self else { return }
-                            DispatchQueue.main.async {
-                                self.setchart(model: result)
-                            }
-                        }, onError: {[weak self] error in
-                            guard let self = self else { return }
-                            DispatchQueue.main.async {
-                                self.navigationController?.pushViewController(ErrorViewController(), animated: false)
-                            }
-                        })
-                        .disposed(by: self.disposeBag)
+        self.mainViewModel.feelingTrigger.onNext(())
+        self.mainViewModel.feelingResult
+            .subscribe(onNext: {[weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.setchart(model: result)
                 }
-            }).disposed(by: disposeBag)
+            }, onError: {[weak self] error in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(ErrorViewController(), animated: false)
+                }
+            })
+            .disposed(by: self.disposeBag)
     }
     @objc private func analyzeBtnTapped() {
         self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)

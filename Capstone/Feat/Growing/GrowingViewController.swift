@@ -15,6 +15,7 @@ import Kingfisher
 final class GrowingViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let reissueViewModel = ReissueViewModel()
+    private let growingViewModel = GrowingViewModel()
     //MARK: - UI Components
     private let topFrame : UIImageView = {
         let view = UIImageView()
@@ -39,14 +40,13 @@ final class GrowingViewController : UIViewController {
         view.backgroundColor = .clear
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
-        view.progress = Float((CGFloat(0.3)))
         view.tintColor = .systemGreen
         return view
     }()
     //퍼센트
     private let percent : UILabel = {
         let label = UILabel()
-        label.text = "30%🏃🏻‍♀️"
+        label.text = nil
         label.textColor = .black
         label.textAlignment = .right
         label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -90,6 +90,15 @@ extension GrowingViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintColor = .black
+        //토큰 유효성 검사
+        reissueViewModel.reissueTrigger.onNext(())
+        reissueViewModel.reissueExpire
+            .bind(onNext: { [weak self] expire in
+            guard let self = self else { return }
+            if expire == true {
+                self.navigationController?.pushViewController(LoginViewController(), animated: true)
+            } else { print("Growing - JWTaccessToken not Expired!") }
+        }).disposed(by: disposeBag)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -147,9 +156,6 @@ private extension GrowingViewController {
             make.trailing.equalToSuperview().inset(100)
             make.bottom.equalToSuperview().inset(self.view.frame.height / 7)
         }
-        if let gifUrl = Bundle.main.url(forResource: "flowerInit", withExtension: "gif") {
-            tree.kf.setImage(with: gifUrl)
-        }
     }
     private func TypingAnimation() {
         let fullText : String = "나만의 힐링이를 키워보세요! 많은 감정 분석과 상담을 받을수록 힐링이는 더 성장해요!🌳"
@@ -166,23 +172,46 @@ private extension GrowingViewController {
 //MARK: - Binding
 private extension GrowingViewController {
     private func setBinding() {
-        //토큰 유효성 검사
-        reissueViewModel.reissueTrigger.onNext(())
-        reissueViewModel.reissueExpire
-            .take(1)
-            .bind(onNext: { [weak self] expire in
+        growingViewModel.growingTrigger.onNext(())
+        growingViewModel.growingResult.subscribe(onNext: {[weak self] result in
             guard let self = self else { return }
-            if expire == true {
+            if let count = result.data?.analysisCount{
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                    self.progress.progress = Float((CGFloat(count/100)))
+                    self.percent.text =  "\(count/100)%🏃🏻‍♀️"
+                    self.setGIF(count: count)
                 }
-            } else {
-                upBtn.rx.tap.bind { _ in
-                    DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)
-                    }
-                }.disposed(by: disposeBag)
             }
+        },onError: { error in
+            self.navigationController?.pushViewController(ErrorViewController(), animated: true)
         }).disposed(by: disposeBag)
+        upBtn.rx.tap.bind { _ in
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(FirstQuestionViewController(), animated: true)
+            }
+        }.disposed(by: disposeBag)
+    }
+    private func setGIF(count : Int) {
+        if count >= 100 {
+            if let gifUrl = Bundle.main.url(forResource: "gift", withExtension: "gif") {
+                tree.kf.setImage(with: gifUrl)
+            }
+        }else if count >= 80 {
+            if let gifUrl = Bundle.main.url(forResource: "flower", withExtension: "gif") {
+                tree.kf.setImage(with: gifUrl)
+            }
+        }else if count >= 60 {
+            if let gifUrl = Bundle.main.url(forResource: "flowerInit", withExtension: "gif") {
+                tree.kf.setImage(with: gifUrl)
+            }
+        }else if count >= 40 {
+            if let gifUrl = Bundle.main.url(forResource: "leaf", withExtension: "gif") {
+                tree.kf.setImage(with: gifUrl)
+            }
+        }else if count >= 0 {
+            if let gifUrl = Bundle.main.url(forResource: "natural", withExtension: "gif") {
+                tree.kf.setImage(with: gifUrl)
+            }
+        }
     }
 }

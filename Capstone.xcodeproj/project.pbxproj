@@ -14,6 +14,8 @@
 		E40CDCA02C098F4F00A51DE0 /* ConsultingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CDC9F2C098F4F00A51DE0 /* ConsultingViewModel.swift */; };
 		E40CDCA32C09902D00A51DE0 /* CounselNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CDCA22C09902D00A51DE0 /* CounselNetwork.swift */; };
 		E40CDCA72C09904300A51DE0 /* CounselResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CDCA62C09904300A51DE0 /* CounselResponseModel.swift */; };
+		E452C5A42C0ECE630023C836 /* MypageResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E452C5A32C0ECE630023C836 /* MypageResponseModel.swift */; };
+		E452C5A72C0ECED80023C836 /* MypageNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E452C5A62C0ECED80023C836 /* MypageNetwork.swift */; };
 		E461BD502BDA5540008CFD7D /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD4F2BDA5540008CFD7D /* MypageViewModel.swift */; };
 		E461BD532BDA5D0A008CFD7D /* FeelingNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD522BDA5D0A008CFD7D /* FeelingNetwork.swift */; };
 		E461BD572BDA5D45008CFD7D /* FeelingRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E461BD562BDA5D45008CFD7D /* FeelingRequestModel.swift */; };
@@ -128,6 +130,8 @@
 		E40CDC9F2C098F4F00A51DE0 /* ConsultingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsultingViewModel.swift; sourceTree = "<group>"; };
 		E40CDCA22C09902D00A51DE0 /* CounselNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounselNetwork.swift; sourceTree = "<group>"; };
 		E40CDCA62C09904300A51DE0 /* CounselResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounselResponseModel.swift; sourceTree = "<group>"; };
+		E452C5A32C0ECE630023C836 /* MypageResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageResponseModel.swift; sourceTree = "<group>"; };
+		E452C5A62C0ECED80023C836 /* MypageNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageNetwork.swift; sourceTree = "<group>"; };
 		E461BD4F2BDA5540008CFD7D /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
 		E461BD522BDA5D0A008CFD7D /* FeelingNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingNetwork.swift; sourceTree = "<group>"; };
 		E461BD562BDA5D45008CFD7D /* FeelingRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingRequestModel.swift; sourceTree = "<group>"; };
@@ -295,6 +299,22 @@
 			path = Counsel;
 			sourceTree = "<group>";
 		};
+		E452C5A22C0ECE4D0023C836 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				E452C5A32C0ECE630023C836 /* MypageResponseModel.swift */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
+		E452C5A52C0ECECC0023C836 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				E452C5A62C0ECED80023C836 /* MypageNetwork.swift */,
+			);
+			path = Mypage;
+			sourceTree = "<group>";
+		};
 		E461BD512BDA5D01008CFD7D /* Feeling */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +448,7 @@
 				E4EC74502BEA10E600D1C9FD /* URL.swift */,
 				E4B1E6932BEE7BB500ECADFA /* Network.swift */,
 				E4B1E6902BEE7A6000ECADFA /* NetworkProvider.swift */,
+				E452C5A52C0ECECC0023C836 /* Mypage */,
 				E4CBE0832C09C5DF008B9842 /* Paging */,
 				E40CDCA12C09902000A51DE0 /* Counsel */,
 				E4B1E69D2BF3C14C00ECADFA /* Analysis */,
@@ -560,6 +581,7 @@
 		E4C58BE22BCE939000A1AD58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E452C5A22C0ECE4D0023C836 /* Mypage */,
 				E4CBE07E2C09C4CE008B9842 /* Paging */,
 				E40CDCA42C09903200A51DE0 /* Counsel */,
 				E4B1E69C2BF3C10F00ECADFA /* Analysis */,
@@ -1074,6 +1096,7 @@
 				E4B1E6D62BF71ECF00ECADFA /* GrowingViewController.swift in Sources */,
 				E4989EE82BC8FE5500D888DC /* Url + Extensioin.swift in Sources */,
 				E4D401C82BB2C60C00B4E5C4 /* SceneDelegate.swift in Sources */,
+				E452C5A42C0ECE630023C836 /* MypageResponseModel.swift in Sources */,
 				E4713A672BFF32BA0044F4C4 /* SentimentAnalysisResponseModel.swift in Sources */,
 				E4D401E12BB2CD1B00B4E5C4 /* Color + Extensioin.swift in Sources */,
 				E4CBE0882C09C6C3008B9842 /* ConsultingDetailNetwork.swift in Sources */,
@@ -1081,6 +1104,7 @@
 				E4C58BEA2BCE946700A1AD58 /* LoginViewModel.swift in Sources */,
 				E4D402132BB40E1600B4E5C4 /* ThirdQuestionViewController.swift in Sources */,
 				E461BD532BDA5D0A008CFD7D /* FeelingNetwork.swift in Sources */,
+				E452C5A72C0ECED80023C836 /* MypageNetwork.swift in Sources */,
 				E4D402062BB3ED1200B4E5C4 /* TabBarViewController.swift in Sources */,
 				E4C58BE82BCE93CA00A1AD58 /* LoginRequestModel.swift in Sources */,
 				E4CBE0762C09C308008B9842 /* ConsultingPagingViewModel.swift in Sources */,

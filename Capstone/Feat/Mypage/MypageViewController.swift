@@ -38,7 +38,7 @@ final class MypageViewController: UIViewController{
     private let nameLabel : UILabel = {
         let label = UILabel()
         label.backgroundColor = .white
-        label.text = "김승진"
+        label.text = nil
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.textAlignment = .center
@@ -47,7 +47,7 @@ final class MypageViewController: UIViewController{
     private let emailLabel : UILabel = {
         let label = UILabel()
         label.backgroundColor = .white
-        label.text = "Permission@Denied"
+        label.text = nil
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 13)
         label.textAlignment = .center
@@ -101,6 +101,7 @@ final class MypageViewController: UIViewController{
         super.viewDidLoad()
         setNavigation()
         setLayout()
+        setBinding()
     }
 }
 //MARK: - UI Navigation
@@ -109,7 +110,15 @@ extension MypageViewController {
         super.viewWillAppear(animated)
         self.navigationItem.hidesBackButton = true
         self.tabBarController?.tabBar.isHidden = false
-        self.setBinding()
+        //토큰 유효성 검사
+        reissueViewModel.reissueTrigger.onNext(())
+        reissueViewModel.reissueExpire.bind { expire in
+            if expire == true {
+                self.navigationController?.pushViewController(LoginViewController(), animated: true)
+            }else{
+                print("Mypage - JWTaccessToken not Expired!")
+            }
+        }.disposed(by: disposeBag)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -181,39 +190,39 @@ private extension MypageViewController {
 //MARK: - Binding
 private extension MypageViewController {
     private func setBinding() {
-        //토큰 유효성 검사
-        reissueViewModel.reissueTrigger.onNext(())
-        reissueViewModel.reissueExpire
-            .bind { expire in
-            if expire == true {
-                print("Mypage - JWTaccessToken Expried!")
-                DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
-                }
-            } else {
-                print("Mypage - JWTaccessToken not Expried!")
-                //MARK: - Logout Binding
-                self.logoutBtn.rx.tap.bind { [weak self] in
-                    guard let self = self else { return }
-                    self.mypageViewModel.logoutTrigger.onNext(())
-                }.disposed(by: self.disposeBag)
-                
-                self.mypageViewModel.logoutResult
-                    .subscribe(onNext: { [weak self] result in
-                    guard let self = self else { return }
-                    if result.code == 200 {
-                        KeychainWrapper.standard.removeAllKeys() //저장된 토큰 삭제
-                        DispatchQueue.main.async {
-                            self.navigationController?.pushViewController(LoginViewController(), animated: true)
-                        }
-                    }
-                    }, onError: { error in
-                        DispatchQueue.main.async {
-                            self.navigationController?.pushViewController(ErrorViewController(), animated: false)
-                        }
-                    }).disposed(by: self.disposeBag)
+        //MARK: - Get UserInfo
+        self.mypageViewModel.mypageTrigger.onNext(())
+        self.mypageViewModel.mypageResult.subscribe(onNext: {[weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.nameLabel.text = result.data?.nickname
+                self.emailLabel.text = result.data?.email
             }
-        }.disposed(by: disposeBag)
+        },onError: { error in
+            self.navigationController?.pushViewController(ErrorViewController(), animated: true)
+        }).disposed(by: disposeBag)
+        
+        //MARK: - Logout Binding
+        self.logoutBtn.rx.tap.bind { [weak self] in
+            guard let self = self else { return }
+            print("logoutBtnTapped")
+            self.mypageViewModel.logoutTrigger.onNext(())
+        }.disposed(by: self.disposeBag)
+        
+        self.mypageViewModel.logoutResult
+            .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+                if result.code == 200 {
+                    KeychainWrapper.standard.removeAllKeys() //저장된 토큰 삭제
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                    }
+                }
+            }, onError: { error in
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(ErrorViewController(), animated: false)
+                }
+            }).disposed(by: self.disposeBag)
         //피드백 버튼
         feedBackBtn.rx.tap.bind { _ in
             if let url = URL(string: "https://forms.gle/EG8UVLx8vfuoCuAS7"){

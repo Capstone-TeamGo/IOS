@@ -77,4 +77,9 @@ final class NetworkProvider {
         let network = Network<ConsultingDetailResponseModel>(endpoint)
         return ConsultingDetailNetwork(network: network)
     }
+    //MARK: - Mypage
+    public func getMypage() -> MypageNetwork {
+        let network = Network<MypageResponseModel>(endpoint)
+        return MypageNetwork(network: network)
+    }
 }
