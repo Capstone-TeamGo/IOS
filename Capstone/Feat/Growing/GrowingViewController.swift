@@ -46,7 +46,7 @@ final class GrowingViewController : UIViewController {
     //퍼센트
     private let percent : UILabel = {
         let label = UILabel()
-        label.text = nil
+        label.text = "0%"
         label.textColor = .black
         label.textAlignment = .right
         label.font = UIFont.boldSystemFont(ofSize: 15)
@@ -140,7 +140,7 @@ private extension GrowingViewController {
         percent.snp.makeConstraints { make in
             make.height.equalTo(20)
             make.trailing.equalToSuperview().inset(20)
-            make.leading.equalTo(progress.snp.trailing).offset(10)
+            make.leading.equalTo(progress.snp.trailing).offset(0)
             make.top.equalToSuperview().inset(self.view.frame.height / 9)
         }
         bottomFrame.snp.makeConstraints { make in
@@ -177,8 +177,8 @@ private extension GrowingViewController {
             guard let self = self else { return }
             if let count = result.data?.analysisCount{
                 DispatchQueue.main.async {
-                    self.progress.progress = Float((CGFloat(count/100)))
-                    self.percent.text =  "\(count/100)%🏃🏻‍♀️"
+                    self.progress.progress = Float((CGFloat(Double(count)*0.01)))
+                    self.percent.text =  "\(Double(count)*0.01)%🏃🏻‍♀️"
                     self.setGIF(count: count)
                 }
             }
