@@ -153,7 +153,7 @@ extension VoiceRecordViewModel {
         do {
             try audioSession.setActive(true)
         } catch {
-            fatalError(error.localizedDescription)
+            print("Audio session start failed: \(error.localizedDescription)")
         }
         recorder.record()
         print(recorder.isRecording)
@@ -166,7 +166,7 @@ extension VoiceRecordViewModel {
         do {
             try audioSession.setActive(false)
         } catch {
-            fatalError(error.localizedDescription)
+            print("Audio session stop failed: \(error.localizedDescription)")
         }
     }
     private func play() {

@@ -47,7 +47,7 @@ final class Network<T: Decodable> {
             AF.request(fullpath, method : .post, parameters : params, encoding : JSONEncoding.default, headers: ["Authorization":"\(accessToken)","Content-Type":"application/json"])
                 .validate()
                 .responseDecodable(of: T.self) { response in
-                    print(response.debugDescription)
+//                    print(response.debugDescription)
                     switch response.result {
                 case .success(let data):
                     observer.onNext(data)
