@@ -46,7 +46,7 @@ final class PictureViewController : UIViewController {
     //이미지
     private let image : UIImageView = {
         let view = UIImageView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .clear
         view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
         view.image = nil
