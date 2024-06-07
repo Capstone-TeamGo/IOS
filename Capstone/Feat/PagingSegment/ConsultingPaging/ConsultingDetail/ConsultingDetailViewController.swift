@@ -126,7 +126,7 @@ private extension ConsultingDetailViewController {
         }).disposed(by: disposeBag)
     }
     private func showImage(url : String) {
-        let pictureVC = PictureViewController(imageURL: url)
+        let pictureVC = PictureViewController(imageURL: url, descriptionText: "과거 추천했던 그림입니다!🖼️")
         pictureVC.modalTransitionStyle = .flipHorizontal
         self.present(pictureVC, animated: true)
     }

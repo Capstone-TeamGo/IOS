@@ -15,8 +15,10 @@ import Kingfisher
 final class PictureViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let imageURL : String
-    init(imageURL: String) {
+    private let descriptionText : String
+    init(imageURL: String, descriptionText : String) {
         self.imageURL = imageURL
+        self.descriptionText = descriptionText
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
@@ -38,7 +40,6 @@ final class PictureViewController : UIViewController {
         view.isUserInteractionEnabled = false
         view.backgroundColor = .clear
         view.textColor = .black
-        view.text = "이런 그림은 어때요? 사용자님의 고민에 도움이 될 수 있을 거 같아요!"
         view.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         return view
     }()
@@ -105,6 +106,7 @@ private extension PictureViewController {
         if let imageUrl = URL(string: imageURL) {
             self.image.kf.setImage(with: imageUrl)
         }
+        self.textView.text = self.descriptionText
         cancelBtn.rx.tap.bind(onNext: {[weak self] _ in
             guard let self = self else { return }
             self.dismiss(animated: true)

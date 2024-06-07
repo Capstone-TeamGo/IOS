@@ -249,14 +249,18 @@ private extension ConsultingViewController {
                 }.disposed(by: self.disposeBag)
                 self.answerBtn.rx.tap.bind { _ in
                     DispatchQueue.main.async {
-                        self.totalText.isEditable = false
-                        self.totalText.isUserInteractionEnabled = false
-                        self.loadingIndicator.startAnimating()
                         //서버로 전송
                         if self.pencilBool == true {
                             if let question = self.totalText.text {
-                                self.consultingViewModel.counselTrigger.onNext(["\(self.analysisId )","\(self.selectedCategory)","\(question)"])
-                                self.pencilBool = false
+                                if self.selectedCategory == "" {
+                                    self.showsAlert(message: "카테고리를 선택해 주세요!")
+                                }else{
+                                    self.totalText.isEditable = false
+                                    self.totalText.isUserInteractionEnabled = false
+                                    self.loadingIndicator.startAnimating()
+                                    self.consultingViewModel.counselTrigger.onNext(["\(self.analysisId )","\(self.selectedCategory)","\(question)"])
+                                    self.pencilBool = false
+                                }
                             }else{
                                 self.showsAlert(message: "잠시 후 다시 시도해보세요!")
                                 self.loadingIndicator.stopAnimating()
@@ -289,7 +293,7 @@ private extension ConsultingViewController {
         self.present(Alert, animated: true)
     }
     private func showImage(url : String) {
-        let pictureVC = PictureViewController(imageURL: url)
+        let pictureVC = PictureViewController(imageURL: url, descriptionText: "이런 그림은 어때요?🎨🖌️ 고민에 도움이 될 수 있을 거 같아요!")
         pictureVC.modalTransitionStyle = .flipHorizontal
         self.present(pictureVC, animated: true)
     }
