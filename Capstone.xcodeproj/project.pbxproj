@@ -98,6 +98,7 @@
 		E4D402192BB52FC500B4E5C4 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D402182BB52FC500B4E5C4 /* LoadingViewController.swift */; };
 		E4D4021C2BB52FEB00B4E5C4 /* confetti.gif in Resources */ = {isa = PBXBuildFile; fileRef = E4D4021B2BB52FEB00B4E5C4 /* confetti.gif */; };
 		E4D4021E2BB53FB500B4E5C4 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D4021D2BB53FB500B4E5C4 /* ResultViewController.swift */; };
+		E4E2C6FB2C12C9C40003FEBF /* PictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E2C6FA2C12C9C40003FEBF /* PictureViewController.swift */; };
 		E4EC74512BEA10E600D1C9FD /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4EC74502BEA10E600D1C9FD /* URL.swift */; };
 /* End PBXBuildFile section */
 
@@ -211,6 +212,7 @@
 		E4D402182BB52FC500B4E5C4 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		E4D4021B2BB52FEB00B4E5C4 /* confetti.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = confetti.gif; sourceTree = "<group>"; };
 		E4D4021D2BB53FB500B4E5C4 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		E4E2C6FA2C12C9C40003FEBF /* PictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureViewController.swift; sourceTree = "<group>"; };
 		E4EC74502BEA10E600D1C9FD /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -760,6 +762,7 @@
 		E4D401DE2BB2CBF600B4E5C4 /* Feat */ = {
 			isa = PBXGroup;
 			children = (
+				E4E2C6F92C12C9B50003FEBF /* Picture */,
 				E4CBE06F2C09C0A7008B9842 /* PagingSegment */,
 				E40CDC9C2C098F3A00A51DE0 /* Consulting */,
 				E4713AAE2C0594690044F4C4 /* Error */,
@@ -852,6 +855,14 @@
 				E4D4021B2BB52FEB00B4E5C4 /* confetti.gif */,
 			);
 			path = GIF;
+			sourceTree = "<group>";
+		};
+		E4E2C6F92C12C9B50003FEBF /* Picture */ = {
+			isa = PBXGroup;
+			children = (
+				E4E2C6FA2C12C9C40003FEBF /* PictureViewController.swift */,
+			);
+			path = Picture;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1103,6 +1114,7 @@
 				E4CBE0862C09C636008B9842 /* ConsultingNetwork.swift in Sources */,
 				E4C58BEA2BCE946700A1AD58 /* LoginViewModel.swift in Sources */,
 				E4D402132BB40E1600B4E5C4 /* ThirdQuestionViewController.swift in Sources */,
+				E4E2C6FB2C12C9C40003FEBF /* PictureViewController.swift in Sources */,
 				E461BD532BDA5D0A008CFD7D /* FeelingNetwork.swift in Sources */,
 				E452C5A72C0ECED80023C836 /* MypageNetwork.swift in Sources */,
 				E4D402062BB3ED1200B4E5C4 /* TabBarViewController.swift in Sources */,

@@ -96,6 +96,7 @@ private extension ConsultingDetailViewController {
             attributedText.append(AnswerText)
         }
         self.DetailText.attributedText = attributedText
+        self.showImage(url: "")
     }
 }
 //MARK: - Binding
@@ -123,5 +124,10 @@ private extension ConsultingDetailViewController {
                 }
             }
         }).disposed(by: disposeBag)
+    }
+    private func showImage(url : String) {
+        let pictureVC = PictureViewController(imageURL: url)
+        pictureVC.modalTransitionStyle = .flipHorizontal
+        self.present(pictureVC, animated: true)
     }
 }

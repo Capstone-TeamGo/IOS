@@ -157,22 +157,30 @@ private extension ConsultingViewController {
             attributedText.append(Amark)
             attributedText.append(AnswerText)
         }
-        TypingAnimation(totalText: attributedText)
+        Task {
+            await TypingAnimation(totalText: attributedText)
+            //MARK: - Concurrency
+            self.showImage(url: "") //텍스트 적기가 완료되면 이미지를 보여주기
+        }
     }
-    private func TypingAnimation(totalText : NSMutableAttributedString) {
-        let fullText = totalText.string
-        let animatedText = NSMutableAttributedString()
-        Observable<Int>
-            .interval(.milliseconds(30), scheduler: MainScheduler.instance)
-            .take(fullText.count)
-            .subscribe(onNext: { [weak self] index in
-                guard let self = self else { return }
-                let stringIndex = fullText.index(fullText.startIndex, offsetBy: index)
-                let nextCharacter = String(fullText[stringIndex])
-                let attributedCharacter = NSMutableAttributedString(string: nextCharacter, attributes: totalText.attributes(at: index, effectiveRange: nil))
-                animatedText.append(attributedCharacter)
-                self.totalText.attributedText = animatedText
-            }).disposed(by: disposeBag)
+    private func TypingAnimation(totalText : NSMutableAttributedString) async {
+        await withCheckedContinuation { continuation in
+            let fullText = totalText.string
+            let animatedText = NSMutableAttributedString()
+            Observable<Int>
+                .interval(.milliseconds(30), scheduler: MainScheduler.instance)
+                .take(fullText.count)
+                .subscribe(onNext: { [weak self] index in
+                    guard let self = self else { return }
+                    let stringIndex = fullText.index(fullText.startIndex, offsetBy: index)
+                    let nextCharacter = String(fullText[stringIndex])
+                    let attributedCharacter = NSMutableAttributedString(string: nextCharacter, attributes: totalText.attributes(at: index, effectiveRange: nil))
+                    animatedText.append(attributedCharacter)
+                    self.totalText.attributedText = animatedText
+                }, onCompleted: {
+                    continuation.resume()
+                }).disposed(by: disposeBag)
+        }
     }
     private func setCategory() {
         let categories : [String] = ["연애", "취업진로", "정신건강", "대인관계", "가족"]
@@ -279,5 +287,10 @@ private extension ConsultingViewController {
         let Ok = UIAlertAction(title: "확인", style: .default)
         Alert.addAction(Ok)
         self.present(Alert, animated: true)
+    }
+    private func showImage(url : String) {
+        let pictureVC = PictureViewController(imageURL: url)
+        pictureVC.modalTransitionStyle = .flipHorizontal
+        self.present(pictureVC, animated: true)
     }
 }
