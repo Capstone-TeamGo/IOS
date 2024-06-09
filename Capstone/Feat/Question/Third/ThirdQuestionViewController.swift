@@ -13,6 +13,7 @@ import UIKit
 import AVFoundation
 import NVActivityIndicatorView
 import SCLAlertView
+import SwiftKeychainWrapper
 
 final class ThirdQuestionViewController : UIViewController {
     private let disposeBag = DisposeBag()
@@ -200,7 +201,7 @@ private extension ThirdQuestionViewController {
             .bind { expire in
             if expire == true {
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                    self.logoutAlert()
                 }
             } else {
                 DispatchQueue.main.async {
@@ -283,5 +284,15 @@ private extension ThirdQuestionViewController {
                 .disposed(by: self.disposeBag)
             }
         }.disposed(by: disposeBag)
+    }
+    private func logoutAlert() {
+        let Alert = UIAlertController(title: "세션이 만료되어 로그아웃 되었습니다.", message: nil, preferredStyle: .alert)
+        let Ok = UIAlertAction(title: "확인", style: .default) { _ in
+            //키체인에 저장된 값 모두 삭제
+            KeychainWrapper.standard.removeAllKeys()
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        }
+        Alert.addAction(Ok)
+        self.present(Alert, animated: true)
     }
 }

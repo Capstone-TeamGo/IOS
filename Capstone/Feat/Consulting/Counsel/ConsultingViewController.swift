@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 import NVActivityIndicatorView
+import SwiftKeychainWrapper
 
 final class ConsultingViewController : UIViewController {
     private let disposeBag = DisposeBag()
@@ -134,6 +135,8 @@ private extension ConsultingViewController {
         }
     }
     private func setText(data : CounselResponseData) {
+        self.totalText.isScrollEnabled = true
+        self.totalText.isUserInteractionEnabled = true
         let attributedText = NSMutableAttributedString()
         let largeTextAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 24, weight: .bold),
@@ -145,7 +148,7 @@ private extension ConsultingViewController {
         ]
         
         //질문, 답변
-        if let answerContent = data.counselResult,
+        if let answerContent = data.counselResult?.answer,
            let questionContent = self.totalText.text{
             let Qmark = NSAttributedString(string: "Q. ", attributes: largeTextAttributes)
             let QuestionText = NSAttributedString(string: "\n\n\(questionContent)\n\n", attributes: mediumTextAttributes)
@@ -160,7 +163,9 @@ private extension ConsultingViewController {
         Task {
             await TypingAnimation(totalText: attributedText)
             //MARK: - Concurrency
-            self.showImage(url: "") //텍스트 적기가 완료되면 이미지를 보여주기
+            if let imageUrl = data.counselResult?.imageUrl {
+                self.showImage(url: imageUrl) //텍스트 적기가 완료되면 이미지를 보여주기
+            }
         }
     }
     private func TypingAnimation(totalText : NSMutableAttributedString) async {
@@ -233,7 +238,7 @@ private extension ConsultingViewController {
         reissueViewModel.reissueExpire.bind { expire in
             if expire == true {
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                    self.logoutAlert()
                 }
             }else{
                 self.questionBtn.rx.tap.bind { _ in
@@ -278,6 +283,8 @@ private extension ConsultingViewController {
                         if let data = result.data {
                             self.setText(data: data)
                         }
+                    }else{
+                        self.navigationController?.pushViewController(ErrorViewController(), animated: true)
                     }
                 }, onError: { error in
                     self.navigationController?.pushViewController(ErrorViewController(), animated: true)
@@ -296,5 +303,15 @@ private extension ConsultingViewController {
         let pictureVC = PictureViewController(imageURL: url, descriptionText: "이런 그림은 어때요?🎨🖌️ 고민에 도움이 될 수 있을 거 같아요!")
         pictureVC.modalTransitionStyle = .flipHorizontal
         self.present(pictureVC, animated: true)
+    }
+    private func logoutAlert() {
+        let Alert = UIAlertController(title: "세션이 만료되어 로그아웃 되었습니다.", message: nil, preferredStyle: .alert)
+        let Ok = UIAlertAction(title: "확인", style: .default) { _ in
+            //키체인에 저장된 값 모두 삭제
+            KeychainWrapper.standard.removeAllKeys()
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        }
+        Alert.addAction(Ok)
+        self.present(Alert, animated: true)
     }
 }

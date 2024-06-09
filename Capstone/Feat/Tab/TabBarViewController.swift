@@ -10,6 +10,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import AuthenticationServices
+import SwiftKeychainWrapper
 
 final class TabBarViewController: UITabBarController {
     private let disposeBag = DisposeBag()
@@ -22,7 +23,7 @@ final class TabBarViewController: UITabBarController {
         reissueViewModel.reissueTrigger.onNext(())
         reissueViewModel.reissueExpire.bind { expire in
             if expire == true {
-                self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                self.logoutAlert()
             }else{
                 print("TabBar - JWTaccessToken not Expired!")
             }
@@ -54,5 +55,15 @@ private extension TabBarViewController {
         MypageVC.tabBarItem = UITabBarItem(title: "마이페이지", image: UIImage(systemName: "person.fill"), tag: 1)
         let mypageNavigationController = UINavigationController(rootViewController: MypageVC)
         viewControllers = [homeNavigationController, mypageNavigationController]
+    }
+    private func logoutAlert() {
+        let Alert = UIAlertController(title: "세션이 만료되어 로그아웃 되었습니다.", message: nil, preferredStyle: .alert)
+        let Ok = UIAlertAction(title: "확인", style: .default) { _ in
+            //키체인에 저장된 값 모두 삭제
+            KeychainWrapper.standard.removeAllKeys()
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        }
+        Alert.addAction(Ok)
+        self.present(Alert, animated: true)
     }
 }
