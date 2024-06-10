@@ -62,6 +62,12 @@ final class PictureViewController : UIViewController {
         btn.setImage(UIImage(systemName: "xmark"), for: .normal)
         return btn
     }()
+    private let loadingIndicator : UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        view.style = .large
+        view.color = .lightGray
+        return view
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
@@ -76,6 +82,7 @@ private extension PictureViewController {
         recommandView.addSubview(cancelBtn)
         recommandView.addSubview(image)
         recommandView.addSubview(textView)
+        recommandView.addSubview(loadingIndicator)
         
         self.view.addSubview(recommandView)
         
@@ -98,6 +105,13 @@ private extension PictureViewController {
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(10)
         }
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.height.width.equalTo(50)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.loadingIndicator.startAnimating()
+        }
     }
 }
 //MARK: - Binding
@@ -105,6 +119,7 @@ private extension PictureViewController {
     private func setBinding() {
         if let imageUrl = URL(string: imageURL) {
             self.image.kf.setImage(with: imageUrl)
+            self.loadingIndicator.stopAnimating()
         }
         self.textView.text = self.descriptionText
         cancelBtn.rx.tap.bind(onNext: {[weak self] _ in

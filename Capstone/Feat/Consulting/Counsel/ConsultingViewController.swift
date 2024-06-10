@@ -12,7 +12,7 @@ import RxCocoa
 import SnapKit
 import NVActivityIndicatorView
 import SwiftKeychainWrapper
-
+//나는 iOS 개발자가 되고 싶은데, 이제 대학교 4학년이기도 하고 취업 준비를 해야해. 근데 다른 사람들이랑 같이 협업을 해보고 나의 부족함을 많이 느껴. 내가 앞으로 잘 할 수 있을지 걱정이되고 내가 남들에 비해 너무 부족한 점이 많은 것 같아서 우울해져.. 지금 내 자신이 너무 초라한데,, 너무 공허하다 ㅎ 앞으로 난 어떻게 살아가야할까..
 final class ConsultingViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let reissueViewModel = ReissueViewModel()
@@ -148,7 +148,7 @@ private extension ConsultingViewController {
         ]
         
         //질문, 답변
-        if let answerContent = data.counselResult?.answer,
+        if let answerContent = data.counselResult,
            let questionContent = self.totalText.text{
             let Qmark = NSAttributedString(string: "Q. ", attributes: largeTextAttributes)
             let QuestionText = NSAttributedString(string: "\n\n\(questionContent)\n\n", attributes: mediumTextAttributes)
@@ -163,7 +163,7 @@ private extension ConsultingViewController {
         Task {
             await TypingAnimation(totalText: attributedText)
             //MARK: - Concurrency
-            if let imageUrl = data.counselResult?.imageUrl {
+            if let imageUrl = data.imageUrl {
                 self.showImage(url: imageUrl) //텍스트 적기가 완료되면 이미지를 보여주기
             }
         }
@@ -235,7 +235,9 @@ private extension ConsultingViewController {
     private func setBinding() {
         //토큰 유효성 검사
         reissueViewModel.reissueTrigger.onNext(())
-        reissueViewModel.reissueExpire.bind { expire in
+        reissueViewModel.reissueExpire
+            .take(1)
+            .bind { expire in
             if expire == true {
                 DispatchQueue.main.async {
                     self.logoutAlert()
@@ -263,7 +265,13 @@ private extension ConsultingViewController {
                                     self.totalText.isEditable = false
                                     self.totalText.isUserInteractionEnabled = false
                                     self.loadingIndicator.startAnimating()
-                                    self.consultingViewModel.counselTrigger.onNext(["\(self.analysisId )","\(self.selectedCategory)","\(question)"])
+                                    Observable<Int>.interval(.milliseconds(10000), scheduler: MainScheduler.instance)
+                                        .take(until: self.consultingViewModel.counselResult.filter({ $0.code == 201 }))
+                                        .subscribe(onNext: { [weak self] _ in
+                                            guard let self = self else { return }
+                                            print("상담 서버로 전송")
+                                            self.consultingViewModel.counselTrigger.onNext(["\(self.analysisId )","\(self.selectedCategory)","\(question)"])
+                                        }).disposed(by: self.disposeBag)
                                     self.pencilBool = false
                                 }
                             }else{

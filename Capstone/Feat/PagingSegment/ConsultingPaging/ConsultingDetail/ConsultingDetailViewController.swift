@@ -97,6 +97,7 @@ private extension ConsultingDetailViewController {
             attributedText.append(AnswerText)
         }
         self.DetailText.attributedText = attributedText
+//        if let imageUrl = 
         self.showImage(url: "")
     }
 }

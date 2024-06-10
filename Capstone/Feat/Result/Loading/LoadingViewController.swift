@@ -120,7 +120,7 @@ private extension LoadingViewController {
     private func updateProgress() {
         guard self.progress.progress < 1.0 else { return }
         self.progress.progress += 0.01
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.updateProgress()
         }
     }
@@ -138,11 +138,11 @@ private extension LoadingViewController {
                 if let analysisId = self.question.data?.analysisId {
                     self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
                     self.updateProgress()
-                    Observable<Int>.interval(.milliseconds(5000), scheduler: MainScheduler.instance)
+                    Observable<Int>.interval(.milliseconds(8000), scheduler: MainScheduler.instance)
                         .take(until: self.loadingViewModel.sentimentAnalysisResult.filter { $0.code == 200 })
                         .subscribe(onNext: { [weak self] _ in
                             guard let self = self else { return }
-                            print("서버로 전송")
+                            print("분석 서버로 전송")
                             self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
                             if progress.progress >= 0.9 {
                                 self.loadingIndicator.startAnimating()
