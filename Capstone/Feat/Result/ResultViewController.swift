@@ -153,7 +153,6 @@ private extension ResultViewController {
                 self.depressedLabel.text = fullText(currentScore)
             }).disposed(by: disposeBag)
     }
-    
     @objc private func chatBtnTapped() {
         self.navigationController?.pushViewController(ConsultingViewController(analysisId: analysisId), animated: true)
     }

@@ -11,7 +11,8 @@ import RxSwift
 import RxCocoa
 import SnapKit
 import NVActivityIndicatorView
-
+import SwiftKeychainWrapper
+//나는 iOS 개발자가 되고 싶은데, 이제 대학교 4학년이기도 하고 취업 준비를 해야해. 근데 다른 사람들이랑 같이 협업을 해보고 나의 부족함을 많이 느껴. 내가 앞으로 잘 할 수 있을지 걱정이되고 내가 남들에 비해 너무 부족한 점이 많은 것 같아서 우울해져.. 지금 내 자신이 너무 초라한데,, 너무 공허하다 ㅎ 앞으로 난 어떻게 살아가야할까..
 final class ConsultingViewController : UIViewController {
     private let disposeBag = DisposeBag()
     private let reissueViewModel = ReissueViewModel()
@@ -134,6 +135,8 @@ private extension ConsultingViewController {
         }
     }
     private func setText(data : CounselResponseData) {
+        self.totalText.isScrollEnabled = true
+        self.totalText.isUserInteractionEnabled = true
         let attributedText = NSMutableAttributedString()
         let largeTextAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 24, weight: .bold),
@@ -145,7 +148,7 @@ private extension ConsultingViewController {
         ]
         
         //질문, 답변
-        if let answerContent = data.counselResult,
+        if let answerContent = data.counselContent,
            let questionContent = self.totalText.text{
             let Qmark = NSAttributedString(string: "Q. ", attributes: largeTextAttributes)
             let QuestionText = NSAttributedString(string: "\n\n\(questionContent)\n\n", attributes: mediumTextAttributes)
@@ -157,22 +160,32 @@ private extension ConsultingViewController {
             attributedText.append(Amark)
             attributedText.append(AnswerText)
         }
-        TypingAnimation(totalText: attributedText)
+        Task {
+            await TypingAnimation(totalText: attributedText)
+            //MARK: - Concurrency
+            if let imageUrl = data.imageUrl {
+                self.showImage(url: imageUrl) //텍스트 적기가 완료되면 이미지를 보여주기
+            }
+        }
     }
-    private func TypingAnimation(totalText : NSMutableAttributedString) {
-        let fullText = totalText.string
-        let animatedText = NSMutableAttributedString()
-        Observable<Int>
-            .interval(.milliseconds(30), scheduler: MainScheduler.instance)
-            .take(fullText.count)
-            .subscribe(onNext: { [weak self] index in
-                guard let self = self else { return }
-                let stringIndex = fullText.index(fullText.startIndex, offsetBy: index)
-                let nextCharacter = String(fullText[stringIndex])
-                let attributedCharacter = NSMutableAttributedString(string: nextCharacter, attributes: totalText.attributes(at: index, effectiveRange: nil))
-                animatedText.append(attributedCharacter)
-                self.totalText.attributedText = animatedText
-            }).disposed(by: disposeBag)
+    private func TypingAnimation(totalText : NSMutableAttributedString) async {
+        await withCheckedContinuation { continuation in
+            let fullText = totalText.string
+            let animatedText = NSMutableAttributedString()
+            Observable<Int>
+                .interval(.milliseconds(30), scheduler: MainScheduler.instance)
+                .take(fullText.count)
+                .subscribe(onNext: { [weak self] index in
+                    guard let self = self else { return }
+                    let stringIndex = fullText.index(fullText.startIndex, offsetBy: index)
+                    let nextCharacter = String(fullText[stringIndex])
+                    let attributedCharacter = NSMutableAttributedString(string: nextCharacter, attributes: totalText.attributes(at: index, effectiveRange: nil))
+                    animatedText.append(attributedCharacter)
+                    self.totalText.attributedText = animatedText
+                }, onCompleted: {
+                    continuation.resume()
+                }).disposed(by: disposeBag)
+        }
     }
     private func setCategory() {
         let categories : [String] = ["연애", "취업진로", "정신건강", "대인관계", "가족"]
@@ -222,10 +235,12 @@ private extension ConsultingViewController {
     private func setBinding() {
         //토큰 유효성 검사
         reissueViewModel.reissueTrigger.onNext(())
-        reissueViewModel.reissueExpire.bind { expire in
+        reissueViewModel.reissueExpire
+            .take(1)
+            .bind { expire in
             if expire == true {
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                    self.logoutAlert()
                 }
             }else{
                 self.questionBtn.rx.tap.bind { _ in
@@ -241,14 +256,28 @@ private extension ConsultingViewController {
                 }.disposed(by: self.disposeBag)
                 self.answerBtn.rx.tap.bind { _ in
                     DispatchQueue.main.async {
-                        self.totalText.isEditable = false
-                        self.totalText.isUserInteractionEnabled = false
-                        self.loadingIndicator.startAnimating()
                         //서버로 전송
                         if self.pencilBool == true {
                             if let question = self.totalText.text {
-                                self.consultingViewModel.counselTrigger.onNext(["\(self.analysisId )","\(self.selectedCategory)","\(question)"])
-                                self.pencilBool = false
+                                if self.selectedCategory == "" {
+                                    self.showsAlert(message: "카테고리를 선택해 주세요!")
+                                }else{
+                                    self.totalText.isEditable = false
+                                    self.totalText.isUserInteractionEnabled = false
+                                    self.loadingIndicator.startAnimating()
+                                    //초기 전송
+                                    print("상담 서버로 전송")
+                                    self.consultingViewModel.counselTrigger.onNext(["\(self.analysisId )","\(self.selectedCategory)","\(question)"])
+                                    
+                                    Observable<Int>.interval(.milliseconds(20000), scheduler: MainScheduler.instance)
+                                        .take(until: self.consultingViewModel.counselResult.filter({ $0.code == 201 }))
+                                        .subscribe(onNext: { [weak self] _ in
+                                            guard let self = self else { return }
+                                            print("상담 서버로 전송")
+                                            self.consultingViewModel.counselTrigger.onNext(["\(self.analysisId )","\(self.selectedCategory)","\(question)"])
+                                        }).disposed(by: self.disposeBag)
+                                    self.pencilBool = false
+                                }
                             }else{
                                 self.showsAlert(message: "잠시 후 다시 시도해보세요!")
                                 self.loadingIndicator.stopAnimating()
@@ -266,6 +295,8 @@ private extension ConsultingViewController {
                         if let data = result.data {
                             self.setText(data: data)
                         }
+                    }else{
+                        self.navigationController?.pushViewController(ErrorViewController(), animated: true)
                     }
                 }, onError: { error in
                     self.navigationController?.pushViewController(ErrorViewController(), animated: true)
@@ -277,6 +308,21 @@ private extension ConsultingViewController {
     private func showsAlert(message : String) {
         let Alert = UIAlertController(title: message, message: nil, preferredStyle: .alert)
         let Ok = UIAlertAction(title: "확인", style: .default)
+        Alert.addAction(Ok)
+        self.present(Alert, animated: true)
+    }
+    private func showImage(url : String) {
+        let pictureVC = PictureViewController(imageURL: url, descriptionText: "이런 그림은 어때요?🎨🖌️ 고민에 도움이 될 수 있을 거 같아요!")
+        pictureVC.modalTransitionStyle = .flipHorizontal
+        self.present(pictureVC, animated: true)
+    }
+    private func logoutAlert() {
+        let Alert = UIAlertController(title: "세션이 만료되어 로그아웃 되었습니다.", message: nil, preferredStyle: .alert)
+        let Ok = UIAlertAction(title: "확인", style: .default) { _ in
+            //키체인에 저장된 값 모두 삭제
+            KeychainWrapper.standard.removeAllKeys()
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        }
         Alert.addAction(Ok)
         self.present(Alert, animated: true)
     }

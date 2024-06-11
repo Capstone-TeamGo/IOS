@@ -114,7 +114,7 @@ extension MypageViewController {
         reissueViewModel.reissueTrigger.onNext(())
         reissueViewModel.reissueExpire.bind { expire in
             if expire == true {
-                self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                self.logoutAlert()
             }else{
                 print("Mypage - JWTaccessToken not Expired!")
             }
@@ -234,7 +234,14 @@ private extension MypageViewController {
             self.navigationController?.pushViewController(GrowingViewController(), animated: true)
         }.disposed(by: disposeBag)
     }
-    private func setBindView() {
-        
+    private func logoutAlert() {
+        let Alert = UIAlertController(title: "세션이 만료되어 로그아웃 되었습니다.", message: nil, preferredStyle: .alert)
+        let Ok = UIAlertAction(title: "확인", style: .default) { _ in
+            //키체인에 저장된 값 모두 삭제
+            KeychainWrapper.standard.removeAllKeys()
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        }
+        Alert.addAction(Ok)
+        self.present(Alert, animated: true)
     }
 }

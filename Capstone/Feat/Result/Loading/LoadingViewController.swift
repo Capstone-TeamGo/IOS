@@ -12,6 +12,7 @@ import SnapKit
 import Kingfisher
 import UIKit
 import NVActivityIndicatorView
+import SwiftKeychainWrapper
 
 final class LoadingViewController : UIViewController {
     private let disposeBag = DisposeBag()
@@ -119,7 +120,7 @@ private extension LoadingViewController {
     private func updateProgress() {
         guard self.progress.progress < 1.0 else { return }
         self.progress.progress += 0.01
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.updateProgress()
         }
     }
@@ -131,17 +132,17 @@ private extension LoadingViewController {
             .bind(onNext: { expire in
             if expire == true {
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                    self.logoutAlert()
                 }
             } else {
                 if let analysisId = self.question.data?.analysisId {
                     self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
                     self.updateProgress()
-                    Observable<Int>.interval(.milliseconds(5000), scheduler: MainScheduler.instance)
+                    Observable<Int>.interval(.milliseconds(8000), scheduler: MainScheduler.instance)
                         .take(until: self.loadingViewModel.sentimentAnalysisResult.filter { $0.code == 200 })
                         .subscribe(onNext: { [weak self] _ in
                             guard let self = self else { return }
-                            print("서버로 전송")
+                            print("분석 서버로 전송")
                             self.loadingViewModel.sentimentAnalysisTrigger.onNext(analysisId)
                             if progress.progress >= 0.9 {
                                 self.loadingIndicator.startAnimating()
@@ -176,5 +177,15 @@ private extension LoadingViewController {
                 }
             }
         }).disposed(by: disposeBag)
+    }
+    private func logoutAlert() {
+        let Alert = UIAlertController(title: "세션이 만료되어 로그아웃 되었습니다.", message: nil, preferredStyle: .alert)
+        let Ok = UIAlertAction(title: "확인", style: .default) { _ in
+            //키체인에 저장된 값 모두 삭제
+            KeychainWrapper.standard.removeAllKeys()
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        }
+        Alert.addAction(Ok)
+        self.present(Alert, animated: true)
     }
 }

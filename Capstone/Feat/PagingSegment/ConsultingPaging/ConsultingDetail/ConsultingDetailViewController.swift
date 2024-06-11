@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import SwiftKeychainWrapper
 
 class ConsultingDetailViewController: UIViewController {
     private let disposeBag = DisposeBag()
@@ -96,6 +97,9 @@ private extension ConsultingDetailViewController {
             attributedText.append(AnswerText)
         }
         self.DetailText.attributedText = attributedText
+        if let imageUrl = data.imageUrl {
+            self.showImage(url: imageUrl)
+        }
     }
 }
 //MARK: - Binding
@@ -109,7 +113,7 @@ private extension ConsultingDetailViewController {
             guard let self = self else { return }
             if expire == true {
                 DispatchQueue.main.async {
-                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                    self.logoutAlert()
                 }
             }else{
                 if let counselId = self.model.counselId {
@@ -123,5 +127,20 @@ private extension ConsultingDetailViewController {
                 }
             }
         }).disposed(by: disposeBag)
+    }
+    private func showImage(url : String) {
+        let pictureVC = PictureViewController(imageURL: url, descriptionText: "과거 추천했던 그림 🖼️")
+        pictureVC.modalTransitionStyle = .flipHorizontal
+        self.present(pictureVC, animated: true)
+    }
+    private func logoutAlert() {
+        let Alert = UIAlertController(title: "세션이 만료되어 로그아웃 되었습니다.", message: nil, preferredStyle: .alert)
+        let Ok = UIAlertAction(title: "확인", style: .default) { _ in
+            //키체인에 저장된 값 모두 삭제
+            KeychainWrapper.standard.removeAllKeys()
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        }
+        Alert.addAction(Ok)
+        self.present(Alert, animated: true)
     }
 }

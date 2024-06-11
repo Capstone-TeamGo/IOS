@@ -12,6 +12,7 @@ import RxCocoa
 import AuthenticationServices
 import Charts
 import DGCharts
+import SwiftKeychainWrapper
 final class MainViewController: UIViewController{
     private let disposeBag = DisposeBag()
     private let mainViewModel = MainViewModel()
@@ -115,7 +116,7 @@ extension MainViewController {
         reissueViewModel.reissueTrigger.onNext(())
         reissueViewModel.reissueExpire.bind { expire in
             if expire == true {
-                self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                self.logoutAlert()
             }else{
                 print("Main - JWTaccessToken not Expired!")
             }
@@ -243,5 +244,15 @@ private extension MainViewController {
     }
     @objc private func consultingBtnTapped() {
         self.navigationController?.pushViewController(ConsultingViewController(analysisId: ""), animated: true)
+    }
+    private func logoutAlert() {
+        let Alert = UIAlertController(title: "로그아웃 되었습니다.", message: "세션이 만료되어 로그아웃 되었습니다.\n다시 로그인 해주세요.", preferredStyle: .alert)
+        let Ok = UIAlertAction(title: "확인", style: .default) { _ in
+            //키체인에 저장된 값 모두 삭제
+            KeychainWrapper.standard.removeAllKeys()
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        }
+        Alert.addAction(Ok)
+        self.present(Alert, animated: true)
     }
 }
