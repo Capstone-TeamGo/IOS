@@ -20,4 +20,6 @@ struct ConsultingDetailData : Codable {
     let question : String?
     let answer : String?
     let counselType : String?
+    let date : String?
+    let imageUrl : String?
 }

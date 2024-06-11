@@ -148,7 +148,7 @@ private extension ConsultingViewController {
         ]
         
         //질문, 답변
-        if let answerContent = data.counselResult,
+        if let answerContent = data.counselContent,
            let questionContent = self.totalText.text{
             let Qmark = NSAttributedString(string: "Q. ", attributes: largeTextAttributes)
             let QuestionText = NSAttributedString(string: "\n\n\(questionContent)\n\n", attributes: mediumTextAttributes)
@@ -265,7 +265,11 @@ private extension ConsultingViewController {
                                     self.totalText.isEditable = false
                                     self.totalText.isUserInteractionEnabled = false
                                     self.loadingIndicator.startAnimating()
-                                    Observable<Int>.interval(.milliseconds(10000), scheduler: MainScheduler.instance)
+                                    //초기 전송
+                                    print("상담 서버로 전송")
+                                    self.consultingViewModel.counselTrigger.onNext(["\(self.analysisId )","\(self.selectedCategory)","\(question)"])
+                                    
+                                    Observable<Int>.interval(.milliseconds(20000), scheduler: MainScheduler.instance)
                                         .take(until: self.consultingViewModel.counselResult.filter({ $0.code == 201 }))
                                         .subscribe(onNext: { [weak self] _ in
                                             guard let self = self else { return }

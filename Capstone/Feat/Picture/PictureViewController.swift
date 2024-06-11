@@ -109,9 +109,7 @@ private extension PictureViewController {
             make.center.equalToSuperview()
             make.height.width.equalTo(50)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.loadingIndicator.startAnimating()
-        }
+        self.loadingIndicator.startAnimating()
     }
 }
 //MARK: - Binding

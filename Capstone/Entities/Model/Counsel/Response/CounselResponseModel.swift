@@ -14,6 +14,6 @@ struct CounselResponseModel : Codable {
 }
 struct CounselResponseData : Codable {
     let counselId : Int?
-    let counselResult : String?
+    let counselContent : String?
     let imageUrl : String?
 }
